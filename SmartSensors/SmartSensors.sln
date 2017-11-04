@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors", "SmartSensor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors.UnitTests", "SmartSensors.Tests\SmartSensors.UnitTests.csproj", "{BEB64495-2F43-4EAB-9D34-C975F3C7042F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors.Data", "SmartSensors.Data\SmartSensors.Data.csproj", "{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BEB64495-2F43-4EAB-9D34-C975F3C7042F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEB64495-2F43-4EAB-9D34-C975F3C7042F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEB64495-2F43-4EAB-9D34-C975F3C7042F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

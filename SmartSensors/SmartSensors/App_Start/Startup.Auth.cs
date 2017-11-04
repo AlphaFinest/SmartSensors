@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using SmartSensors.Models;
+using SmartSensors.Data;
+using SmartSensors.Data.Models;
 
 namespace SmartSensors
 {

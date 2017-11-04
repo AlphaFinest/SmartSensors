@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SmartSensors.Models;
+using SmartSensors.Data.Models;
+using SmartSensors.Data;
 
 namespace SmartSensors
 {
