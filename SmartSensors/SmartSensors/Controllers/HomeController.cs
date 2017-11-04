@@ -9,28 +9,14 @@ namespace SmartSensors.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationUserManager userManager;
-
-        public HomeController(ApplicationUserManager userManager)
-        {
-            this.userManager = userManager;
-        }
-
         public ActionResult Index()
         {
             return View();
         }
 
-        //[Authorize]
-        //public async task<actionresult> about()
-        public ActionResult about()
+        public ActionResult About()
         {
             ViewBag.message = "your application description page.";
-
-
-            //var user = await this.usermanager.findbynameasync(this.user.identity.name);
-
-           // await this.usermanager.addtoroleasync(user.id, "admin");
             return View();
         }
 
