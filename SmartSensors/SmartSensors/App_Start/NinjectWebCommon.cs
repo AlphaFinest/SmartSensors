@@ -5,11 +5,11 @@ namespace SmartSensors.App_Start
 {
     using System;
     using System.Web;
-
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
+    using Microsoft.AspNet.Identity.Owin;
+    using SmartSensors.Data;
 
     public static class NinjectWebCommon 
     {
@@ -61,6 +61,19 @@ namespace SmartSensors.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ApplicationUserManager>()
+               .ToMethod(_ => HttpContext
+               .Current
+               .GetOwinContext()
+               .GetUserManager<ApplicationUserManager>());
+
+            kernel.Bind<ApplicationDbContext>()
+                .ToMethod(_ => HttpContext
+                .Current
+                .GetOwinContext()
+                .GetUserManager<ApplicationDbContext>())
+                .InRequestScope();
+
         }        
     }
 }
