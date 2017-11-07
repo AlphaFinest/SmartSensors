@@ -1,0 +1,8 @@
+﻿@model List<SmartSensors.Areas.Admin.Models.UserViewModel>
+<h2>AllUsers</h2>
+@foreach (var user in Model)
+{
+    <div>
+        @user.Username
+    </div>
+}
