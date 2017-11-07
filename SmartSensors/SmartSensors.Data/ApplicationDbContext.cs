@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +21,9 @@ namespace SmartSensors.Data
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Sensor> Sensors { get; set; }
+
+        public DbSet<History> History { get; set; }
     }
 }

@@ -9,13 +9,11 @@ namespace SmartSensors.Data.Models.Sensors
 {
     public class Sensor
     {
-        [Key]
         public int Id { get; set; }
 
         [StringLength(50, MinimumLength = 5, ErrorMessage = "The name lenght must be between 5 and 50 symbols")]
         public string Name { get; set; }
-
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "The description lenght must be between 5 and 100 symbols")]
+        
         public string Description { get; set; }
 
         [StringLength(100, MinimumLength = 5, ErrorMessage = "The url lenght must be between 5 and 100 symbols")]
@@ -25,22 +23,22 @@ namespace SmartSensors.Data.Models.Sensors
         public int PollingInterval { get; set; }
 
         [Range(0, 1000, ErrorMessage = "The minimal range must be between 0 and 1000")]
-        public int minRange { get; set; }
+        public int MinRange { get; set; }
 
         [Range(0, 5000, ErrorMessage = "The minimal range must be between 0 and 5000")]
-        public int maxRange { get; set; }
+        public int MaxRange { get; set; }
 
-        public bool isPublic { get; set; }
+        public bool IsPublic { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime LastUpdated { get; set; }
 
         [StringLength(5000, MinimumLength = 5, ErrorMessage = "The value lenght must be between 5 and 5000 symbols")]
         public string Value { get; set; }
 
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "The value lenght must be between 5 and 5000 symbols")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "The value lenght must be between 1 and 100 symbols")]
         public string ValueType { get; set; }
 
-        public ApplicationUser Owner { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
 
     }
 }
