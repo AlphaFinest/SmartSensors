@@ -1,4 +1,5 @@
-﻿using SmartSensors.Areas.Admin.Models;
+﻿using Bytes2you.Validation;
+using SmartSensors.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace SmartSensors.Areas.Admin.Controllers
 
         public AdminController(ApplicationUserManager userManager)
         {
+            Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
             this.userManager = userManager;
         }
 
