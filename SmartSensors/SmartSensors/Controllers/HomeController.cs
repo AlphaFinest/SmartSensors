@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using SmartSensors.Data.Models.Sensors;
 
 namespace SmartSensors.Controllers
 {
@@ -30,13 +30,37 @@ namespace SmartSensors.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult RegisterSensor()
         {
-
-            ViewBag.Message = "All fields are mandatory";
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterSensor(Sensor model)
+        {
+            var user = new Sensor
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = System.DateTime.Now,
+                Owner = dbContext.Users.Find(this.User.Identity.Name)
+                
+            };
+
+            dbContext.Sensors.Add(user);
+            dbContext.SaveChanges();
+            if (true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
         }
     }
 }

@@ -1,60 +1,74 @@
-﻿@{
+﻿@model SmartSensors.Models.SensorViewModel
+@{
     ViewBag.Title = "Register new sensor";
 }
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
 
-<form class="form-horizontal">
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("RegisterSensor", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>All fields are mandatory</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
     <div class="form-group">
-        <label class="control-label col-sm-2" for="email">Name:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="email" placeholder="Enter name">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd">Description:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="pwd" placeholder="Enter description">
+        @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd">URL:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="pwd" placeholder="Enter URL">
+        @Html.LabelFor(m => m.PollingInterval, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PollingInterval, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd">Pooling time:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="pwd" placeholder="Enter polling time">
+        @Html.LabelFor(m => m.ValueType, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ValueType, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd">Measurement:</label>
-        <div class="dropdown">
-            <button class="btn btn-default" type="button" data-toggle="dropdown">Pick
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Temperature</a></li>
-                <li><a href="#">Humidity</a></li>
-                <li><a href="#">Electricity</a></li>
-                <li><a href="#">Occupancy</a></li>
-                <li><a href="#">Door</a></li>
-                <li><a href="#">Noise</a></li>
-            </ul>
+        @Html.LabelFor(m => m.IsPublic, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(m => m.IsPublic, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-                <label><input type="checkbox"> Public sensor</label>
-            </div>
+        @Html.LabelFor(m => m.MinRange, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MinRange, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+        @Html.LabelFor(m => m.MaxRange, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MaxRange, new { @class = "form-control" })
         </div>
     </div>
-</form>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
