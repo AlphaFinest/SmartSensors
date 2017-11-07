@@ -25,12 +25,12 @@ namespace SmartSensors.Data.Models.Sensors
         public int PollingInterval { get; set; }
 
         [Range(0, 1000, ErrorMessage = "The minimal range must be between 0 and 1000")]
-        public int minRange { get; set; }
+        public int MinRange { get; set; }
 
         [Range(0, 5000, ErrorMessage = "The minimal range must be between 0 and 5000")]
-        public int maxRange { get; set; }
+        public int MaxRange { get; set; }
 
-        public bool isPublic { get; set; }
+        public bool IsPublic { get; set; }
 
         public DateTime TimeStamp { get; set; }
 

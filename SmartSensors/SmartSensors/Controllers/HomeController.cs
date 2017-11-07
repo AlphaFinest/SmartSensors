@@ -28,8 +28,8 @@ namespace SmartSensors.Controllers
         {
             ViewBag.message = "your application description page.";
 
-            //this.dbContext.Roles.Add(new IdentityRole() { Name = "Admin" });
-            //await this.dbContext.SaveChangesAsync();
+            this.dbContext.Roles.Add(new IdentityRole() { Name = "Admin" });
+            await this.dbContext.SaveChangesAsync();
 
             //var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
             //await this.userManager.AddToRoleAsync(user.Id, "Admin");
