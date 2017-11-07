@@ -54,13 +54,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201711061941588_Initial_migration.cs" />
+    <Compile Include="Migrations\201711061941588_Initial_migration.Designer.cs">
+      <DependentUpon>201711061941588_Initial_migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061946580_Added_History.cs" />
+    <Compile Include="Migrations\201711061946580_Added_History.Designer.cs">
+      <DependentUpon>201711061946580_Added_History.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Sensors\Sensor.cs" />
+    <Compile Include="Models\History.cs" />
+    <Compile Include="Models\Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711061941588_Initial_migration.resx">
+      <DependentUpon>201711061941588_Initial_migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061946580_Added_History.resx">
+      <DependentUpon>201711061946580_Added_History.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
