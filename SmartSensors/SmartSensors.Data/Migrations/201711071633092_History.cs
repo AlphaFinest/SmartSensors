@@ -3,7 +3,7 @@ namespace SmartSensors.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Added_History : DbMigration
+    public partial class History : DbMigration
     {
         public override void Up()
         {
@@ -12,20 +12,15 @@ namespace SmartSensors.Data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        SensorId = c.Int(),
                         UpdateDate = c.DateTime(nullable: false),
                         Value = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sensors", t => t.SensorId)
-                .Index(t => t.SensorId);
+                .PrimaryKey(t => t.Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.History", "SensorId", "dbo.Sensors");
-            DropIndex("dbo.History", new[] { "SensorId" });
             DropTable("dbo.History");
         }
     }

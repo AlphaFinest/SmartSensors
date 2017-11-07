@@ -7,13 +7,13 @@ namespace SmartSensors.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Initial_migration : IMigrationMetadata
+    public sealed partial class History : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(History));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711061941588_Initial_migration"; }
+            get { return "201711071633092_History"; }
         }
         
         string IMigrationMetadata.Source

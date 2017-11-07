@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using SmartSensors.Data.Models.Sensors;
+using System;
 
 namespace SmartSensors.Controllers
 {
@@ -19,6 +20,23 @@ namespace SmartSensors.Controllers
 
         public ActionResult Index()
         {
+            var user = dbContext.Users.First();
+
+            Sensor sensor = new Sensor();
+            sensor.Name = "test123";
+            sensor.Url = "url123";
+            sensor.PollingInterval = 10;
+            sensor.MinRange = 10;
+            sensor.MaxRange = 20;
+            sensor.Value = "200000";
+            sensor.ValueType = "valuetype";
+            sensor.LastUpdated = DateTime.Now;
+            sensor.Owner = user;
+
+            user.SharedSensors.Add(sensor);
+
+            dbContext.SaveChanges();
+
             return View();
         }
 

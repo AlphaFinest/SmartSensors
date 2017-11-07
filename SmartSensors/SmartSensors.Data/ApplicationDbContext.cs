@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -20,6 +20,25 @@ namespace SmartSensors.Data
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().
+                HasMany(u => u.SharedSensors)
+                .WithMany(s => s.Users)
+                .Map(us =>
+                {
+                    us.MapLeftKey("UserRefId");
+                    us.MapRightKey("SensorRefId");
+                    us.ToTable("UserSensor");
+                });
+
+            modelBuilder.Entity<Sensor>()
+                .HasMany(s => s.History)
+                .WithRequired(h => h.Sensor);
         }
 
         public DbSet<Sensor> Sensors { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,12 @@ namespace SmartSensors.Data.Models.Sensors
 {
     public class Sensor
     {
+        public Sensor()
+        {
+            this.Users = new HashSet<User>();
+            this.History = new HashSet<History>();
+        }
+
         public int Id { get; set; }
 
         [StringLength(50, MinimumLength = 5, ErrorMessage = "The name lenght must be between 5 and 50 symbols")]
@@ -38,7 +45,13 @@ namespace SmartSensors.Data.Models.Sensors
         [StringLength(100, MinimumLength = 1, ErrorMessage = "The value lenght must be between 1 and 100 symbols")]
         public string ValueType { get; set; }
 
-        public virtual ApplicationUser Owner { get; set; }
+        public virtual ICollection<User> Users { get; set; }
 
+        [Required]
+        public string OwnerId { get; set; }
+
+        public virtual User Owner { get; set; }
+
+        public virtual ICollection<History> History { get; set; }
     }
 }

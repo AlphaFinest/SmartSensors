@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Data.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
-        public ApplicationUser()
+        public User()
         {
-            this.Sensors = new HashSet<Sensor>();
+            this.MySensors = new HashSet<Sensor>();
             this.SharedSensors = new HashSet<Sensor>();
         }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -26,8 +26,8 @@ namespace SmartSensors.Data.Models
             return userIdentity;
         }
 
-        public virtual ICollection<Sensor> Sensors { get; set; }
-
         public virtual ICollection<Sensor> SharedSensors { get; set; }
+
+        public virtual ICollection<Sensor> MySensors { get; set; }
     }
 }

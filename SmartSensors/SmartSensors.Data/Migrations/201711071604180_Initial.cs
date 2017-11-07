@@ -3,7 +3,7 @@ namespace SmartSensors.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial_migration : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -29,33 +29,6 @@ namespace SmartSensors.Data.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.Sensors",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 50),
-                        Description = c.String(),
-                        Url = c.String(maxLength: 100),
-                        PollingInterval = c.Int(nullable: false),
-                        MinRange = c.Int(nullable: false),
-                        MaxRange = c.Int(nullable: false),
-                        IsPublic = c.Boolean(nullable: false),
-                        LastUpdated = c.DateTime(nullable: false),
-                        Value = c.String(),
-                        ValueType = c.String(maxLength: 100),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                        ApplicationUser_Id1 = c.String(maxLength: 128),
-                        Owner_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id1)
-                .ForeignKey("dbo.AspNetUsers", t => t.Owner_Id)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.ApplicationUser_Id1)
-                .Index(t => t.Owner_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -106,9 +79,6 @@ namespace SmartSensors.Data.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Sensors", "Owner_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Sensors", "ApplicationUser_Id1", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Sensors", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
@@ -116,16 +86,12 @@ namespace SmartSensors.Data.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Sensors", new[] { "Owner_Id" });
-            DropIndex("dbo.Sensors", new[] { "ApplicationUser_Id1" });
-            DropIndex("dbo.Sensors", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Sensors");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
         }
