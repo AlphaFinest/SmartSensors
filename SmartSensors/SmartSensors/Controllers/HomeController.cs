@@ -20,23 +20,6 @@ namespace SmartSensors.Controllers
 
         public ActionResult Index()
         {
-            var user = dbContext.Users.First();
-
-            Sensor sensor = new Sensor();
-            sensor.Name = "test123";
-            sensor.Url = "url123";
-            sensor.PollingInterval = 10;
-            sensor.MinRange = 10;
-            sensor.MaxRange = 20;
-            sensor.Value = "200000";
-            sensor.ValueType = "valuetype";
-            sensor.LastUpdated = DateTime.Now;
-            sensor.Owner = user;
-
-            user.SharedSensors.Add(sensor);
-
-            dbContext.SaveChanges();
-
             return View();
         }
 
@@ -48,13 +31,37 @@ namespace SmartSensors.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Contact()
+        public ActionResult RegisterSensor()
         {
-
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterSensor(Sensor model)
+        {
+            var user = new Sensor
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = System.DateTime.Now,
+                Owner = dbContext.Users.Find(this.User.Identity.Name)
+                
+            };
+
+            dbContext.Sensors.Add(user);
+            dbContext.SaveChanges();
+            if (true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
         }
     }
 }
