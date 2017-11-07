@@ -30,11 +30,11 @@ namespace SmartSensors.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Contact()
+        [Authorize]
+        public ActionResult RegisterSensor()
         {
 
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "All fields are mandatory";
 
             return View();
         }
