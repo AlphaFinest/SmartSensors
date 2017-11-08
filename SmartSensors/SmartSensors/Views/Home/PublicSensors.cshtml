@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "PublicSensors";
+}
+
+<h2>Table of all public sensors</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+
+        <h4><p>Search by username or sensor type:</p></h4>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Sensor</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td><button type="button" class="btn btn-success"></button></td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td><button type="button" class="btn btn-danger"></button></td>
+            </tr>
+            <tr>
+                <td>July</td>
+                <td>Dooley</td>
+                <td><button type="button" class="btn"></button></td>
+            </tr>
+            <tr>
+                <td>Anja</td>
+                <td>Ravendale</td>
+                <td><button type="button" class="btn btn-success"></button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Legend:</p>
+    <p><button type="button" class="btn btn-success"></button> -  the value from the sensor is in acceptable range</p>
+    <p><button type="button" class="btn btn-danger"></button> -  the value from the sensor is out of acceptable range</p>
+    <p><button type="button" class="btn"></button> -  there is no connection with the sensor</p>
+
+</div>
+
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
