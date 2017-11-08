@@ -27,6 +27,9 @@ namespace SmartSensors.Controllers
         {
             ViewBag.message = "your application description page.";
 
+            //this.dbContext.Roles.Add(new IdentityRole() { Name = "Admin" });
+            //await this.dbContext.SaveChangesAsync();
+
             return View();
         }
 
@@ -38,5 +41,14 @@ namespace SmartSensors.Controllers
 
             return View();
         }
+
+    
+        public ActionResult PublicSensors()
+        {
+            ViewBag.message = "Table of all public sensors";
+                   
+            return View();
+        }
+
     }
 }

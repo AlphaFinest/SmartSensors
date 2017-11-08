@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using EntityFramework.Testing;
 using SmartSensors.Data.Models;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
