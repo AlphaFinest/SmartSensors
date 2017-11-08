@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SmartSensors.Models.PublicViewModels>
+@{
+    ViewBag.Title = "PublicSensors";
+}
+
+<h2>Table of all public sensors</h2>
+
+<div class="container">
+
+    <h4><p>Search by username or sensor type:</p></h4>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Sensor</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Owner.UserName</td>
+                    <td>@m.SensorName</td>
+                    @if (m.ValueType == "(true/false)")
+                    {
+                        if (bool.Parse(m.Value))
+                        {
+                            <td>
+                                <button type="button" class="btn btn-success"></button>
+                                @m.Value
+                            </td>
+                        }
+                        else
+                        {
+                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
+                        }
+                    }
+                    else
+                    {
+                        if (double.Parse(m.Value) > 20 && double.Parse(m.Value) < 50)
+                        {
+                            <td><button type="button" class="btn btn-success"></button>@m.Value</td>
+                        }
+                        else
+                        {
+                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
+                        }
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Legend:</p>
+    <p><button type="button" class="btn btn-success"></button> -  the value from the sensor is in acceptable range</p>
+    <p><button type="button" class="btn btn-danger"></button> -  the value from the sensor is out of acceptable range</p>
+    <p><button type="button" class="btn"></button> -  there is no connection with the sensor</p>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<ul class="pager">
+    <li><a href="#">Previous</a></li>
+    <li><a href="#">Next</a></li>
+</ul>
+
+
