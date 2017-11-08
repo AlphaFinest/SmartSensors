@@ -1,11 +1,11 @@
-﻿using SmartSensors.Models;
+﻿using Bytes2you.Validation;
 using SmartSensors.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity.EntityFramework;
 using SmartSensors.Data.Models.Sensors;
-using System;
+using SmartSensors.Models;
+using System.Linq;
+using System.Web.Mvc;
+
+
 
 namespace SmartSensors.Controllers
 {
@@ -15,9 +15,10 @@ namespace SmartSensors.Controllers
 
         public SensorController(ApplicationDbContext dbContext)
         {
+            Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             this.dbContext = dbContext;
+            
         }
-
 
         public ActionResult RegisterSensor()
         {
@@ -52,5 +53,22 @@ namespace SmartSensors.Controllers
             }
             return this.View(model);
         }
+
+        public ActionResult PublicSensors()
+        {
+            var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic.Equals(true))
+              .Select(s => new PublicViewModels()
+              {
+                  Owner = s.Owner,
+                  SensorName = s.Name,
+                  Value = s.Value,
+                  ValueType = s.ValueType
+              })
+              .ToList();
+
+            return this.View(publicViewModel);
+
+        }
+
     }
 }

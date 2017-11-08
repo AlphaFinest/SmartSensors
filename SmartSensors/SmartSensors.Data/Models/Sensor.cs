@@ -20,7 +20,7 @@ namespace SmartSensors.Data.Models.Sensors
 
         [StringLength(50, MinimumLength = 5, ErrorMessage = "The name lenght must be between 5 and 50 symbols")]
         public string Name { get; set; }
-        
+
         public string Description { get; set; }
 
         [StringLength(100, MinimumLength = 5, ErrorMessage = "The url lenght must be between 5 and 100 symbols")]
@@ -39,7 +39,6 @@ namespace SmartSensors.Data.Models.Sensors
 
         public DateTime LastUpdated { get; set; }
 
-        [StringLength(5000, MinimumLength = 5, ErrorMessage = "The value lenght must be between 5 and 5000 symbols")]
         public string Value { get; set; }
 
         [StringLength(100, MinimumLength = 1, ErrorMessage = "The value lenght must be between 1 and 100 symbols")]

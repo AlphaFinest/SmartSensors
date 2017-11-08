@@ -33,14 +33,7 @@ namespace SmartSensors.Controllers
 
             return View();
         }
-
-    
-        public ActionResult PublicSensors()
-        {
-            ViewBag.message = "Table of all public sensors";
-                   
-            return View();
-        }
+   
 
     }
 }
