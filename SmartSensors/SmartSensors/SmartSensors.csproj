@@ -230,6 +230,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PublicViewModels.cs" />
     <Compile Include="Models\SensorViewModel.cs" />
+    <Compile Include="Models\UrlProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
