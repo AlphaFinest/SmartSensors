@@ -20,6 +20,7 @@ namespace SmartSensors.Controllers
             
         }
 
+        [Authorize]
         public ActionResult RegisterSensor()
         {
             return this.View();
@@ -28,7 +29,7 @@ namespace SmartSensors.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult RegisterSensor(Sensor model)
+        public ActionResult RegisterSensor(SensorViewModel model)
         {
             var sensor = new Sensor
             {
