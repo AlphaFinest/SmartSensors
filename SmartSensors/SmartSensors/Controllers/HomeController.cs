@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using SmartSensors.Data.Models.Sensors;
+using System;
 
 namespace SmartSensors.Controllers
 {
@@ -29,15 +30,6 @@ namespace SmartSensors.Controllers
 
             //this.dbContext.Roles.Add(new IdentityRole() { Name = "Admin" });
             //await this.dbContext.SaveChangesAsync();
-
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Contact()
-        {
-
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }

@@ -17,12 +17,12 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
         public void ReturnDefaultViewWithCorrectViewModel()
         {
             //Arange
-            var storeMock = new Mock<IUserStore<ApplicationUser>>();
+            var storeMock = new Mock<IUserStore<User>>();
             var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-            var users = new List<ApplicationUser>()
+            var users = new List<User>()
             {
-                new ApplicationUser(){ UserName = "firstUser"},
-                new ApplicationUser(){ UserName = "secondUser"},
+                new User(){ UserName = "firstUser"},
+                new User(){ UserName = "secondUser"},
             }.AsQueryable();
 
             userManagerMock.Setup(m => m.Users).Returns(users);

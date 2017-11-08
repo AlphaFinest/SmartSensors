@@ -54,12 +54,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201711071407360_Initial.cs" />
-    <Compile Include="Migrations\201711071407360_Initial.Designer.cs">
-      <DependentUpon>201711071407360_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201711071604180_Initial.cs" />
+    <Compile Include="Migrations\201711071604180_Initial.Designer.cs">
+      <DependentUpon>201711071604180_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071605201_Sensor.cs" />
+    <Compile Include="Migrations\201711071605201_Sensor.Designer.cs">
+      <DependentUpon>201711071605201_Sensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071606370_Owner.cs" />
+    <Compile Include="Migrations\201711071606370_Owner.Designer.cs">
+      <DependentUpon>201711071606370_Owner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071613075_Many.cs" />
+    <Compile Include="Migrations\201711071613075_Many.Designer.cs">
+      <DependentUpon>201711071613075_Many.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071633092_History.cs" />
+    <Compile Include="Migrations\201711071633092_History.Designer.cs">
+      <DependentUpon>201711071633092_History.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071636310_HistoryToSensor.cs" />
+    <Compile Include="Migrations\201711071636310_HistoryToSensor.Designer.cs">
+      <DependentUpon>201711071636310_HistoryToSensor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\History.cs" />
+    <Compile Include="Models\Sensor.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,8 +89,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711071407360_Initial.resx">
-      <DependentUpon>201711071407360_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711071604180_Initial.resx">
+      <DependentUpon>201711071604180_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071605201_Sensor.resx">
+      <DependentUpon>201711071605201_Sensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071606370_Owner.resx">
+      <DependentUpon>201711071606370_Owner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071613075_Many.resx">
+      <DependentUpon>201711071613075_Many.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071633092_History.resx">
+      <DependentUpon>201711071633092_History.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071636310_HistoryToSensor.resx">
+      <DependentUpon>201711071636310_HistoryToSensor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

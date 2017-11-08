@@ -13,7 +13,7 @@ namespace SmartSensors.Areas.Admin.Models
     {
         public string Username { get; set; }
 
-        public static Expression<Func<ApplicationUser, UserViewModel>> Create
+        public static Expression<Func<User, UserViewModel>> Create
         {
             get
             {
