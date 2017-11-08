@@ -23,7 +23,7 @@ namespace SmartSensors.Models
 
         [Required]
         [Display(Name = "Polling Interval")]
-        public string PollingInterval { get; set; }
+        public int PollingInterval { get; set; }
 
         [Required]
         [Display(Name = "Value Type")]
@@ -35,11 +35,11 @@ namespace SmartSensors.Models
 
         [Required]
         [Display(Name = "Minimal Range")]
-        public string MinRange { get; set; }
+        public int MinRange { get; set; }
 
         [Required]
         [Display(Name = "Maximal Range")]
-        public string MaxRange { get; set; }
+        public int MaxRange { get; set; }
 
         [Required]
         [Display(Name = "Last Update")]

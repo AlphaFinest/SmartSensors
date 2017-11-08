@@ -1,4 +1,4 @@
-﻿@model SmartSensors.Models.SensorViewModel
+﻿@model SensorViewModel
 @{
     ViewBag.Title = "Register new sensor";
 }
@@ -11,8 +11,6 @@
     <h4>All fields are mandatory</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-
-
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -26,48 +24,65 @@
             @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Url, new { @class = "form-control" })
+        <div id="dropdownUrl" class="form-group">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                    Sensor Url
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">f1796a28-642e-401f-8129-fd7465417061</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">81a2e1b1-ea5d-4356-8266-b6b42471653e</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">92f7dc9a-f2fe-4b60-82f5-400e42f099b4</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">216fc1e7-1496-4532-b9ee-29565b865ad6</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">61ff0614-64fd-4842-9a05-0b1541d2cc61</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">08503c1c-963f-4106-9088-82fa67d34f9d</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1f0ef0ff-396b-40cb-ac3d-749196dee187</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">4008e030-fd3a-4f8c-a8ca-4f7609ecdb1e</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">7a3b1db5-959d-46ce-82b6-517773327427</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">a3b8a078-0409-4365-ace6-6f8b5b93d592</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">ec3c4770-5d57-4d81-9c83-a02140b883a1</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">d5d37a46-8ab5-41ec-b7d5-d28c2fd68d3d</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">65d98ff7-b524-49de-8d13-f85753d98858</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PollingInterval, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PollingInterval, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.PollingInterval, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PollingInterval, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ValueType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ValueType, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.ValueType, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ValueType, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.IsPublic, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.CheckBoxFor(m => m.IsPublic, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.IsPublic, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(m => m.IsPublic, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.MinRange, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.MinRange, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.MinRange, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.MinRange, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.MaxRange, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.MaxRange, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.MaxRange, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.MaxRange, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
         </div>
-    </div>
-}
+        }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
