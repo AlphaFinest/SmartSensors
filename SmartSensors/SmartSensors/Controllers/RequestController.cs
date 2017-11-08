@@ -13,15 +13,18 @@ namespace SmartSensors.Controllers
 {
     public class RequestController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext dbContext;
         // GET: Request
 
+        public RequestController(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public async Task GetSensors()
         {
-            List<Sensor> sensorsToUpdate = new List<Sensor>();
-            //db.Sensors.Where(x=>x.PollingTime<DateTime.Now-x.LastUpdate)
-            //AppendAll
+
+            var sensorsToUpdate = dbContext.Sensors.Where(x => x.LastUpdated.Add(TimeSpan.Parse(x.PollingInterval.ToString())) < DateTime.Now).ToList();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
@@ -36,12 +39,12 @@ namespace SmartSensors.Controllers
                             //db.Sensors.Find(sensor.Id).Value=json.....
                             //db.Sensors.Find(sensor.Id).Date=json.....
                             //db.History.Add(sensor);
-                            
+
                         }
                     }
                 }
             }
-            db.SaveChanges();
+            dbContext.SaveChanges();
         }
     }
 }

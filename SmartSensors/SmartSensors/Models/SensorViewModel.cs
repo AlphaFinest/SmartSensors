@@ -49,6 +49,10 @@ namespace SmartSensors.Models
         [Display(Name = "Owner")]
         public User Owner { get; set; }
 
+        [Required]
+        [Display(Name = "Value")]
+        public string Value { get; set; }
+
     }
 
 }
