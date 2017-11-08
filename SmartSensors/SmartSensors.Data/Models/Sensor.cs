@@ -26,7 +26,7 @@ namespace SmartSensors.Data.Models.Sensors
         [StringLength(100, MinimumLength = 5, ErrorMessage = "The url lenght must be between 5 and 100 symbols")]
         public string Url { get; set; }
 
-        [Range(0, 100, ErrorMessage = "The polling interval must be between 0 and 100")]
+        [Range(0, 500, ErrorMessage = "The polling interval must be between 0 and 100")]
         public int PollingInterval { get; set; }
 
         [Range(0, 1000, ErrorMessage = "The minimal range must be between 0 and 1000")]
