@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Bytes2you.Validation;
+using Newtonsoft.Json;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
@@ -22,6 +23,7 @@ namespace SmartSensors.Controllers
 
         public RequestController(ISensorService service)
         {
+            Guard.WhenArgument(service, "service").IsNull().Throw();
             this.service = service;
         }
 

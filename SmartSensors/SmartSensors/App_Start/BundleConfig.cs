@@ -19,12 +19,21 @@ namespace SmartSensors
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/dark-admin-js").Include(
+                        "~/Content/DarkAdmin/js/jquery*",
+                        "~/Content/DarkAdmin/bootstrap/js/bootstrap.js"
+                        ));
+
+            bundles.Add(new StyleBundle("~/bundles/dark-admin-css").Include(
+                        "~/Content/DarkAdmin/bootstrap/css/bootstrap*",
+                        "~/Content/DarkAdmin/font-awesome/css/font-awesome*",
+                        "~/Content/DarkAdmin/css/local.css"
+                        ));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             
 
