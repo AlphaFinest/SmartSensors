@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#asideRegister{
+    margin-left:400px;
+}
+
+#dropdownUrl{
+   margin-left:195px;
+}

@@ -333,6 +333,10 @@
       <Project>{741fa6e6-2a50-4001-83f0-e9ef24cdd2b2}</Project>
       <Name>SmartSensors.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SmartSensors.Service\SmartSensors.Service.csproj">
+      <Project>{894de883-990e-4fbf-a211-2cf821514fe1}</Project>
+      <Name>SmartSensors.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

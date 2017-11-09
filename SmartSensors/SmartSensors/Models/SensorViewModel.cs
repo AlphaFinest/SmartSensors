@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SmartSensors.Models
 {
@@ -23,7 +24,8 @@ namespace SmartSensors.Models
 
         [Required]
         [Display(Name = "Polling Interval")]
-        public string PollingInterval { get; set; }
+        [Range(1, 20, ErrorMessage = "SoMETHING")]
+        public int PollingInterval { get; set; }
 
         [Required]
         [Display(Name = "Value Type")]
@@ -35,11 +37,11 @@ namespace SmartSensors.Models
 
         [Required]
         [Display(Name = "Minimal Range")]
-        public string MinRange { get; set; }
+        public int MinRange { get; set; }
 
         [Required]
         [Display(Name = "Maximal Range")]
-        public string MaxRange { get; set; }
+        public int MaxRange { get; set; }
 
         [Required]
         [Display(Name = "Last Update")]
@@ -52,6 +54,10 @@ namespace SmartSensors.Models
         [Required]
         [Display(Name = "Value")]
         public string Value { get; set; }
+        
+        [Required]
+        [Display(Name = "Urls")]
+        public IEnumerable<SelectListItem> UrlCollection { get; set; }
 
     }
 

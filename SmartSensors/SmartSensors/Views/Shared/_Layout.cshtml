@@ -19,13 +19,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Smart Sensors", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
                     <li>@Html.ActionLink("Register Sensor", "RegisterSensor", "Sensor", new { area = "" }, null)</li>
+                    }
                     <li>@Html.ActionLink("Public Sensors", "PublicSensors", "Sensor", new { area = "" }, null)</li>
                    @if (this.User.IsInRole("Admin"))
                    {
@@ -49,6 +51,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jsgridd")
     @RenderSection("scripts", required: false)
-    @RenderSection("JavaScript", required: false)
+    @*@RenderSection("JavaScript", required: false)*@
 </body>
 </html>

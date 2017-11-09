@@ -29,9 +29,8 @@ namespace SmartSensors.Controllers
         public async Task<ActionResult> About()
         {
             ViewBag.message = "your application description page.";
-            
-            var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-            await this.userManager.AddToRoleAsync(user.Id, "Admin");
+
+           
 
             return View();
         }
