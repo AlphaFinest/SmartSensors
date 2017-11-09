@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jsgrid")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/newJquery")
 
@@ -26,10 +27,10 @@
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Register Sensor", "RegisterSensor", "Sensor", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Public Sensors", "PublicSensors", "Sensor", new { area = "" }, null)</li>
-                   @*@if (this.User.IsInRole("Admin"))
-                   {*@
-                    <li>@Html.ActionLink("Admin", "AllUsers", "Admin", new { area = "Admin" }, null)</li>
-                   @*}*@
+                   @if (this.User.IsInRole("Admin"))
+                   {
+                    <li>@Html.ActionLink("Admin", "AdminPage", "Admin", new { area = "Admin" }, null)</li>
+                   }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -46,6 +47,8 @@
     @Scripts.Render("~/bundles/jquery")
    
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jsgridd")
     @RenderSection("scripts", required: false)
+    @RenderSection("JavaScript", required: false)
 </body>
 </html>

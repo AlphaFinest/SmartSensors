@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web.Mvc;
 
 
-
 namespace SmartSensors.Controllers
 {
     public class SensorController : Controller

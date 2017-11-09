@@ -26,9 +26,20 @@ namespace SmartSensors
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jsgridd").Include(
+                     "~/Scripts/jsgrid.js",
+                     "~/Scripts/jsgrid.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+             bundles.Add(new StyleBundle("~/Content/jsgrid").Include(
+                      "~/Content/jsgrid-theme.css",
+                       "~/Content/jsgrid.min.css",
+                        "~/Content/jsgrid.css",
+                      "~/Content/jsgrid-theme.min.css"));
+
         }
     }
 }

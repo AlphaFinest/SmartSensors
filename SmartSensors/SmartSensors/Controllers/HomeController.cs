@@ -12,9 +12,11 @@ namespace SmartSensors.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly ApplicationUserManager userManager;
 
-        public HomeController(ApplicationDbContext dbContext)
+        public HomeController(ApplicationDbContext dbContext, ApplicationUserManager userManager)
         {
+            this.userManager = userManager;
             this.dbContext = dbContext;
         }
 
@@ -27,9 +29,9 @@ namespace SmartSensors.Controllers
         public async Task<ActionResult> About()
         {
             ViewBag.message = "your application description page.";
-
-            //this.dbContext.Roles.Add(new IdentityRole() { Name = "Admin" });
-            //await this.dbContext.SaveChangesAsync();
+            
+            var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
+            await this.userManager.AddToRoleAsync(user.Id, "Admin");
 
             return View();
         }
