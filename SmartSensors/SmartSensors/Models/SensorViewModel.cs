@@ -54,8 +54,7 @@ namespace SmartSensors.Models
         [Required]
         [Display(Name = "Value")]
         public string Value { get; set; }
-
-
+        
         [Required]
         [Display(Name = "Urls")]
         public IEnumerable<SelectListItem> UrlCollection { get; set; }
