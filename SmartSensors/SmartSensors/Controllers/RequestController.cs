@@ -4,6 +4,7 @@ using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Models;
 using SmartSensors.Service;
+using SmartSensors.Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,19 +18,17 @@ namespace SmartSensors.Controllers
 {
     public class RequestController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
-        // GET: Request
+        private readonly ISensorService service;
 
-        public RequestController(ApplicationDbContext dbContext)
+        public RequestController(ISensorService service)
         {
-            this.dbContext = dbContext;
+            this.service = service;
         }
 
         [HttpGet]
         public async Task GetSensors()
         {
-            SensorService ss = new SensorService(dbContext);
-            await ss.UpdateSensors();
+            await service.UpdateSensors();
         }
     }
 }
