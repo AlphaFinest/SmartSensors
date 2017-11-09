@@ -21,6 +21,7 @@ namespace SmartSensors.Controllers
 
         }
 
+        [Authorize]
         public ActionResult RegisterSensor()
         {
             var model = new SensorViewModel();

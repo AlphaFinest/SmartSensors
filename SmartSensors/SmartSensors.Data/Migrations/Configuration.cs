@@ -1,3 +1,4 @@
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -27,6 +28,11 @@ namespace SmartSensors.Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            if (!context.Roles.Any())
+            {
+                context.Roles.Add(new IdentityRole { Name = "Admin"});
+            }
         }
     }
 }
