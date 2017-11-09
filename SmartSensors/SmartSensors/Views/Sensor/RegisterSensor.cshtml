@@ -26,7 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Url, Model.UrlCollection)
+            @Html.DropDownListFor(m => m.Url, Model.UrlCollection, "Select sensor from the list", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

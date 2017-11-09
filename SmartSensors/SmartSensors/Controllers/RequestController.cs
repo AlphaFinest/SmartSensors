@@ -37,7 +37,8 @@ namespace SmartSensors.Controllers
                     {
                         using (HttpContent content = response.Content)
                         {
-                            var responseObject = await content.ReadAsAsync<JsonSensorViewModel>();
+                            var r = await content.ReadAsStringAsync();
+                            var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(r);
                             dbContext.Sensors.SingleOrDefault(x => x.Id == sensor.Id).Value = responseObject.Value.ToString();
                             dbContext.Sensors.SingleOrDefault(x => x.Id == sensor.Id).LastUpdated = DateTime.Now;
                             var historyToAdd = new History();
