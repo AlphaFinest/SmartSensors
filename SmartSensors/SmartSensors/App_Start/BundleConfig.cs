@@ -20,7 +20,7 @@ namespace SmartSensors
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/dark-admin-js").Include(
-                        "~/Content/DarkAdmin/js/jquery*",
+                        "~/Content/DarkAdmin/js/jquery-1.10.2.min.js",
                         "~/Content/DarkAdmin/bootstrap/js/bootstrap.js"
                         ));
 

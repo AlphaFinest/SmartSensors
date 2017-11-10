@@ -78,10 +78,11 @@ namespace SmartSensors.Controllers
             var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic.Equals(true))
               .Select(s => new PublicViewModels()
               {
-                  Owner = s.Owner,
+                  OwnerName = s.Owner.UserName,
                   SensorName = s.Name,
                   Value = s.Value,
-                  ValueType = s.ValueType
+                  ValueType = s.ValueType,
+                  Url = s.Url
               })
               .ToList();
 

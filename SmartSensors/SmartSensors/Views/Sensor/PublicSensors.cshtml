@@ -16,106 +16,41 @@
 </div>
 @section grid
         {
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+<script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
     <script type="text/javascript">
-        $(function ($) {
+        $(function () {
             var sensors = [];
                @foreach (var mos in Model)
                 {
 
-                 @:sensors.push({"Username": "@mos.Owner.UserName", "SensorName":"@mos.SensorName" , "Value":"@mos.Value"})
+                 @:sensors.push({"ownername": "@mos.OwnerName", "sensorname":"@mos.SensorName" , "value":"@mos.Value"})
 
                 }
 
             $("#shieldui-grid1").shieldGrid({
                 dataSource: {
-                    data: sensors
+                    data: sensors,
+                    schema: {
+                        fields: {
+                            ownername: { type: String },
+                            sensorname: { type: String },
+                            value: { type: String }
+                        }
+                    }
                 },
-                sorting: {
-                    multiple: true
+                sorting: true,
+                filtering: {
+                    enabled: true
                 },
                 rowHover: true,
                 paging: true,
                 columns: [
-                    { field: "Username", width: "170px", title: "Username" },
-                    { field: "SensorName", title: "Sensor Name" },
-                    { field: "Value", title: "Value" }
+                    { field: "ownername", title: "Owner Name" },
+                    { field: "sensorname", title: "Sensor Name" },
+                    { field: "value", title: "Value" }
                 ]
             });
         });
     </script>
 }
-
-
-
-@*<h4><p>Search by username or sensor name:</p></h4>
-    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-    <br>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Sensor</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            @foreach (var m in Model)
-            {
-                <tr>
-                    <td>@m.Owner.UserName</td>
-                    <td>@m.SensorName</td>
-                    @if (m.ValueType == "(true/false)")
-                    {
-                        if (bool.Parse(m.Value))
-                        {
-                            <td>
-                                <button type="button" class="btn btn-success"></button>
-                                @m.Value
-                            </td>
-                        }
-                        else
-                        {
-                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
-                        }
-                    }
-                    else
-                    {
-                        if (double.Parse(m.Value) > 20 && double.Parse(m.Value) < 50)
-                        {
-                            <td><button type="button" class="btn btn-success"></button>@m.Value</td>
-                        }
-                        else
-                        {
-                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
-                        }
-                    }
-
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <p>Legend:</p>
-    <p><button type="button" class="btn btn-success"></button> -  the value from the sensor is in acceptable range</p>
-    <p><button type="button" class="btn btn-danger"></button> -  the value from the sensor is out of acceptable range</p>
-    <p><button type="button" class="btn"></button> -  there is no connection with the sensor</p>*@
-
-@*</div>*@
-
-@*<script>
-        $(document).ready(function () {
-            $("#myInput").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
-
-    <ul class="pager">
-        <li><a href="#">Previous</a></li>
-        <li><a href="#">Next</a></li>
-    </ul>*@
-
-
