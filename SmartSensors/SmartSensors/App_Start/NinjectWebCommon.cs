@@ -12,6 +12,9 @@ namespace SmartSensors.App_Start
     using SmartSensors.Data;
     using SmartSensors.Service.Contracts;
     using SmartSensors.Service.UrlProvider;
+    using SmartSensors.Service;
+    using SmartSensors.Service.Contracts;
+    using SmartSensors.Service.Seeding;
 
     public static class NinjectWebCommon 
     {
@@ -79,6 +82,13 @@ namespace SmartSensors.App_Start
             kernel.Bind<IUrlProvider>().To<UrlProvider>();
 
             kernel.Bind<IValueTypeProvider>().To<ValueTypeProvider>();
+
+            kernel.Bind<ISensorService>().To<SensorService>();
+
+            kernel.Bind<ISeeder>().To<RoleSeeder>().Named("roleSeeder");
+            kernel.Bind<ISeeder>().To<AdminSeeder>().Named("adminSeeder");
+
+
         }        
     }
 }

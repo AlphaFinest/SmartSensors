@@ -8,9 +8,6 @@ namespace SmartSensors
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/newJquery").Include(
-                        "~/Scripts/newJquery.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -22,16 +19,30 @@ namespace SmartSensors
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/bundles/dark-admin-js").Include(
+                        "~/Content/DarkAdmin/js/jquery-1.10.2.min.js",
+                        "~/Content/DarkAdmin/bootstrap/js/bootstrap.js"
+                        ));
+
+            bundles.Add(new StyleBundle("~/bundles/dark-admin-css").Include(
+                        "~/Content/DarkAdmin/bootstrap/css/bootstrap*",
+                        "~/Content/DarkAdmin/font-awesome/css/font-awesome*",
+                        "~/Content/DarkAdmin/css/local.css"
+                        ));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajax-unobtrusive").Include(
-                      "~/Scripts/jquery.unobtrusive-ajax.js"));
+                      "~/Scripts/jquery.unobtrusive-ajax.js",
+                      "~/Content/site.css"));
+            
+
+
         }
     }
 }

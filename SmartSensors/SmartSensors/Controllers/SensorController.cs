@@ -69,7 +69,7 @@ namespace SmartSensors.Controllers
                 MaxRange = model.MaxRange,
                 LastUpdated = System.DateTime.Now,
                 Owner = dbContext.Users.First(u => u.UserName == this.User.Identity.Name),
-                Value = "555555"
+                Value = "12"
             };
             dbContext.Sensors.Add(sensor);
             dbContext.SaveChanges();
@@ -85,10 +85,11 @@ namespace SmartSensors.Controllers
             var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic.Equals(true))
               .Select(s => new PublicViewModels()
               {
-                  Owner = s.Owner,
+                  OwnerName = s.Owner.UserName,
                   SensorName = s.Name,
                   Value = s.Value,
-                  ValueType = s.ValueType
+                  ValueType = s.ValueType,
+                  Url = s.Url
               })
               .ToList();
 

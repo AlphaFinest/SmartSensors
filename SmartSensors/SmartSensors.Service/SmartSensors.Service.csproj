@@ -84,7 +84,11 @@
     <Compile Include="Contracts\IValueTypeProvider.cs" />
     <Compile Include="Contracts\IUrlProvider.cs" />
     <Compile Include="CustomValidationAttribute\SensorRangeValidation.cs" />
+    <Compile Include="Contracts\ISeeder.cs" />
+    <Compile Include="Contracts\ISensorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seeding\AdminSeeder.cs" />
+    <Compile Include="Seeding\RoleSeeder.cs" />
     <Compile Include="SensorService.cs" />
     <Compile Include="UrlProvider\UrlProvider.cs" />
     <Compile Include="UrlProvider\ValueTypeProvider.cs" />

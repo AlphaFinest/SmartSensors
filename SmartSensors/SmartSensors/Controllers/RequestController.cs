@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Bytes2you.Validation;
+using Newtonsoft.Json;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Models;
 using SmartSensors.Service;
+using SmartSensors.Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,19 +19,18 @@ namespace SmartSensors.Controllers
 {
     public class RequestController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
-        // GET: Request
- 
-        public RequestController(ApplicationDbContext dbContext)
+        private readonly ISensorService service;
+
+        public RequestController(ISensorService service)
         {
-            this.dbContext = dbContext;
+            Guard.WhenArgument(service, "service").IsNull().Throw();
+            this.service = service;
         }
 
         [HttpGet]
         public async Task GetSensors()
         {
-            SensorService ss = new SensorService(dbContext);
-            await ss.UpdateSensors();
+            await service.UpdateSensors();
         }
     }
 }

@@ -9,13 +9,15 @@ namespace SmartSensors.Models
 {
     public class PublicViewModels
     {
-        public User Owner { get; set; }
+        public string OwnerName { get; set; }
 
         public string SensorName { get; set; }
 
         public string Value { get; set; }
 
         public string ValueType { get; set; }
+
+        public string Url { get; set; }
 
     }
 }
