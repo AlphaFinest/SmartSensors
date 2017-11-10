@@ -34,7 +34,7 @@
                     }
                     @if (this.User.IsInRole("Admin"))
                     {
-                        <li><a href="@Url.Action("adminpage", "admin", new { area = "Admin" })"><i class="fa fa-font"></i> Register Sensor</a></li>
+                        <li><a href="@Url.Action("adminpage", "admin", new { area = "Admin" })"><i class="fa fa-font"></i> Admin</a></li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
