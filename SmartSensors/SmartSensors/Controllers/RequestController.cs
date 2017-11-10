@@ -19,7 +19,7 @@ namespace SmartSensors.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         // GET: Request
-
+ 
         public RequestController(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;

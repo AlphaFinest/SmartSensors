@@ -10,6 +10,8 @@ namespace SmartSensors.App_Start
     using Ninject.Web.Common;
     using Microsoft.AspNet.Identity.Owin;
     using SmartSensors.Data;
+    using SmartSensors.Service.Contracts;
+    using SmartSensors.Service.UrlProvider;
 
     public static class NinjectWebCommon 
     {
@@ -74,6 +76,9 @@ namespace SmartSensors.App_Start
                 .GetUserManager<ApplicationDbContext>())
                 .InRequestScope();
 
+            kernel.Bind<IUrlProvider>().To<UrlProvider>();
+
+            kernel.Bind<IValueTypeProvider>().To<ValueTypeProvider>();
         }        
     }
 }
