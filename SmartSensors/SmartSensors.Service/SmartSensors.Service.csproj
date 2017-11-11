@@ -95,6 +95,7 @@
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModels\JsonSensorViewModel.cs" />
     <Compile Include="ViewModels\JsonUrlViewModel.cs" />
+    <Compile Include="ViewModels\PublicViewModels.cs" />
     <Compile Include="ViewModels\SensorViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

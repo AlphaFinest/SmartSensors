@@ -14,8 +14,8 @@ namespace SmartSensors.Data.Models
     {
 		public User()
         {
-            this.MySensors = new HashSet<Sensor>();
-            this.SharedSensors = new HashSet<Sensor>();
+            this.MySensors = new HashSet<Sensors.Sensor>();
+            this.SharedSensors = new HashSet<Sensors.Sensor>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
@@ -23,7 +23,7 @@ namespace SmartSensors.Data.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
-        }        public virtual ICollection<Sensor> SharedSensors { get; set; }
+        }        public virtual ICollection<Sensors.Sensor> SharedSensors { get; set; }
 
-        public virtual ICollection<Sensor> MySensors { get; set; }    }
+        public virtual ICollection<Sensors.Sensor> MySensors { get; set; }    }
 }

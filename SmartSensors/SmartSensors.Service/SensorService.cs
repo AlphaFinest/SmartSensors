@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
 using System;
@@ -49,6 +51,36 @@ namespace SmartSensors.Service
                 }
             }
             await dbContext.SaveChangesAsync();
+        }
+
+        public IEnumerable<PublicViewModels> GetMySensors(string name)
+        {
+            var sensors = this.dbContext.Users.First(u => u.UserName == name).MySensors
+                .Select(s => new PublicViewModels()
+                {
+                    OwnerName = s.Owner.UserName,
+                    SensorName = s.Name,
+                    Value = s.Value,
+                    ValueType = s.ValueType,
+                    Url = s.Url
+                }).ToList();
+
+            return sensors;
+        }
+
+        public IEnumerable<PublicViewModels> GetSharedSensors(string name)
+        {
+            var sensors = this.dbContext.Users.First(u => u.UserName == name).SharedSensors
+                .Select(s => new PublicViewModels()
+                {
+                    OwnerName = s.Owner.UserName,
+                    SensorName = s.Name,
+                    Value = s.Value,
+                    ValueType = s.ValueType,
+                    Url = s.Url
+                }).ToList();
+
+            return sensors;
         }
     }
 }

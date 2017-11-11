@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Web;
 using SmartSensors.Data.Models;
 
-namespace SmartSensors.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class PublicViewModels
     {

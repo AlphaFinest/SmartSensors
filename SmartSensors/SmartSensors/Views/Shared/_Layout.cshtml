@@ -27,14 +27,16 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul id="active" class="nav navbar-nav side-nav">
                     <li><a href="@Url.Action("index", "home", new { area = String.Empty })"><i class="fa fa-globe"></i> Home</a></li>
-                    <li><a href="@Url.Action("publicsensors", "sensor", new { area = String.Empty })"><i class="fa fa-server"></i> Public Sensors</a></li>
                     @if (this.User.Identity.IsAuthenticated)
                     {
+                        <li><a href="@Url.Action("mysensors", "sensor", new { area = String.Empty })"><i class="fa fa-server"></i> My Sensors</a></li>
+                        <li><a href="@Url.Action("sharedsensors", "sensor", new { area = String.Empty })"><i class="fa fa-server"></i> Shared Sensors</a></li>
                         <li><a href="@Url.Action("registersensor", "sensor", new { area = String.Empty })"><i class="fa fa-font"></i> Register Sensor</a></li>
                     }
+                    <li><a href="@Url.Action("publicsensors", "sensor", new { area = String.Empty })"><i class="fa fa-server"></i> Public Sensors</a></li>
                     @if (this.User.IsInRole("Admin"))
                     {
-                        <li><a href="@Url.Action("adminpage", "admin", new { area = "Admin" })"><i class="fa fa-font"></i> Admin</a></li>
+                        <li><a href="@Url.Action("adminpage", "admin", new { area = "Admin" })"><i class="fa fa-cogs" aria-hidden="true"></i> Admin</a></li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
