@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors", "SmartSensors\SmartSensors.csproj", "{B954CAA8-201F-43BC-AE21-FA1DACDD3033}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors.Data", "SmartSensors.Data\SmartSensors.Data.csproj", "{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors.Service", "SmartSensors.Service\SmartSensors.Service.csproj", "{894DE883-990E-4FBF-A211-2CF821514FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSensors.Service.UnitTests", "SmartSensors.Service.UnitTests\SmartSensors.Service.UnitTests.csproj", "{87A2084C-DCFB-44ED-ACCB-B1471AB21BF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{894DE883-990E-4FBF-A211-2CF821514FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{894DE883-990E-4FBF-A211-2CF821514FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{894DE883-990E-4FBF-A211-2CF821514FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A2084C-DCFB-44ED-ACCB-B1471AB21BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A2084C-DCFB-44ED-ACCB-B1471AB21BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A2084C-DCFB-44ED-ACCB-B1471AB21BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A2084C-DCFB-44ED-ACCB-B1471AB21BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

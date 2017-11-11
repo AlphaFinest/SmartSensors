@@ -15,6 +15,8 @@ namespace SmartSensors.App_Start
     using SmartSensors.Service;
     using SmartSensors.Service.Contracts;
     using SmartSensors.Service.Seeding;
+    using SmartSensors.Data.Models.Sensors;
+    using SmartSensors.Service.ViewModels;
 
     public static class NinjectWebCommon 
     {
@@ -87,6 +89,9 @@ namespace SmartSensors.App_Start
 
             kernel.Bind<ISeeder>().To<RoleSeeder>().Named("roleSeeder");
             kernel.Bind<ISeeder>().To<AdminSeeder>().Named("adminSeeder");
+
+            kernel.Bind<Sensor>().To<Sensor>();
+            kernel.Bind<SensorViewModel>().To<SensorViewModel>();
 
 
         }        

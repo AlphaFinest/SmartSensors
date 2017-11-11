@@ -39,13 +39,13 @@ namespace SmartSensors.Service
                             var responseContent = await content.ReadAsStringAsync();
                             var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
 
-                            dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.Value.ToString();
-                            dbContext.Sensors.FindAsync(sensor.Id).Result.LastUpdated = DateTime.Now;
+                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.Value.ToString();
+                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.LastUpdated = DateTime.Now;
                             var historyToAdd = new History();
                             historyToAdd.Sensor = sensor;
                             historyToAdd.UpdateDate = DateTime.Now;
                             historyToAdd.Value = responseObject.Value.ToString();
-                            dbContext.History.Add(historyToAdd);
+                            this.dbContext.History.Add(historyToAdd);
                         }
                     }
                 }
@@ -81,6 +81,13 @@ namespace SmartSensors.Service
                 }).ToList();
 
             return sensors;
+        }
+
+
+        public void RegisterNewSensor(Sensor sensor)
+        {
+            this.dbContext.Sensors.Add(sensor);
+            this.dbContext.SaveChanges();
         }
     }
 }

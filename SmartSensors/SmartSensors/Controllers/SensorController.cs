@@ -17,17 +17,22 @@ namespace SmartSensors.Controllers
         private readonly IUrlProvider urlProvider;
         private readonly IValueTypeProvider valueTypeProvider;
         private readonly ISensorService sensorService;
+        private readonly Sensor sensor;
+        private readonly SensorViewModel viewModel;
 
-        public SensorController(ApplicationDbContext dbContext,IUrlProvider urlProvider, IValueTypeProvider valueTypeProvider, ISensorService sensorService)
+        public SensorController(ApplicationDbContext dbContext, IUrlProvider urlProvider, IValueTypeProvider valueTypeProvider, ISensorService sensorService, Sensor sensor,SensorViewModel viewModel)
         {
             Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             Guard.WhenArgument(urlProvider, "urlProvider").IsNull().Throw();
             Guard.WhenArgument(valueTypeProvider, "valueTypeProvider").IsNull().Throw();
             Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
+            Guard.WhenArgument(sensor, "sensor").IsNull().Throw();
             this.dbContext = dbContext;
             this.urlProvider = urlProvider;
             this.valueTypeProvider = valueTypeProvider;
             this.sensorService = sensorService;
+            this.sensor = sensor;
+            this.viewModel = viewModel;
         }
 
         [HttpGet]
@@ -35,7 +40,6 @@ namespace SmartSensors.Controllers
         [OutputCache(Duration = 3600)]
         public async Task<ActionResult> SensorsDropDown()
         {
-            var viewModel = new SensorViewModel();
             viewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
             return this.PartialView(viewModel);
         }
@@ -52,7 +56,7 @@ namespace SmartSensors.Controllers
 
         [Authorize]
         public ActionResult RegisterSensor()
-        {  
+        {
             return this.View();
         }
 
@@ -62,26 +66,20 @@ namespace SmartSensors.Controllers
         [Authorize]
         public ActionResult RegisterSensor(SensorViewModel model)
         {
-            var sensor = new Sensor
-            {
-                Name = model.Name,
-                Description = model.Description,
-                Url = model.Url,
-                PollingInterval = model.PollingInterval,
-                ValueType = model.ValueType,
-                IsPublic = model.IsPublic,
-                MinRange = model.MinRange,
-                MaxRange = model.MaxRange,
-                LastUpdated = System.DateTime.Now,
-                Owner = dbContext.Users.First(u => u.UserName == this.User.Identity.Name),
-                Value = "12"
-            };
-            dbContext.Sensors.Add(sensor);
-            dbContext.SaveChanges();
-            if (true)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            this.sensor.Name = model.Name;
+            this.sensor.Description = model.Description;
+            this.sensor.Url = model.Url;
+            this.sensor.PollingInterval = model.PollingInterval;
+            this.sensor.ValueType = model.ValueType;
+            this.sensor.IsPublic = model.IsPublic;
+            this.sensor.MinRange = model.MinRange;
+            this.sensor.MaxRange = model.MaxRange;
+            this.sensor.LastUpdated = System.DateTime.Now;
+            this.sensor.Owner = dbContext.Users.First(u => u.UserName == this.User.Identity.Name);
+            this.sensor.Value = "12";
+
+            this.sensorService.RegisterNewSensor(sensor);
+
             return this.View(model);
         }
 

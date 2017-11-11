@@ -14,5 +14,6 @@ namespace SmartSensors.Service.Contracts
         Task UpdateSensors();
         IEnumerable<PublicViewModels> GetMySensors(string name);
         IEnumerable<PublicViewModels> GetSharedSensors(string name);
+        void RegisterNewSensor(Sensor sensor);
     }
 }
