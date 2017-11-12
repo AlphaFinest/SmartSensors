@@ -30,24 +30,24 @@
                         if (bool.Parse(m.Value))
                         {
                             <td>
-                                <button type="button" class="btn btn-success"></button>
+                                <button type="button" class="btn btn-success disabled"></button>
                                 @m.Value
                             </td>
                         }
                         else
                         {
-                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
+                            <td><button type="button" class="btn btn-danger disabled"></button>@m.Value</td>
                         }
                     }
                     else
                     {
                         if (double.Parse(m.Value) > 20 && double.Parse(m.Value) < 50)
                         {
-                            <td><button type="button" class="btn btn-success"></button>@m.Value</td>
+                            <td><button type="button" class="btn btn-success disabled"></button>@m.Value</td>
                         }
                         else
                         {
-                            <td><button type="button" class="btn btn-danger"></button>@m.Value</td>
+                            <td><button type="button" class="btn btn-danger disabled"></button>@m.Value</td>
                         }
                     }
 
