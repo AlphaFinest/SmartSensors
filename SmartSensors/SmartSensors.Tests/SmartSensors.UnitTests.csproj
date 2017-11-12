@@ -100,8 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllUsers_Should.cs" />
+    <Compile Include="Controllers\SensorControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\RegisterSensor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\SensorDropdown_Should.cs" />
+    <Compile Include="Controllers\SensorControllerTests\MySensors_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Bytes2you.Validation;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
@@ -20,6 +21,7 @@ namespace SmartSensors.Service
 
         public SensorService(ApplicationDbContext dbContext)
         {
+            Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             this.dbContext = dbContext;
         }
 
@@ -53,39 +55,40 @@ namespace SmartSensors.Service
             await dbContext.SaveChangesAsync();
         }
 
-        public IEnumerable<PublicViewModels> GetMySensors(string name)
+        public List<PublicViewModel> GetMySensors(string username)
         {
-            var sensors = this.dbContext.Users.First(u => u.UserName == name).MySensors
-                .Select(s => new PublicViewModels()
-                {
-                    OwnerName = s.Owner.UserName,
-                    SensorName = s.Name,
-                    Value = s.Value,
-                    ValueType = s.ValueType,
-                    Url = s.Url
-                }).ToList();
+            var mySensors = this.dbContext.Users.First(u => u.UserName == username).MySensors.AsQueryable();
+            var sensors = mySensors.Select(PublicViewModel.Create).ToList();
 
             return sensors;
         }
 
-        public IEnumerable<PublicViewModels> GetSharedSensors(string name)
+        public List<PublicViewModel> GetSharedSensors(string username)
         {
-            var sensors = this.dbContext.Users.First(u => u.UserName == name).SharedSensors
-                .Select(s => new PublicViewModels()
-                {
-                    OwnerName = s.Owner.UserName,
-                    SensorName = s.Name,
-                    Value = s.Value,
-                    ValueType = s.ValueType,
-                    Url = s.Url
-                }).ToList();
+            var sharedSensors = this.dbContext.Users.First(u => u.UserName == username).SharedSensors.AsQueryable();
+            var sensors = sharedSensors.Select(PublicViewModel.Create).ToList();
 
             return sensors;
         }
 
 
-        public void RegisterNewSensor(Sensor sensor)
+        public void RegisterNewSensor(SensorViewModel model, string username)
         {
+            Sensor sensor = new Sensor()
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = DateTime.Now,
+                Owner = this.dbContext.Users.First(u => u.UserName == username),
+                Value = "12"
+            };
+
             this.dbContext.Sensors.Add(sensor);
             this.dbContext.SaveChanges();
         }

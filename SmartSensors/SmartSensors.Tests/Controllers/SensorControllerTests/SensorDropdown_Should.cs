@@ -32,14 +32,13 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             var valueTypeProviderMock = new Mock<IValueTypeProvider>();
-            var sensorMock = new Sensor();
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object, sensorMock, sensorViewModel);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
 
             //Act & Assert
 
             requestController
-                .WithCallTo(x => x.SensorsDropDown())
+                .WithCallTo(x => x.SensorsDropDown(sensorViewModel))
                 .ShouldRenderDefaultPartialView()
                 .WithModel<SensorViewModel>();
 

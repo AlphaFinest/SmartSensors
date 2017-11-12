@@ -31,10 +31,8 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             var valueTypeProviderMock = new Mock<IValueTypeProvider>();
-            var sensorMock = new Sensor();
-            var sensorViewModel = new SensorViewModel();
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object, sensorMock, sensorViewModel);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
 
             //Act & Assert
             requestController
@@ -51,8 +49,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             var valueTypeProviderMock = new Mock<IValueTypeProvider>();
-            var sensorMock = new Sensor();
-            var sensorViewModel = new SensorViewModel();
 
 
             var users = new List<User>()
@@ -67,7 +63,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             dbContextMock.Setup(x => x.Users)
             .Returns(dbSetMock.Object);
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object, sensorMock, sensorViewModel);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
 
             var userMock = new Mock<IPrincipal>();
             userMock.SetupGet(x => x.Identity.Name).Returns("FirstUser");
@@ -90,9 +86,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 ValueType = "Default",
                 IsPublic = true,
                 MinRange = 8,
-                MaxRange = 12,
-                Owner = dbContextMock.Object.Users.SingleOrDefault(x => x.UserName == userMock.Name),
-                Value = "12"
+                MaxRange = 12
             };
 
             //Act & Assert

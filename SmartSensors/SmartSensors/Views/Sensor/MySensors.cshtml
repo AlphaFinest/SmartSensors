@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PublicViewModels>
+﻿@model List<PublicViewModel>
 @{
     ViewBag.Title = "MySensors";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +26,7 @@
                @foreach (var m in Model)
                 {
 
-                 @:sensors.push("sensorname":"@m.SensorName" , "value":"@m.Value"})
+                 @:sensors.push({ "sensorname": "@m.SensorName", "value": "@m.Value" })
 
                 }
 

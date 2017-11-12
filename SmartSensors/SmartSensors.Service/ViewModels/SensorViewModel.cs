@@ -42,18 +42,6 @@ namespace SmartSensors.Service.ViewModels
         [Required]
         [Display(Name = "Maximal Range")]
         public int MaxRange { get; set; }
-
-        [Required]
-        [Display(Name = "Last Update")]
-        public DateTime LastUpdate { get; set; }
-
-        [Required]
-        [Display(Name = "Owner")]
-        public User Owner { get; set; }
-
-        [Required]
-        [Display(Name = "Value")]
-        public string Value { get; set; }
         
         [Required]
         [Display(Name = "Urls")]
