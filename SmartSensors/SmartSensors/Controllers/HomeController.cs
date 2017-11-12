@@ -28,7 +28,7 @@ namespace SmartSensors.Controllers
         [Authorize]
         public async Task<ActionResult> About()
         {
-            ViewBag.message = "your application description page.";
+             ViewBag.message = "your application description page.";
 
            
 

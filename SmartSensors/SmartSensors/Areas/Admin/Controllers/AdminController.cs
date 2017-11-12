@@ -1,13 +1,10 @@
 ﻿using Bytes2you.Validation;
 using SmartSensors.Areas.Admin.Models;
-using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Data;
-using System.Linq;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using SmartSensors.Data.Models;
-using Microsoft.AspNet.Identity.Owin;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace SmartSensors.Areas.Admin.Controllers
 {
@@ -69,31 +66,33 @@ namespace SmartSensors.Areas.Admin.Controllers
         //    return this.View(registerSensorsViewModel);
         //}
 
-        //[Authorize]
-        //public ActionResult AddUser()
-        //{
-        //    var model = new RegisterViewModel();
-        //    return this.View(model);
-        //}
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        //public ActionResult AddUser(RegisterViewModel model)
-        //{
-        //    var user = new User
-        //    {
-        //        Username = model.Username,
-        //        Email = model.Email,
-        //        Password = model.Password
+        [Authorize]
+        public ActionResult AddUser()
+        {
+            var model = new AddUserViewModel();
 
-        //    };
+            return this.View(model);
+        }
 
-        //    dbContext.Sensors.Add(model);
-        //    dbContext.SaveChanges();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult AddUser(AddUserViewModel model)
+        {
+            var addUser = new User
+            {
+                UserName = model.Username,
+                //Email = model.Email,
+                //Password = model.Password
 
-        //    return this.View(model);
-        //}
+            };
+
+            dbContext.Users.Add(addUser);
+            dbContext.SaveChanges();
+
+            return this.View(model);
+        }
 
         public async Task<ActionResult> EditUser(string username)
         {
