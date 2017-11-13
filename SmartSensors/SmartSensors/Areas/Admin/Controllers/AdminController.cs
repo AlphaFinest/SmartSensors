@@ -76,7 +76,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             var addUser = new User
             {
                 UserName = model.Username,
-                //Email = model.Email,
+                Email = model.Email,
                 //Password = model.Password
 
             };
@@ -84,7 +84,9 @@ namespace SmartSensors.Areas.Admin.Controllers
             dbContext.Users.Add(addUser);
             dbContext.SaveChanges();
 
-            return this.View(model);
+            return RedirectToAction("AdminPage", "Admin");
+
+            //return this.View(model);
         }
 
         public async Task<ActionResult> EditUser(string username)
