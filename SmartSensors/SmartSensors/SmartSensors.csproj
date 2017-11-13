@@ -216,6 +216,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Models\RegisterSensorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\AllSensorsViewModel.cs" />
     <Compile Include="Areas\Admin\Models\AddUserViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
@@ -308,6 +309,7 @@
     <Content Include="Content\DarkAdmin\font-awesome\scss\_variables.scss" />
     <Content Include="Areas\Admin\Views\Admin\AddUser.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\RegisterSensor.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />

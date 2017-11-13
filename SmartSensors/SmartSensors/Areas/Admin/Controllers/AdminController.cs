@@ -2,6 +2,7 @@
 using SmartSensors.Areas.Admin.Models;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -58,15 +59,7 @@ namespace SmartSensors.Areas.Admin.Controllers
 
             return this.View(allSensorsViewModel);
         }
-        //to do
-        //public ActionResult RegisterSensors()
-        //{
-        //    var registerSensorsViewModel 
-
-        //    return this.View(registerSensorsViewModel);
-        //}
-
-
+       
         [Authorize]
         public ActionResult AddUser()
         {
@@ -118,5 +111,45 @@ namespace SmartSensors.Areas.Admin.Controllers
 
             return this.RedirectToAction("AllUsers");
         }
+
+        [Authorize]
+        public ActionResult RegisterSensor()
+        {
+            var model = new RegisterSensorViewModel();
+
+            return this.View(model);
+           
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult RegisterSensor(RegisterSensorViewModel model)
+        {
+            var sensor = new Sensor
+            {
+                //Owner = model.Owner,
+                Name = model.Name,
+                Description = model.Description,
+                //Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = System.DateTime.Now,
+                Owner = dbContext.Users.First(u => u.UserName == this.User.Identity.Name),
+                Value = "12"
+            };
+
+            dbContext.Sensors.Add(sensor);
+            dbContext.SaveChanges();
+            if (true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return this.View(model);
+        }
+
     }
 }
