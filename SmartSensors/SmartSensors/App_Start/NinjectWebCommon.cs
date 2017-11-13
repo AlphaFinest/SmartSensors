@@ -86,6 +86,8 @@ namespace SmartSensors.App_Start
 
             kernel.Bind<ISensorService>().To<SensorService>();
 
+            kernel.Bind<IUserService>().To<UserService>();
+
             kernel.Bind<ISeeder>().To<RoleSeeder>().Named("roleSeeder");
             kernel.Bind<ISeeder>().To<AdminSeeder>().Named("adminSeeder");
             

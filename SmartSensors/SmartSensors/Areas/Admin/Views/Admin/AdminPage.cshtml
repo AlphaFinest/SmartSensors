@@ -5,34 +5,45 @@
 
 <div class="jumbotron">
     <h1>Admin Page</h1>
-    <p class="lead">Welcome to admin page of Smart Sensors!
-    You can modify sensor, register sensor and view all sensors. </p>
+    <p class="lead">
+        Welcome to admin page of Smart Sensors!
+        You can modify sensor, register sensor and view all sensors.
+    </p>
     <p class="lead"></p>
-   
 </div>
 
 <div class="row">
+    <div class="col-md-4">
+        <h2>All Users</h2>
+        <p>
+            Information about all register users. Edit information about users.
+        </p>
+        <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/allusers">All Users&raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Add User</h2>
+        <p>
+            Add new User by Username.
+        </p>
+        <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/adduser">Add User&raquo;</a></p>
+    </div>
     <div class="col-md-4">
         <h2>Modify sensor</h2>
         <p>
             Modify information about existing sensors (name, description, URL for fetching sensor data, polling interval, measurement type, access level and share functionality).
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Modify sensor&raquo;</a></p>
+        <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/modifysensor">Modify sensor&raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Register sensor</h2>
         <p>
-           Register new sensor for some already registered user.
+            Register new sensor for some already registered user.
         </p>
-        <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/registersensors">Register sensor &raquo;</a></p>
+        <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/registersensor">Register sensor &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>All sensors</h2>
         <p>View list of all sensors (public and private) of each registered user.</p>
         <p><a class="btn btn-default" href="http://localhost:61104/admin/admin/allsensors">View all sensors &raquo;</a></p>
     </div>
-
-   
-    
-
 </div>
