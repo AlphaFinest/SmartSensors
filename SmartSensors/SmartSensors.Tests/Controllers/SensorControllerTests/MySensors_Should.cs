@@ -31,27 +31,36 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var urlProviderMock = new Mock<IUrlProvider>();
             var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             
-            var sensors = new List<Sensor>()
+            var sensors = new List<PublicViewModel>()
             {
-                new Sensor(){ Name = "Sensor1" },
-                new Sensor(){ Name = "Sensor2" }
+                new PublicViewModel(){ SensorName = "Sensor1" },
+                new PublicViewModel(){ SensorName = "Sensor2" }
             };
-                        
+
+            var user = new User() { UserName = "FirstUser"};
+
+            sensorServiceMock.Setup(s => s.GetMySensors(user.UserName)).Returns(sensors);
+
             var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
-            
-            var resultViewModel = sensors.AsQueryable().Select(PublicViewModel.Create).ToList();
+
+            var userMock = new Mock<IPrincipal>();
+            userMock.SetupGet(x => x.Identity.Name).Returns("FirstUser");
+
+            var contextMock = new Mock<HttpContextBase>();
+            contextMock.SetupGet(x => x.User).Returns(userMock.Object);
+
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext)
+                                 .Returns(contextMock.Object);
+
+            controller.ControllerContext = controllerContextMock.Object;
+
 
             //Act & Assert
             controller
                 .WithCallTo(c => c.MySensors())
                 .ShouldRenderDefaultView()
-                .WithModel<List<PublicViewModel>>(viewModel =>
-                {
-                    for(int i = 0; i < viewModel.Count; i++)
-                    {
-                        Assert.AreEqual(viewModel[i].SensorName, resultViewModel[i].SensorName);
-                    }
-                });
+                .WithModel<List<PublicViewModel>>();
         }
     }
 }
