@@ -56,13 +56,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 new User() { UserName="FirstUser"}
             };
 
-
-            var dbSetMock = new Mock<DbSet<User>>();
-            dbSetMock.SetupData(users);
-
-            dbContextMock.Setup(x => x.Users)
-            .Returns(dbSetMock.Object);
-
             var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
 
             var userMock = new Mock<IPrincipal>();

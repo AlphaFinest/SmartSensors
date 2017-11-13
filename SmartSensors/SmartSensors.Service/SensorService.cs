@@ -41,12 +41,14 @@ namespace SmartSensors.Service
                             var responseContent = await content.ReadAsStringAsync();
                             var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
 
-                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.Value.ToString();
+                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.ToString();
                             this.dbContext.Sensors.FindAsync(sensor.Id).Result.LastUpdated = DateTime.Now;
-                            var historyToAdd = new History();
-                            historyToAdd.Sensor = sensor;
-                            historyToAdd.UpdateDate = DateTime.Now;
-                            historyToAdd.Value = responseObject.Value.ToString();
+                            var historyToAdd = new History
+                            {
+                                Sensor = sensor,
+                                UpdateDate = DateTime.Now,
+                                Value = responseObject.Value.ToString()
+                            };
                             this.dbContext.History.Add(historyToAdd);
                         }
                     }
@@ -91,6 +93,43 @@ namespace SmartSensors.Service
 
             this.dbContext.Sensors.Add(sensor);
             this.dbContext.SaveChanges();
+        }
+
+        public List<AllSensorsViewModel> GetAllSensors()
+        {
+            var allSensorsViewModel = this.dbContext.Sensors
+             .Select(s => new AllSensorsViewModel()
+             {
+                 Owner = s.Owner,
+                 SensorName = s.Name,
+                 Value = s.Value,
+                 ValueType = s.ValueType
+             })
+             .ToList();
+
+            return allSensorsViewModel;
+        }
+
+        public void RegisterSensor(RegisterSensorViewModel model)
+        {
+            var sensor = new Sensor
+            {
+                Owner = dbContext.Users.First(u => u.UserName == model.Owner),
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = System.DateTime.Now,
+                Value = "12"
+            };
+
+            dbContext.Sensors.Add(sensor);
+            dbContext.SaveChanges();
+      
         }
     }
 }

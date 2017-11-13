@@ -216,9 +216,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
-    <Compile Include="Areas\Admin\Models\RegisterSensorsViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\AllSensorsViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -261,7 +258,6 @@
     <Content Include="Areas\Admin\Views\Admin\AdminPage.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\RegisterSensors.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -305,6 +301,9 @@
     <Content Include="Content\DarkAdmin\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\DarkAdmin\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\DarkAdmin\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\Admin\Views\Admin\AddUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\_EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\RegisterSensor.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -359,12 +358,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Sensor\PublicSensors.cshtml" />
     <Content Include="Views\Sensor\SensorsDropDown.cshtml" />
-    <Content Include="Views\Sensor\SensorsValueType.cshtml" />
     <Content Include="Views\Sensor\MySensors.cshtml" />
     <Content Include="Views\Sensor\SharedSensors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 
-namespace SmartSensors.Areas.Admin.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class AllSensorsViewModel
     {

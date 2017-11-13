@@ -1,8 +1,22 @@
-﻿@model List<SmartSensors.Areas.Admin.Models.UserViewModel>
-    <h2>AllUsers</h2>
-    @foreach (var user in Model)
-    {
-        <div>
-            @user.Username
-        </div>
-    }
+﻿@model IEnumerable<UserViewModel>
+
+<h2>All Users</h2>
+@foreach (var user in Model)
+{
+    <div>
+        @user.Username
+        @Ajax.ActionLink("Edit", "EditUser",
+       new { username = user.Username },
+       new AjaxOptions
+       {
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "editArea"
+       })
+    </div>
+}
+
+<div id="editArea"></div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+}

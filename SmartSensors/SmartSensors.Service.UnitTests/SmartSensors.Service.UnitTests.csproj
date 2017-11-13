@@ -79,15 +79,18 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SmartSensors.Data\SmartSensors.Data.csproj">
-      <Project>{741FA6E6-2A50-4001-83F0-E9EF24CDD2B2}</Project>
+      <Project>{741fa6e6-2a50-4001-83f0-e9ef24cdd2b2}</Project>
       <Name>SmartSensors.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\SmartSensors.Service\SmartSensors.Service.csproj">
-      <Project>{894DE883-990E-4FBF-A211-2CF821514FE1}</Project>
+      <Project>{894de883-990e-4fbf-a211-2cf821514fe1}</Project>
       <Name>SmartSensors.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartSensors\SmartSensors.csproj">
+      <Project>{b954caa8-201f-43bc-ae21-fa1dacdd3033}</Project>
+      <Name>SmartSensors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

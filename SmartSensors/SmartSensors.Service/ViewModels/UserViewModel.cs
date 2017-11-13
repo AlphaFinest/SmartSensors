@@ -1,15 +1,16 @@
 ﻿using SmartSensors.Data.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 
-namespace SmartSensors.Areas.Admin.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class UserViewModel
     {
+        public string Id { get; set; }
+
         public string Username { get; set; }
+
+        public bool IsAdmin { get; set; }
 
         public static Expression<Func<User, UserViewModel>> Create
         {
@@ -17,6 +18,7 @@ namespace SmartSensors.Areas.Admin.Models
             {
                 return u => new UserViewModel()
                 {
+                    Id = u.Id,
                     Username = u.UserName
                 };
             }

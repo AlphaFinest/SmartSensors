@@ -22,13 +22,14 @@ namespace SmartSensors.Controllers
 
         public ActionResult Index()
         {
+
             ISeeder roleSeed = new RoleSeeder(this.dbContext);
             roleSeed.Seed();
 
             ISeeder adminSeed = new AdminSeeder(this.dbContext);
             adminSeed.Seed();
 
-            return View();
+            return this.View();
         }
     }
 }

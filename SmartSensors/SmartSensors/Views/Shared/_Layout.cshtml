@@ -52,8 +52,12 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/dark-admin-js")
-  
+
     @RenderSection("scripts", required: false)
     @RenderSection("grid", required: false)
+
+    @section onReady{
+        $(document).ready()
+    }
 </body>
 </html>

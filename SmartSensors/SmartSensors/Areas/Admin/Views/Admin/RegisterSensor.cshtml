@@ -1,16 +1,22 @@
-﻿@model SensorViewModel
+﻿@model RegisterSensorViewModel
 @{
-    ViewBag.Title = "Register new sensor";
+    ViewBag.Title = "Admin Register new sensor";
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Ajax.BeginForm("registersensor", "sensor", new AjaxOptions { HttpMethod = "POST"}, new { @class = "form-horizontal", role = "form" }))
+@using (Ajax.BeginForm("registersensor", "admin", new AjaxOptions { HttpMethod = "POST" }, new { @class = "form-horizontal", role = "form",area="admin" }))
 {
     @Html.AntiForgeryToken()
     <h4>All fields are mandatory</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Owner, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Owner, new { @class = "form-control" })
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -59,7 +65,6 @@
         </div>
     </div>
 }
-
 
 
 @section Scripts {

@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using SmartSensors.Service.Contracts;
 using System.Threading.Tasks;
 using SmartSensors.Service.ViewModels;
+using System.Web;
+using System;
+using System.Web.Caching;
 
 namespace SmartSensors.Controllers
 {
@@ -31,29 +34,14 @@ namespace SmartSensors.Controllers
             this.sensorService = sensorService;
         }
 
-        [HttpGet]
-        [ChildActionOnly]
-        [OutputCache(Duration = 3600)]
-        public async Task<ActionResult> SensorsDropDown(SensorViewModel viewModel)
-        {
-            viewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
-            return this.PartialView(viewModel);
-        }
-
-        //[HttpGet]
-        //[ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
-        //public async Task<ActionResult> SensorsValueType()
-        //{
-        //    var viewModel = new SensorViewModel();
-        //    viewModel.ValueTypeCollection = await this.valueTypeProvider.GetValueTypePattern();
-        //    return this.PartialView(viewModel);
-        //}
 
         [Authorize]
-        public ActionResult RegisterSensor()
+        public async Task<ActionResult> RegisterSensor()
         {
-            return this.View();
+            SensorViewModel viewModel = new SensorViewModel();
+            viewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
+
+            return this.View(viewModel);
         }
 
 
@@ -64,12 +52,12 @@ namespace SmartSensors.Controllers
         {
             this.sensorService.RegisterNewSensor(model, this.User.Identity.Name);
 
-            return this.View(model);
+            return RedirectToAction("Index","Home");
         }
 
         public ActionResult PublicSensors()
         {
-            var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic.Equals(true))
+            var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic)
               .Select(s => new PublicViewModel()
               {
                   OwnerName = s.Owner.UserName,
@@ -98,5 +86,30 @@ namespace SmartSensors.Controllers
             return this.View(sharedSensors);
         }
 
+    }
+
+    public class UrlProviderDecorator : IUrlProvider
+    {
+        private readonly IUrlProvider decorated;
+        private readonly HttpContext context;
+
+        public UrlProviderDecorator(IUrlProvider decorated, HttpContext context)
+        {
+            this.decorated = decorated;
+            this.context = context;
+        }
+
+        public async Task<List<SelectListItem>> GetUrlPattern()
+        {
+            List<SelectListItem> result = null;
+            result = this.context.Cache["UrlCollection"] as List<SelectListItem>;
+            if (result == null)
+            {
+                result = await this.decorated.GetUrlPattern();
+                this.context.Cache.Add("UrlCollection", result, null, DateTime.Now.AddHours(1), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
+            }
+
+            return result;
+        }
     }
 }
