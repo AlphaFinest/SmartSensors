@@ -1,9 +1,0 @@
-﻿@model SensorViewModel
-
-@Ajax.BeginForm(null)
-{
-<text>
-    @String.Format("{0}",Model.ValueTypeCollection.FirstOrDefault(x => x.Text == Model.Url).Text);
-</text>
-}
-

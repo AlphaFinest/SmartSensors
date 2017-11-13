@@ -359,9 +359,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Sensor\PublicSensors.cshtml" />
     <Content Include="Views\Sensor\SensorsDropDown.cshtml" />
-    <Content Include="Views\Sensor\SensorsValueType.cshtml" />
     <Content Include="Views\Sensor\MySensors.cshtml" />
     <Content Include="Views\Sensor\SharedSensors.cshtml" />
+    <Content Include="Views\Sensor\OnReady.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

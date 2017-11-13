@@ -37,18 +37,22 @@ namespace SmartSensors.Controllers
         public async Task<ActionResult> SensorsDropDown(SensorViewModel viewModel)
         {
             viewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
+            viewModel.ValueTypeCollection = await this.valueTypeProvider.GetValueTypePattern();
             return this.PartialView(viewModel);
         }
 
         //[HttpGet]
-        //[ChildActionOnly]
-        //[OutputCache(Duration = 3600)]
         //public async Task<ActionResult> SensorsValueType()
         //{
         //    var viewModel = new SensorViewModel();
         //    viewModel.ValueTypeCollection = await this.valueTypeProvider.GetValueTypePattern();
         //    return this.PartialView(viewModel);
         //}
+
+        public ActionResult OnReady()
+        {
+            return View();
+        }
 
         [Authorize]
         public ActionResult RegisterSensor()

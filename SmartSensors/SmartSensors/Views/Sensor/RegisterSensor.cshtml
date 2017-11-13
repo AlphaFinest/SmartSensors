@@ -1,4 +1,4 @@
-﻿@model SmartSensors.Service.ViewModels.SensorViewModel
+﻿@model SensorViewModel
 @{
     ViewBag.Title = "Register new sensor";
 }
@@ -25,14 +25,9 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
+        <div class="col-md-10" ,id="dropdowndiv">
+            @Html.Action("OnReady")
             @Html.Action("SensorsDropDown")
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ValueType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @*@Html.Action("SensorsValueType")*@
         </div>
     </div>
     <div class="form-group">
@@ -41,24 +36,24 @@
             @Html.TextBoxFor(m => m.PollingInterval, new { @class = "form-control" })
         </div>
     </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.MinRange, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.MinRange, new { @class = "form-control" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MinRange, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MinRange, new { @class = "form-control" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.MaxRange, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.MaxRange, new { @class = "form-control" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MaxRange, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.MaxRange, new { @class = "form-control" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.IsPublic, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.CheckBoxFor(m => m.IsPublic, new { @class = "" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.IsPublic, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(m => m.IsPublic, new { @class = "" })
         </div>
+    </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn btn-default" value="Register" />
@@ -68,10 +63,28 @@
 
 <script type="text/javascript">
     function redirectToHomePage() {
-        window.location ='http://localhost:61104';
+        window.location = 'http://localhost:61104';
     }
 </script>
+
+<script>
+    $("#Url").on("change",
+        function () {
+            var value = $("#Url").val();
+
+            console.log($.ajax({
+                url: 'http://telerikacademy.icb.bg/api/sensor/' + value,
+                type: 'GET',
+                headers: {
+                    'auth-token': '8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0'
+                }
+            }))
+        })
+
+</script>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ajax-unobtrusive")
+    @Scripts.Render("~/bundles/jquery");
 }
