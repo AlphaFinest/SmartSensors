@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SmartSensors.Service.Contracts;
 using Moq;
 using SmartSensors.Data;
-using SmartSensors.Controllers;
-using TestStack.FluentMVCTesting;
 using SmartSensors.Service.ViewModels;
+using System.Collections.Generic;
 using SmartSensors.Data.Models;
-using System.Linq;
-using System.Data.Entity;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using SmartSensors.Data.Models.Sensors;
+using SmartSensors.Controllers;
 using SmartSensors.Tests.Helpers;
+using TestStack.FluentMVCTesting;
 
 namespace SmartSensors.Tests.Controllers.SensorControllerTests
 {
     [TestClass]
-    public class MySensors_Should
+    public class SharedSensors_Should
     {
         [TestMethod]
         public void ReturnTheCorrectViewModel()
@@ -30,24 +23,24 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             var valueTypeProviderMock = new Mock<IValueTypeProvider>();
-            
+
             var sensors = new List<PublicViewModel>()
             {
                 new PublicViewModel(){ SensorName = "Sensor1" },
                 new PublicViewModel(){ SensorName = "Sensor2" }
             };
 
-            var user = new User() { UserName = "FirstUser"};
+            var user = new User() { UserName = "FirstUser" };
 
-            sensorServiceMock.Setup(s => s.GetMySensors(user.UserName)).Returns(sensors);
+            sensorServiceMock.Setup(s => s.GetSharedSensors(user.UserName)).Returns(sensors);
 
             var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
 
-            controller.UserMocking("FirstUser");
-            
+            controller.UserMocking(user.UserName);
+
             //Act & Assert
             controller
-                .WithCallTo(c => c.MySensors())
+                .WithCallTo(c => c.SharedSensors())
                 .ShouldRenderDefaultView()
                 .WithModel<List<PublicViewModel>>(m =>
                 {
