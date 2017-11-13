@@ -1,18 +1,22 @@
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using Microsoft.AspNet.Identity.Owin;
+using SmartSensors.Data;
+using SmartSensors.Service.Contracts;
+using SmartSensors.Service.UrlProvider;
+using SmartSensors.Service;
+using SmartSensors.Service.Seeding;
+using SmartSensors.Data.Models.Sensors;
+using SmartSensors.Service.ViewModels;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SmartSensors.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SmartSensors.App_Start.NinjectWebCommon), "Stop")]
 
 namespace SmartSensors.App_Start
 {
-    using System;
-    using System.Web;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using Ninject;
-    using Ninject.Web.Common;
-    using Microsoft.AspNet.Identity.Owin;
-    using SmartSensors.Data;
-    using SmartSensors.Service;
-    using SmartSensors.Service.Contracts;
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -76,10 +80,17 @@ namespace SmartSensors.App_Start
                 .GetUserManager<ApplicationDbContext>())
                 .InRequestScope();
 
+            kernel.Bind<IUrlProvider>().To<UrlProvider>();
+
+            kernel.Bind<IValueTypeProvider>().To<ValueTypeProvider>();
+
             kernel.Bind<ISensorService>().To<SensorService>();
 
             kernel.Bind<IUserService>().To<UserService>();
 
+            kernel.Bind<ISeeder>().To<RoleSeeder>().Named("roleSeeder");
+            kernel.Bind<ISeeder>().To<AdminSeeder>().Named("adminSeeder");
+            
         }        
     }
 }

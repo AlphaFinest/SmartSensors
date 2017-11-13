@@ -23,7 +23,7 @@ namespace SmartSensors
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/dark-admin-js").Include(
-                        "~/Content/DarkAdmin/js/jquery*",
+                        "~/Content/DarkAdmin/js/jquery-1.10.2.min.js",
                         "~/Content/DarkAdmin/bootstrap/js/bootstrap.js"
                         ));
 
@@ -37,8 +37,14 @@ namespace SmartSensors
             //          "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/Site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ajax-unobtrusive").Include(
+                      "~/Scripts/jquery.unobtrusive-ajax.js",
                       "~/Content/site.css"));
             
+
 
         }
     }

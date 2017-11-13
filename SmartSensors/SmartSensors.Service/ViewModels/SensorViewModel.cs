@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SmartSensors.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class SensorViewModel
     {
@@ -42,22 +42,14 @@ namespace SmartSensors.Models
         [Required]
         [Display(Name = "Maximal Range")]
         public int MaxRange { get; set; }
-
-        [Required]
-        [Display(Name = "Last Update")]
-        public DateTime LastUpdate { get; set; }
-
-        [Required]
-        [Display(Name = "Owner")]
-        public User Owner { get; set; }
-
-        [Required]
-        [Display(Name = "Value")]
-        public string Value { get; set; }
         
         [Required]
         [Display(Name = "Urls")]
         public IEnumerable<SelectListItem> UrlCollection { get; set; }
+
+        [Required]
+        [Display(Name = "ValueType")]
+        public IEnumerable<SelectListItem> ValueTypeCollection { get; set; }
 
     }
 

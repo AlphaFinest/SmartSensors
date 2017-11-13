@@ -41,8 +41,8 @@ namespace SmartSensors.Data
                 .WithRequired(h => h.Sensor);
         }
 
-        public DbSet<Sensor> Sensors { get; set; }
+        public virtual DbSet<Sensor> Sensors { get; set; }
 
-        public DbSet<History> History { get; set; }
+        public virtual DbSet<History> History { get; set; }
     }
 }

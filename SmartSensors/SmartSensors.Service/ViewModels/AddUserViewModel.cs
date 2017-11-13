@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SmartSensors.Areas.Admin.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class AddUserViewModel
     {

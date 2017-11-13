@@ -1,12 +1,14 @@
 ﻿@model List<PublicViewModel>
 @{
-    ViewBag.Title = "PublicSensors";
+    ViewBag.Title = "MySensors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> All Public Sensors </h3>
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> My Sensors </h3>
             </div>
             <div class="panel-body">
                 <div id="shieldui-grid1"></div>
@@ -16,15 +18,15 @@
 </div>
 @section grid
         {
-<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-<script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
     <script type="text/javascript">
         $(function () {
             var sensors = [];
                @foreach (var m in Model)
                 {
 
-                 @:sensors.push({"ownername": "@m.OwnerName", "sensorname":"@m.SensorName" , "value":"@m.Value"})
+                 @:sensors.push({ "sensorname": "@m.SensorName", "value": "@m.Value" })
 
                 }
 
@@ -33,9 +35,8 @@
                     data: sensors,
                     schema: {
                         fields: {
-                            ownername: { type: String },
                             sensorname: { type: String },
-                            value: { type: String }
+                            value: { type: Number }
                         }
                     }
                 },
@@ -46,7 +47,6 @@
                 rowHover: true,
                 paging: true,
                 columns: [
-                    { field: "ownername", title: "Owner Name" },
                     { field: "sensorname", title: "Sensor Name" },
                     { field: "value", title: "Value" }
                 ]
@@ -54,3 +54,4 @@
         });
     </script>
 }
+

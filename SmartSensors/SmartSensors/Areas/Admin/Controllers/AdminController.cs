@@ -1,8 +1,5 @@
 ﻿using Bytes2you.Validation;
-using SmartSensors.Areas.Admin.Models;
 using SmartSensors.Data;
-using SmartSensors.Data.Models;
-using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
 using System.Linq;
@@ -115,7 +112,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         public ActionResult RegisterSensor(RegisterSensorViewModel model)
         {
             this.sensorService.RegisterSensor(model);
-            
+                        
             return this.View(model);
         }
 

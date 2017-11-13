@@ -12,10 +12,10 @@ namespace SmartSensors.Data.Models
 {
     public class User : IdentityUser
     {
-		public User()
+        public User()
         {
-            this.MySensors = new HashSet<Sensor>();
             this.SharedSensors = new HashSet<Sensor>();
+            this.MySensors = new HashSet<Sensor>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
@@ -29,7 +29,5 @@ namespace SmartSensors.Data.Models
         public virtual ICollection<Sensor> SharedSensors { get; set; }
 
         public virtual ICollection<Sensor> MySensors { get; set; }
-
-       
     }
-}
+} 

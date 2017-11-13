@@ -30,3 +30,8 @@ textarea {
 #dropdownUrl{
    margin-left:195px;
 }
+
+.checkbox{
+    width:9px;
+    height:12px;
+}

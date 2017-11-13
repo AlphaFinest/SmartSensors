@@ -1,4 +1,6 @@
-﻿using SmartSensors.Areas.Admin.Models;
+﻿using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
+using SmartSensors.Service.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,10 @@ namespace SmartSensors.Service.Contracts
     public interface ISensorService
     {
         Task UpdateSensors();
-
-        List<AllSensorsViewModel> GetAllSensors();
-
-        void RegisterSensor(RegisterSensorViewModel model);
+        List<PublicViewModel> GetMySensors(string username);
+        List<PublicViewModel> GetSharedSensors(string username);
+        void RegisterNewSensor(SensorViewModel sensor, string username);
+List<AllSensorsViewModel> GetAllSensors();
+void RegisterSensor(RegisterSensorViewModel model);
     }
 }

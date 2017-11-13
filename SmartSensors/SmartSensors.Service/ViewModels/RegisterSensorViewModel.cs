@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace SmartSensors.Areas.Admin.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class RegisterSensorViewModel
     {
-       
+        //[Required]
+        //[Display(Owner = "Owner")]
+        //public string Owner { get; set; }
+
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
@@ -53,9 +56,6 @@ namespace SmartSensors.Areas.Admin.Models
        
         [Display(Name = "Value")]
         public string Value { get; set; }
-
-        
-        
 
     }
 

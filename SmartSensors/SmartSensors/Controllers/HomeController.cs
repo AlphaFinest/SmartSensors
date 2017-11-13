@@ -6,35 +6,30 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SmartSensors.Data.Models.Sensors;
 using System;
+using SmartSensors.Service.Seeding;
+using SmartSensors.Service.Contracts;
 
 namespace SmartSensors.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly ApplicationUserManager userManager;
 
-        public HomeController(ApplicationDbContext dbContext, ApplicationUserManager userManager)
+        public HomeController(ApplicationDbContext dbContext)
         {
-            this.userManager = userManager;
             this.dbContext = dbContext;
         }
 
         public ActionResult Index()
         {
-            return View();
+
+            ISeeder roleSeed = new RoleSeeder(this.dbContext);
+            roleSeed.Seed();
+
+            ISeeder adminSeed = new AdminSeeder(this.dbContext);
+            adminSeed.Seed();
+
+            return this.View();
         }
-
-        [Authorize]
-        public async Task<ActionResult> About()
-        {
-             ViewBag.message = "your application description page.";
-
-           
-
-            return View();
-        }
-   
-
     }
 }
