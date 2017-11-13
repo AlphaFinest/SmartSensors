@@ -78,6 +78,8 @@ namespace SmartSensors.App_Start
 
             kernel.Bind<ISensorService>().To<SensorService>();
 
+            kernel.Bind<IUserService>().To<UserService>();
+
         }        
     }
 }

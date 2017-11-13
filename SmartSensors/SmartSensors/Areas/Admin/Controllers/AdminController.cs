@@ -3,9 +3,12 @@ using SmartSensors.Areas.Admin.Models;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
+using SmartSensors.Service.Contracts;
+using SmartSensors.Service.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 
 namespace SmartSensors.Areas.Admin.Controllers
 {
@@ -14,52 +17,46 @@ namespace SmartSensors.Areas.Admin.Controllers
         private readonly ApplicationUserManager userManager;
         private readonly ApplicationDbContext dbContext;
 
-        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext)
+        private readonly IUserService userService;
+        private readonly ISensorService sensorService;
+
+        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService)
         {
             Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
             this.userManager = userManager;
 
             Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             this.dbContext = dbContext;
+
+            Guard.WhenArgument(userService, "userService").IsNull().Throw();
+            this.userService = userService;
+
+            Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
+            this.sensorService = sensorService;
         }
 
         // GET: Admin/Admin
         public ActionResult AdminPage()
         {
-            var usersViewModel = this.userManager.Users
-                .Select(u => new UserViewModel()
-                {
-                    Username = u.UserName
-                })
-                .ToList();
+            var usersViewModel = this.userService.AdminPage();
 
             return this.View(usersViewModel);
         }
 
         public ActionResult AllUsers()
         {
-            var usersViewModel = this.dbContext
-                .Users
-                .Select(UserViewModel.Create).ToList();
+            var usersViewModel = this.userService.GetAllUsers();
 
             return this.View(usersViewModel);
         }
 
         public ActionResult AllSensors()
         {
-            var allSensorsViewModel = this.dbContext.Sensors
-              .Select(s => new AllSensorsViewModel()
-              {
-                  Owner = s.Owner,
-                  SensorName = s.Name,
-                  Value = s.Value,
-                  ValueType = s.ValueType
-              })
-              .ToList();
+            var allSensorsViewModel = this.sensorService.GetAllSensors();
 
             return this.View(allSensorsViewModel);
         }
-       
+
         [Authorize]
         public ActionResult AddUser()
         {
@@ -73,20 +70,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize]
         public ActionResult AddUser(AddUserViewModel model)
         {
-            var addUser = new User
-            {
-                UserName = model.Username,
-                Email = model.Email,
-                //Password = model.Password
-
-            };
-
-            dbContext.Users.Add(addUser);
-            dbContext.SaveChanges();
+            this.userService.AddUser(model);
 
             return RedirectToAction("AdminPage", "Admin");
-
-            //return this.View(model);
         }
 
         public async Task<ActionResult> EditUser(string username)
@@ -120,7 +106,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             var model = new RegisterSensorViewModel();
 
             return this.View(model);
-           
+
         }
 
         [HttpPost]
@@ -128,28 +114,8 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize]
         public ActionResult RegisterSensor(RegisterSensorViewModel model)
         {
-            var sensor = new Sensor
-            {
-                //Owner = model.Owner,
-                Name = model.Name,
-                Description = model.Description,
-                //Url = model.Url,
-                PollingInterval = model.PollingInterval,
-                ValueType = model.ValueType,
-                IsPublic = model.IsPublic,
-                MinRange = model.MinRange,
-                MaxRange = model.MaxRange,
-                LastUpdated = System.DateTime.Now,
-                Owner = dbContext.Users.First(u => u.UserName == this.User.Identity.Name),
-                Value = "12"
-            };
-
-            dbContext.Sensors.Add(sensor);
-            dbContext.SaveChanges();
-            if (true)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            this.sensorService.RegisterSensor(model);
+            
             return this.View(model);
         }
 

@@ -11,6 +11,5 @@ namespace SmartSensors.Service.ViewModels
         public string Value { get; set; }
         public string ValueType { get; set; }
 
-
     }
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace SmartSensors.Areas.Admin.Models
+namespace SmartSensors.Service.ViewModels
 {
     public class UserViewModel
     {

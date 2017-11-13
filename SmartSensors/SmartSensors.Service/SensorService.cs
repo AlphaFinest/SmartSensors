@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SmartSensors.Areas.Admin.Models;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
 using System;
@@ -49,6 +51,43 @@ namespace SmartSensors.Service
                 }
             }
             await dbContext.SaveChangesAsync();
+        }
+        public List<AllSensorsViewModel> GetAllSensors()
+        {
+            var allSensorsViewModel = this.dbContext.Sensors
+             .Select(s => new AllSensorsViewModel()
+             {
+                 Owner = s.Owner,
+                 SensorName = s.Name,
+                 Value = s.Value,
+                 ValueType = s.ValueType
+             })
+             .ToList();
+
+            return allSensorsViewModel;
+        }
+
+        public void RegisterSensor(RegisterSensorViewModel model)
+        {
+            var sensor = new Sensor
+            {
+                Owner = dbContext.Users.First(u => u.UserName == model.Owner),
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                ValueType = model.ValueType,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                LastUpdated = System.DateTime.Now,
+                Value = "12"
+            };
+
+            dbContext.Sensors.Add(sensor);
+            dbContext.SaveChanges();
+           
+           
         }
     }
 }

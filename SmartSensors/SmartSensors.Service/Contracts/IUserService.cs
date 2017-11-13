@@ -1,4 +1,5 @@
 ﻿using SmartSensors.Areas.Admin.Models;
+using SmartSensors.Service.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Service.Contracts
 {
-    public interface ISensorService
+    public interface IUserService
     {
-        Task UpdateSensors();
+        List<UserViewModel> GetAllUsers();
 
-        List<AllSensorsViewModel> GetAllSensors();
+        List<UserViewModel> AdminPage();
 
-        void RegisterSensor(RegisterSensorViewModel model);
+       void AddUser(AddUserViewModel model);
     }
 }
