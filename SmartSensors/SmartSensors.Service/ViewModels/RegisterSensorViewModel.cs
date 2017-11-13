@@ -8,9 +8,9 @@ namespace SmartSensors.Service.ViewModels
 {
     public class RegisterSensorViewModel
     {
-        //[Required]
-        //[Display(Owner = "Owner")]
-        //public string Owner { get; set; }
+        [Required]
+        [Display(Name = "Owner")]
+        public string Owner { get; set; }
 
         [Required]
         [Display(Name = "Name")]
@@ -49,13 +49,12 @@ namespace SmartSensors.Service.ViewModels
         [Display(Name = "Last Update")]
         public DateTime LastUpdate { get; set; }
 
-        [Required]
-        [Display(Name = "Owner")]
-        public string Owner { get; set; }
-
-       
         [Display(Name = "Value")]
         public string Value { get; set; }
+
+        [Required]
+        [Display(Name = "Urls")]
+        public IEnumerable<SelectListItem> UrlCollection { get; set; }
 
     }
 

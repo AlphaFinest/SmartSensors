@@ -11,6 +11,7 @@ using SmartSensors.Service;
 using SmartSensors.Service.Seeding;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.ViewModels;
+using SmartSensors.Controllers;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SmartSensors.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SmartSensors.App_Start.NinjectWebCommon), "Stop")]
@@ -38,6 +39,12 @@ namespace SmartSensors.App_Start
         {
             bootstrapper.ShutDown();
         }
+
+        public static IKernel Kernel
+        {
+            get;
+            private set;
+        }
         
         /// <summary>
         /// Creates the kernel that will manage your application.
@@ -45,18 +52,18 @@ namespace SmartSensors.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            Kernel = new StandardKernel();
             try
             {
-                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                Kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                Kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                RegisterServices(kernel);
-                return kernel;
+                RegisterServices(Kernel);
+                return Kernel;
             }
             catch
             {
-                kernel.Dispose();
+                Kernel.Dispose();
                 throw;
             }
         }
@@ -80,7 +87,11 @@ namespace SmartSensors.App_Start
                 .GetUserManager<ApplicationDbContext>())
                 .InRequestScope();
 
-            kernel.Bind<IUrlProvider>().To<UrlProvider>();
+            kernel.Bind<IUrlProvider>().To<UrlProvider>().WhenInjectedInto<UrlProviderDecorator>();
+
+            kernel.Bind<IUrlProvider>().To<UrlProviderDecorator>();
+
+            kernel.Bind<HttpContext>().ToMethod(_ => HttpContext.Current).WhenInjectedInto<UrlProviderDecorator>();
 
             kernel.Bind<IValueTypeProvider>().To<ValueTypeProvider>();
 

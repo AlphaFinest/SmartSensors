@@ -13,11 +13,12 @@ namespace SmartSensors.Areas.Admin.Controllers
     {
         private readonly ApplicationUserManager userManager;
         private readonly ApplicationDbContext dbContext;
+        private readonly IUrlProvider urlProvider;
 
         private readonly IUserService userService;
         private readonly ISensorService sensorService;
 
-        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService)
+        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService,IUrlProvider urlProvider)
         {
             Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
             this.userManager = userManager;
@@ -30,6 +31,9 @@ namespace SmartSensors.Areas.Admin.Controllers
 
             Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
             this.sensorService = sensorService;
+
+            Guard.WhenArgument(urlProvider, "urlProvider").IsNull().Throw();
+            this.urlProvider = urlProvider;
         }
 
         // GET: Admin/Admin
@@ -98,9 +102,10 @@ namespace SmartSensors.Areas.Admin.Controllers
         }
 
         [Authorize]
-        public ActionResult RegisterSensor()
+        public async Task<ActionResult> RegisterSensor()
         {
             var model = new RegisterSensorViewModel();
+            model.UrlCollection = await this.urlProvider.GetUrlPattern();
 
             return this.View(model);
 
@@ -112,8 +117,8 @@ namespace SmartSensors.Areas.Admin.Controllers
         public ActionResult RegisterSensor(RegisterSensorViewModel model)
         {
             this.sensorService.RegisterSensor(model);
-                        
-            return this.View(model);
+
+            return RedirectToAction("AdminPage", "Admin");
         }
 
     }

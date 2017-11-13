@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Ajax.BeginForm("registersensor", "sensor", new AjaxOptions { HttpMethod = "POST", OnComplete = "redirectToHomePage" }, new { @class = "form-horizontal", role = "form" }))
+@using (Ajax.BeginForm("registersensor", "sensor", new AjaxOptions { HttpMethod = "POST"}, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>All fields are mandatory</h4>
@@ -25,9 +25,8 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10" ,id="dropdowndiv">
-            @Html.Action("OnReady")
-            @Html.Action("SensorsDropDown")
+        <div class="col-md-10" id="dropdowndiv">
+            @Html.DropDownListFor(m => m.Url, Model.UrlCollection, "Select sensor from the list", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
@@ -54,34 +53,14 @@
             @Html.CheckBoxFor(m => m.IsPublic, new { @class = "" })
         </div>
     </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
         </div>
+    </div>
 }
 
-<script type="text/javascript">
-    function redirectToHomePage() {
-        window.location = 'http://localhost:61104';
-    }
-</script>
 
-<script>
-    $("#Url").on("change",
-        function () {
-            var value = $("#Url").val();
-
-            console.log($.ajax({
-                url: 'http://telerikacademy.icb.bg/api/sensor/' + value,
-                type: 'GET',
-                headers: {
-                    'auth-token': '8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0'
-                }
-            }))
-        })
-
-</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

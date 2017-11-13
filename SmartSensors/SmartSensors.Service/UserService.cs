@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using SmartSensors.Data.Models;
+using Microsoft.AspNet.Identity;
 
 namespace SmartSensors.Service
 {
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext dbContext;
-
-        //private readonly ApplicationUserManager userManager;
+        private readonly UserManager<User> userManager;
 
         public UserService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
+            this.userManager = new UserManager<User>(new UserStore<User>(this.dbContext));
         }
 
         public List<UserViewModel> GetAllUsers()
@@ -48,12 +49,10 @@ namespace SmartSensors.Service
             var addUser = new User
             {
                 UserName = model.Username,
-                Email = model.Email,
-                //Password = model.Password
+                Email = model.Email
             };
-
-            dbContext.Users.Add(addUser);
-            dbContext.SaveChanges();    
+            var password = model.Password;
+            this.userManager.Create(addUser, password);
         }
 
 
