@@ -55,7 +55,6 @@ namespace SmartSensors.Service.ViewModels
         [Required]
         [Display(Name = "Urls")]
         public IEnumerable<SelectListItem> UrlCollection { get; set; }
-
     }
 
 }

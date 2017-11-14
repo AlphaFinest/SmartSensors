@@ -37,6 +37,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         }
 
         // GET: Admin/Admin
+        [Authorize(Roles = "Admin")]
         public ActionResult AdminPage()
         {
             var usersViewModel = this.userService.AdminPage();
@@ -44,6 +45,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             return this.View(usersViewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AllUsers()
         {
             var usersViewModel = this.userService.GetAllUsers();
@@ -51,14 +53,15 @@ namespace SmartSensors.Areas.Admin.Controllers
             return this.View(usersViewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult AllSensors()
         {
             var allSensorsViewModel = this.sensorService.GetAllSensors();
 
             return this.View(allSensorsViewModel);
         }
-
-        [Authorize]
+           
+        [Authorize(Roles = "Admin")]
         public ActionResult AddUser()
         {
             var model = new AddUserViewModel();
@@ -68,7 +71,7 @@ namespace SmartSensors.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddUser(AddUserViewModel model)
         {
             this.userService.AddUser(model);
@@ -76,6 +79,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             return RedirectToAction("AdminPage", "Admin");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(string username)
         {
             var user = await this.userManager.FindByNameAsync(username);
@@ -87,6 +91,7 @@ namespace SmartSensors.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(UserViewModel userViewModel)
         {
             if (userViewModel.IsAdmin)
@@ -101,22 +106,21 @@ namespace SmartSensors.Areas.Admin.Controllers
             return this.RedirectToAction("AllUsers");
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RegisterSensor()
         {
             var model = new RegisterSensorViewModel();
             model.UrlCollection = await this.urlProvider.GetUrlPattern();
 
             return this.View(model);
-
-        }
+          }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult RegisterSensor(RegisterSensorViewModel model)
         {
-            this.sensorService.RegisterSensor(model);
+            this.sensorService.GetRegisterSensor(model);
 
             return RedirectToAction("AdminPage", "Admin");
         }

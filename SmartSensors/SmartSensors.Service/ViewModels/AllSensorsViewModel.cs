@@ -9,7 +9,7 @@ namespace SmartSensors.Service.ViewModels
 {
     public class AllSensorsViewModel
     {
-        public User Owner { get; set; }
+        public string Owner { get; set; }
 
         public string SensorName { get; set; }
 

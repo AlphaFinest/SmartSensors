@@ -1,22 +1,55 @@
 ﻿@model IEnumerable<UserViewModel>
-
-<h2>All Users</h2>
-@foreach (var user in Model)
-{
-    <div>
-        @user.Username
-        @Ajax.ActionLink("Edit", "EditUser",
-       new { username = user.Username },
-       new AjaxOptions
-       {
-           InsertionMode = InsertionMode.Replace,
-           UpdateTargetId = "editArea"
-       })
+@{
+    ViewBag.Title = "AllUsers";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> All  </h3>
+            </div>
+            <div class="panel-body">
+                <div id="shieldui-grid1"></div>
+            </div>
+        </div>
     </div>
+</div>
+<div id="editArea">
+</div>
+@section grid
+        {
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var users = [];
+            @foreach (var user in Model)
+{
+               @:users.push({"user": "@user.Username", "Action":@Html.ActionLink("Edit", "EditUser", new { username = user.Username }, null)})
 }
 
-<div id="editArea"></div>
+            $("#shieldui-grid1").shieldGrid({
+                dataSource: {
+                    data: sensors,
+                    schema: {
+                        fields: {
+                            user: { type: String }
+                        }
+                    }
+                },
+                sorting: true,
+                filtering: {
+                    enabled: true
+                },
+                rowHover: true,
+                paging: true,
+                columns: [
+                    { field: "user", title: "User" },
+                    { field: "action", title: "Action" },
 
-@section scripts {
-    @Scripts.Render("~/bundles/jqueryajax")
+                ]
+            });
+        });
+    </script>
 }
+
