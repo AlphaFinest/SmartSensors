@@ -7,6 +7,7 @@ using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
+using SmartSensors.Tests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -56,17 +57,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
 
             var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object,  sensorServiceMock.Object);
 
-            var userMock = new Mock<IPrincipal>();
-            userMock.SetupGet(x => x.Identity.Name).Returns("FirstUser");
-
-            var contextMock = new Mock<HttpContextBase>();
-            contextMock.SetupGet(x => x.User).Returns(userMock.Object);
-
-            var controllerContextMock = new Mock<ControllerContext>();
-            controllerContextMock.SetupGet(x => x.HttpContext)
-                                 .Returns(contextMock.Object);
-
-            requestController.ControllerContext = controllerContextMock.Object;
+            requestController.UserMocking(users[0].UserName);
 
             var sensorViewModelMock = new SensorViewModel()
             {
@@ -82,8 +73,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             //Act & Assert
             requestController
                 .WithCallTo(x => x.RegisterSensor(sensorViewModelMock))
-                .ShouldRenderDefaultView()
-                .WithModel<SensorViewModel>();
+                .ShouldRedirectToRoute("home/index");
         }
     }
 }

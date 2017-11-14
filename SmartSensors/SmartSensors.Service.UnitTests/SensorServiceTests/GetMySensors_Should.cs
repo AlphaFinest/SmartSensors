@@ -21,6 +21,8 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
+            var sensorValueProviderMock = new Mock<ISensorValueProvider>();
+            var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
             string userId = "userId";
             string username = "username";
@@ -46,6 +48,8 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
 
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
+
+
 
             var sensorService = new SensorService(dbContextMock.Object, sensorValueProviderMock.Object, userSharingProviderMock.Object);
 

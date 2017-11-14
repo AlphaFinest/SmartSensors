@@ -35,11 +35,11 @@ namespace SmartSensors.Service.Providers
                         var responseObject = JsonConvert.DeserializeObject<List<UrlsDataBaseViewModel>>(responseContent);
                         foreach (var url in responseObject)
                         {
-                            if (!this.dbContext.Urls.Select(x=>x.Url).Contains(url.SensorId))
+                            if (!this.dbContext.Urls.Select(x=>x.SensorUrl).Contains(url.SensorId))
                             {
-                                this.dbContext.Urls.Add(new Urls()
+                                this.dbContext.Urls.Add(new Url()
                                 {
-                                    Url=url.SensorId,
+                                    SensorUrl=url.SensorId,
                                     Description=url.Description,
                                     SensorType=url.Tag,
                                     PollingInterval=url.MinPollingIntervalInSeconds,

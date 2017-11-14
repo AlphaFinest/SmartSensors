@@ -16,6 +16,6 @@ namespace SmartSensors.Service.Contracts
         List<PublicViewModel> GetSharedSensors(string username);
         Task RegisterNewSensor(SensorViewModel sensor, string username);
         List<AllSensorsViewModel> GetAllSensors();
-        void RegisterSensor(RegisterSensorViewModel model);
+        void GetRegisterSensor(RegisterSensorViewModel model);
     }
 }

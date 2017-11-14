@@ -5,7 +5,6 @@ using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
-using SmartSensors.Service.Providers;
 using SmartSensors.Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -89,7 +88,7 @@ namespace SmartSensors.Service
                 Description = model.Description,
                 Url = model.Url,
                 PollingInterval = model.PollingInterval,
-                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.Url == model.Url).ValueType,
+                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType,
                 IsPublic = model.IsPublic,
                 MinRange = model.MinRange,
                 MaxRange = model.MaxRange,
@@ -128,7 +127,7 @@ namespace SmartSensors.Service
                 Description = model.Description,
                 Url = model.Url,
                 PollingInterval = model.PollingInterval,
-                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.Url == model.Url).ValueType,
+                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType,
                 IsPublic = model.IsPublic,
                 MinRange = model.MinRange,
                 MaxRange = model.MaxRange,

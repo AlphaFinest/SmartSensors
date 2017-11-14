@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Data.Models
 {
-    public class Urls
+    public class Url
     {
         public int Id { get; set; }
 
-        public string Url { get; set; }
+        public string SensorUrl { get; set; }
 
         public string SensorType { get; set; }
 

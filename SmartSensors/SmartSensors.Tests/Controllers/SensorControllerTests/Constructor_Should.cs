@@ -54,17 +54,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var sensorServiceMock = new Mock<ISensorService>();
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object));
-        }
-        [TestMethod]
-        public void ThrowException_WhenSensorServiceIsNull()
-        {
-            //Arrange
-            var dbContextMock = new Mock<ApplicationDbContext>();
-            var urlProviderMock = new Mock<IUrlProvider>();
 
             //Act & Assert
             Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, null));

@@ -47,7 +47,6 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
 
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
             var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sharedSensorsCollection);
-            var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
             var sensorValueProviderMock = new Mock<ISensorValueProvider>();
             var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
