@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Ajax.BeginForm("registersensor", "admin", new AjaxOptions { HttpMethod = "POST" }, new { @class = "form-horizontal", role = "form",area="admin" }))
+@using (Html.BeginForm("registersensor", "admin", FormMethod.Post, new { @class = "form-horizontal", role = "form",area="admin" }))
 {
     @Html.AntiForgeryToken()
     <h4>All fields are mandatory</h4>
@@ -69,6 +69,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/ajax-unobtrusive")
     @Scripts.Render("~/bundles/jquery");
 }

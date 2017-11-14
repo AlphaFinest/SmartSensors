@@ -107,20 +107,20 @@ namespace SmartSensors.Service
 
         public List<AllSensorsViewModel> GetAllSensors()
         {
-            var allSensorsViewModel = this.dbContext.Sensors
-             .Select(s => new AllSensorsViewModel()
-             {
-                 Owner = s.Owner,
-                 SensorName = s.Name,
-                 Value = s.Value,
-                 ValueType = s.ValueType
-             })
-             .ToList();
+            var allSensorsViewModel = this.dbContext.Sensors.Where(s => s.IsPublic)
+              .Select(s => new AllSensorsViewModel()
+              {
+                  Owner = s.Owner.UserName,
+                  SensorName = s.Name,
+                  Value = s.Value,
+                  ValueType = s.ValueType,
+              })
+              .ToList();
 
             return allSensorsViewModel;
         }
 
-        public void RegisterSensor(RegisterSensorViewModel model)
+        public void GetRegisterSensor(RegisterSensorViewModel model)
         {
             var sensor = new Sensor
             {
@@ -139,7 +139,8 @@ namespace SmartSensors.Service
 
             dbContext.Sensors.Add(sensor);
             dbContext.SaveChanges();
-      
         }
+      
+
     }
 }
