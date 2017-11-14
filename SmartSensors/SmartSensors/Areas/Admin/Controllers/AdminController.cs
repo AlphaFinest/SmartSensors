@@ -18,7 +18,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         private readonly IUserService userService;
         private readonly ISensorService sensorService;
 
-        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService,IUrlProvider urlProvider)
+        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
         {
             Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
             this.userManager = userManager;
@@ -60,7 +60,7 @@ namespace SmartSensors.Areas.Admin.Controllers
 
             return this.View(allSensorsViewModel);
         }
-           
+
         [Authorize(Roles = "Admin")]
         public ActionResult AddUser()
         {
@@ -82,10 +82,8 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(string username)
         {
-            var user = await this.userManager.FindByNameAsync(username);
-            var userViewModel = UserViewModel.Create.Compile()(user);
-            userViewModel.IsAdmin = await this.userManager.IsInRoleAsync(user.Id, "Admin");
-
+            var userViewModel = await this.userService.ServiceEditUser(username);
+   
             return this.PartialView("_EditUser", userViewModel);
         }
 
@@ -94,14 +92,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(UserViewModel userViewModel)
         {
-            if (userViewModel.IsAdmin)
-            {
-                await this.userManager.AddToRoleAsync(userViewModel.Id, "Admin");
-            }
-            else
-            {
-                await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
-            }
+            await this.userService.ServiceEditUser(userViewModel);
 
             return this.RedirectToAction("AllUsers");
         }
@@ -113,7 +104,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             model.UrlCollection = await this.urlProvider.GetUrlPattern();
 
             return this.View(model);
-          }
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

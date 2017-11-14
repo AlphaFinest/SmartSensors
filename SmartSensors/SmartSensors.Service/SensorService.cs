@@ -130,7 +130,21 @@ namespace SmartSensors.Service
             dbContext.Sensors.Add(sensor);
             dbContext.SaveChanges();
         }
-      
+        public List<PublicViewModel> GetPublicSensor()
+        {
+            var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic)
+              .Select(s => new PublicViewModel()
+              {
+                  OwnerName = s.Owner.UserName,
+                  SensorName = s.Name,
+                  Value = s.Value,
+                  ValueType = s.ValueType,
+                  Url = s.Url
+              })
+              .ToList();
+
+            return publicViewModel;
+        }
 
     }
 }

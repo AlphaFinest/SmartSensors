@@ -57,21 +57,12 @@ namespace SmartSensors.Controllers
 
         public ActionResult PublicSensors()
         {
-            var publicViewModel = this.dbContext.Sensors.Where(s => s.IsPublic)
-              .Select(s => new PublicViewModel()
-              {
-                  OwnerName = s.Owner.UserName,
-                  SensorName = s.Name,
-                  Value = s.Value,
-                  ValueType = s.ValueType,
-                  Url = s.Url
-              })
-              .ToList();
+            var publicViewModel = this.sensorService.GetPublicSensor();
 
             return this.View(publicViewModel);
-
         }
 
+        [Authorize]
         public ActionResult MySensors()
         {
             var mySensors = sensorService.GetMySensors(this.User.Identity.Name);
@@ -79,13 +70,13 @@ namespace SmartSensors.Controllers
             return this.View(mySensors);
         }
 
+        [Authorize]
         public ActionResult SharedSensors()
         {
             var sharedSensors = sensorService.GetSharedSensors(this.User.Identity.Name);
 
             return this.View(sharedSensors);
         }
-
     }
 
     public class UrlProviderDecorator : IUrlProvider

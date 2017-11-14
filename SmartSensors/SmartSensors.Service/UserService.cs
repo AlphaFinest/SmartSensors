@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using SmartSensors.Data.Models;
 using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace SmartSensors.Service
 {
@@ -55,7 +56,28 @@ namespace SmartSensors.Service
             this.userManager.Create(addUser, password);
         }
 
+        
+        public async Task<UserViewModel> ServiceEditUser(string username)
+        {
+            var user = await this.userManager.FindByNameAsync(username);
+            var userViewModel = UserViewModel.Create.Compile()(user);
+            userViewModel.IsAdmin = await this.userManager.IsInRoleAsync(user.Id, "Admin");
 
+            return userViewModel;
+        }
+
+        public async Task ServiceEditUser(UserViewModel userViewModel)
+        {
+            if (userViewModel.IsAdmin)
+            {
+                await this.userManager.AddToRoleAsync(userViewModel.Id, "Admin");
+            }
+            else
+            {
+                await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
+            }
+
+        }
 
     }
 }

@@ -12,10 +12,19 @@ namespace SmartSensors.Service.Contracts
     public interface ISensorService
     {
         Task UpdateSensors();
+
         List<PublicViewModel> GetMySensors(string username);
+
         List<PublicViewModel> GetSharedSensors(string username);
+
         void RegisterNewSensor(SensorViewModel sensor, string username);
+
         List<AllSensorsViewModel> GetAllSensors();
+
         void GetRegisterSensor(RegisterSensorViewModel model);
+
+        List<PublicViewModel> GetPublicSensor();
+
+
     }
 }
