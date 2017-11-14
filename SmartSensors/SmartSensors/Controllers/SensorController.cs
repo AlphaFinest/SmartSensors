@@ -18,20 +18,23 @@ namespace SmartSensors.Controllers
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IUrlProvider urlProvider;
-        private readonly IValueTypeProvider valueTypeProvider;
         private readonly ISensorService sensorService;
 
-        public SensorController(ApplicationDbContext dbContext, IUrlProvider urlProvider, IValueTypeProvider valueTypeProvider, ISensorService sensorService)
+        public SensorController(ApplicationDbContext dbContext, IUrlProvider urlProvider, ISensorService sensorService)
         {
             Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             Guard.WhenArgument(urlProvider, "urlProvider").IsNull().Throw();
-            Guard.WhenArgument(valueTypeProvider, "valueTypeProvider").IsNull().Throw();
             Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
 
             this.dbContext = dbContext;
             this.urlProvider = urlProvider;
-            this.valueTypeProvider = valueTypeProvider;
             this.sensorService = sensorService;
+        }
+
+        public ActionResult ValueType()
+        {
+            var viewModel = this.dbContext.Urls.ToList();
+            return View(viewModel);
         }
 
 
@@ -48,11 +51,11 @@ namespace SmartSensors.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult RegisterSensor(SensorViewModel model)
+        public async Task<ActionResult> RegisterSensor(SensorViewModel model)
         {
-            this.sensorService.RegisterNewSensor(model, this.User.Identity.Name);
+            await this.sensorService.RegisterNewSensor(model, this.User.Identity.Name);
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult PublicSensors()

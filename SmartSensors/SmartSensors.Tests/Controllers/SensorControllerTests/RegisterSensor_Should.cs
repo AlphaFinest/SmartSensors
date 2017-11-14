@@ -30,9 +30,8 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
             //Act & Assert
             requestController
@@ -48,7 +47,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
 
 
             var users = new List<User>()
@@ -56,7 +54,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 new User() { UserName="FirstUser"}
             };
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object,  sensorServiceMock.Object);
 
             var userMock = new Mock<IPrincipal>();
             userMock.SetupGet(x => x.Identity.Name).Returns("FirstUser");
@@ -76,7 +74,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 Description = "DefaultDescription",
                 Url = "DefaultUrl",
                 PollingInterval = 50,
-                ValueType = "Default",
                 IsPublic = true,
                 MinRange = 8,
                 MaxRange = 12

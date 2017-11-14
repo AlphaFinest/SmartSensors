@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmartSensors.Data;
+using SmartSensors.Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,11 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
+            var sensorValueProviderMock = new Mock<ISensorValueProvider>();
+            var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
             //Act
-            var service = new SensorService(dbContextMock.Object);
+            var service = new SensorService(dbContextMock.Object,sensorValueProviderMock.Object,userSharingProviderMock.Object);
 
             //Assert
             Assert.IsNotNull(service);
@@ -29,7 +32,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         public void ThrowException_WhenContextIsNull()
         {
             //AAA
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorService(null));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorService(null,null,null));
         }
     }
 }

@@ -27,9 +27,7 @@ namespace SmartSensors.Service.ViewModels
         [Range(1, 20, ErrorMessage = "SoMETHING")]
         public int PollingInterval { get; set; }
 
-        [Required]
-        [Display(Name = "Value Type")]
-        public string ValueType { get; set; }
+       
 
         [Required]
         [Display(Name = "Public")]
@@ -42,7 +40,11 @@ namespace SmartSensors.Service.ViewModels
         [Required]
         [Display(Name = "Maximal Range")]
         public int MaxRange { get; set; }
-        
+
+        [Required]
+        [Display(Name = "Share With")]
+        public string SharedWith { get; set; }
+
         [Required]
         [Display(Name = "Urls")]
         public IEnumerable<SelectListItem> UrlCollection { get; set; }

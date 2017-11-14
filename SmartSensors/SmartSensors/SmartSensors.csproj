@@ -329,7 +329,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -357,7 +359,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Sensor\PublicSensors.cshtml" />
-    <Content Include="Views\Sensor\SensorsDropDown.cshtml" />
+    <Content Include="Views\Sensor\ValueType.cshtml" />
     <Content Include="Views\Sensor\MySensors.cshtml" />
     <Content Include="Views\Sensor\SharedSensors.cshtml" />
   </ItemGroup>

@@ -29,13 +29,12 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
 
-            var sensors = new List<Sensor>()
+            var sensors = new List<PublicViewModel>()
             {
-                new Sensor(){ Name = "Sensor1" },
-                new Sensor(){ Name = "Sensor2" }
-            }.AsQueryable();
+                new PublicViewModel(){ SensorName = "Sensor1" },
+                new PublicViewModel(){ SensorName = "Sensor2" }
+            };
 
             var userMock = new Mock<IPrincipal>();
             userMock.SetupGet(x => x.Identity.Name).Returns("FirstUser");
@@ -49,24 +48,23 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
 
 
 
-            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
             controller.ControllerContext = controllerContextMock.Object;
 
-            // var resultViewModel = sensors.Select(PublicViewModel.Create).ToList();
 
             //Act & Assert
             controller
                 .WithCallTo(c => c.MySensors())
                 .ShouldRenderDefaultView()
-                .WithModel<List<PublicViewModel>>();
-                //(viewModel =>
-                //{
-                //    for (int i = 0; i < viewModel.Count; i++)
-                //    {
-                //        Assert.AreEqual(viewModel[i].SensorName, resultViewModel[i].SensorName);
-                //    }
-                //});
+                .WithModel<List<PublicViewModel>>
+            (viewModel =>
+            {
+                for (int i = 0; i < viewModel.Count; i++)
+                {
+                    Assert.AreEqual(viewModel[i].SensorName, sensors[i].SensorName);
+                }
+            });
         }
     }
 }
