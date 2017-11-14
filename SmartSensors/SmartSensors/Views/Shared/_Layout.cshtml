@@ -7,7 +7,7 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/dark-admin-css")
-
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
     <link id="gridcss" rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css" />
 
@@ -34,10 +34,6 @@
                         <li><a href="@Url.Action("registersensor", "sensor", new { area = String.Empty })"><i class="fa fa-font"></i> Register Sensor</a></li>
                     }
                     <li><a href="@Url.Action("publicsensors", "sensor", new { area = String.Empty })"><i class="fa fa-server"></i> Public Sensors</a></li>
-                    @if (this.User.IsInRole("Admin"))
-                    {
-                        <li><a href="@Url.Action("adminpage", "admin", new { area = "Admin" })"><i class="fa fa-cogs" aria-hidden="true"></i> Admin</a></li>
-                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -50,6 +46,7 @@
             </footer>
         </div>
     </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/dark-admin-js")
 

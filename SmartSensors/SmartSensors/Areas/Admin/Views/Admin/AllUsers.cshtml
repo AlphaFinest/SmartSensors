@@ -2,54 +2,34 @@
 @{
     ViewBag.Title = "AllUsers";
 }
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> All  </h3>
-            </div>
-            <div class="panel-body">
-                <div id="shieldui-grid1"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="editArea">
-</div>
+<table id="myTable" class="table table-striped table-dark table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+            {
+            <tr>
+                <td>@m.Username</td>
+                <td>@m.Email</td>
+                <td>@Html.ActionLink("Edit", "EditUser", new { username = m.Username })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 @section grid
         {
-    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var users = [];
-            @foreach (var user in Model)
-{
-               @:users.push({"user": "@user.Username", "Action":@Html.ActionLink("Edit", "EditUser", new { username = user.Username }, null)})
-}
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 
-            $("#shieldui-grid1").shieldGrid({
-                dataSource: {
-                    data: sensors,
-                    schema: {
-                        fields: {
-                            user: { type: String }
-                        }
-                    }
-                },
-                sorting: true,
-                filtering: {
-                    enabled: true
-                },
-                rowHover: true,
-                paging: true,
-                columns: [
-                    { field: "user", title: "User" },
-                    { field: "action", title: "Action" },
-
-                ]
-            });
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
         });
     </script>
+
 }
 

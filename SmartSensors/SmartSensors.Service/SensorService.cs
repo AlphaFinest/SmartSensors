@@ -63,10 +63,10 @@ namespace SmartSensors.Service
             await dbContext.SaveChangesAsync();
         }
 
-        public List<PublicViewModel> GetMySensors(string username)
+        public List<FullSensorViewModel> GetMySensors(string username)
         {
             var mySensors = this.dbContext.Users.First(u => u.UserName == username).MySensors.AsQueryable();
-            var sensors = mySensors.Select(PublicViewModel.Create).ToList();
+            var sensors = mySensors.Select(FullSensorViewModel.Create).ToList();
 
             return sensors;
         }
@@ -103,19 +103,24 @@ namespace SmartSensors.Service
             this.dbContext.SaveChanges();
         }
 
-        public List<AllSensorsViewModel> GetAllSensors()
+        public List<FullSensorViewModel> GetAllSensors()
         {
-            var allSensorsViewModel = this.dbContext.Sensors.Where(s => s.IsPublic)
-              .Select(s => new AllSensorsViewModel()
+            var allSensors = this.dbContext.Sensors.Where(s => s.IsPublic)
+              .Select(s => new FullSensorViewModel()
               {
+                  Id = s.Id,
                   Owner = s.Owner.UserName,
-                  SensorName = s.Name,
+                  Name = s.Name,
+                  Description = s.Description,
+                  PollingInterval = s.PollingInterval,
+                  MinRange = s.MinRange,
+                  MaxRange = s.MaxRange,
                   Value = s.Value,
                   ValueType = s.ValueType,
               })
               .ToList();
 
-            return allSensorsViewModel;
+            return allSensors;
         }
 
         public void GetRegisterSensor(RegisterSensorViewModel model)

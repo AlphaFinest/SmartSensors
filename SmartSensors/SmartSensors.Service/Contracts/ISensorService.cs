@@ -14,11 +14,11 @@ namespace SmartSensors.Service.Contracts
     {
         Task UpdateSensors();
 
-        List<PublicViewModel> GetMySensors(string username);
+        List<FullSensorViewModel> GetMySensors(string username);
 
         List<PublicViewModel> GetSharedSensors(string username);
 
-        List<AllSensorsViewModel> GetAllSensors();
+        List<FullSensorViewModel> GetAllSensors();
 
         Task RegisterNewSensor(SensorViewModel model, string username);
 
