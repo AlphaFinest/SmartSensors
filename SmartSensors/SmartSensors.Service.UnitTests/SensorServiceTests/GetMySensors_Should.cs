@@ -21,30 +21,35 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
+            var sensorValueProviderMock = new Mock<ISensorValueProvider>();
+            var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
             string userId = "userId";
             string username = "username";
             string sensorName = "sensorName";
             string sensorDescription = "sensorDescription";
-
-            var users = new List<User>()
-            {
-                new User() { UserName = username, Id = userId }
-            };
+            
+            
 
             var sensors = new List<Sensor>()
             {
-                new Sensor() {Name = sensorName, Description = sensorDescription, Owner = users.Single()},
+                new Sensor() {Name = sensorName, Description = sensorDescription},
                 new Sensor() {Name = sensorName, Description = sensorDescription}
             };
 
+            var user = new User() { UserName = username, Id = userId, MySensors = new List<Sensor>() { sensors[0] } };
+
+            var users = new List<User>()
+            {
+                user
+            };
+
+            sensors[0].Owner = users[0];
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
-            var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
-            var sensorValueProviderMock = new Mock<ISensorValueProvider>();
-            var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
-            dbContextMock.SetupGet(x => x.Sensors).Returns(sensorsSetMock.Object);
+
+
 
             var sensorService = new SensorService(dbContextMock.Object, sensorValueProviderMock.Object, userSharingProviderMock.Object);
 

@@ -45,6 +45,6 @@ namespace SmartSensors.Data
 
         public virtual DbSet<History> History { get; set; }
 
-        public virtual DbSet<Urls>  Urls { get; set; }
+        public virtual DbSet<Url> Urls { get; set; }
     }
 }

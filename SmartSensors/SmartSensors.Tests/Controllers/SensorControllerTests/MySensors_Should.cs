@@ -40,14 +40,9 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
 
             sensorServiceMock.Setup(s => s.GetMySensors(user.UserName)).Returns(sensors);
 
-            var controllerContextMock = new Mock<ControllerContext>();
-
-
-
             var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
-            controller.ControllerContext = controllerContextMock.Object;
-
+            controller.UserMocking(user.UserName);
 
             //Act & Assert
             controller

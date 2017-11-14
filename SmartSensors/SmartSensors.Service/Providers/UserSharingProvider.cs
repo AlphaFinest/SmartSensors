@@ -26,7 +26,7 @@ namespace SmartSensors.Service.Providers
             var result = new List<User>();
             foreach (var user in allUsers)
             {
-                var curentUser=   this.dbContext.Users.First(x => x.UserName == user);
+                var curentUser = this.dbContext.Users.First(x => x.UserName == user);
                 result.Add(curentUser);
             }
             return result;

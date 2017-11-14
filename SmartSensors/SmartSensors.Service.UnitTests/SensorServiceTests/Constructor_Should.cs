@@ -1,12 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmartSensors.Data;
-using SmartSensors.Service.Contracts;
 using System;
+using SmartSensors.Service;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartSensors.Service.Contracts;
 
 namespace SmartSensors.Service.UnitTests.SensorServiceTests
 {

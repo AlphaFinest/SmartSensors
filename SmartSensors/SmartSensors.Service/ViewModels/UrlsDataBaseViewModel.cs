@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Service.ViewModels
 {
-   public  class UrlsDataBaseViewModel
+   public class UrlsDataBaseViewModel
     {
         public string SensorId { get; set; }
 
