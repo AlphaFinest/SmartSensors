@@ -104,6 +104,8 @@
     <Compile Include="Controllers\SensorControllerTests\RegisterSensor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\SensorDropdown_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\MySensors_Should.cs" />
+    <Compile Include="Controllers\SensorControllerTests\SharedSensors_Should.cs" />
+    <Compile Include="Helpers\ControllerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
