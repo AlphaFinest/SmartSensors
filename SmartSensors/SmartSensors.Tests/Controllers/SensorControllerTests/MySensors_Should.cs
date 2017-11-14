@@ -29,7 +29,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             
             var sensors = new List<PublicViewModel>()
             {
@@ -42,12 +41,10 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             sensorServiceMock.Setup(s => s.GetMySensors(user.UserName)).Returns(sensors);
 
             var controllerContextMock = new Mock<ControllerContext>();
-            controllerContextMock.SetupGet(x => x.HttpContext)
-                                 .Returns(contextMock.Object);
 
 
 
-            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
             controller.ControllerContext = controllerContextMock.Object;
 

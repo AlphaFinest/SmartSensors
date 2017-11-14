@@ -29,8 +29,8 @@ namespace SmartSensors.Controllers
             ISeeder adminSeed = new AdminSeeder(this.dbContext);
             adminSeed.Seed();
 
-            //ISeeder urlSeed = new UrlsSeeder(this.dbContext);
-            //urlSeed.Seed();
+            ISeeder urlSeed = new UrlsSeeder(this.dbContext);
+            urlSeed.Seed();
 
             return this.View();
         }

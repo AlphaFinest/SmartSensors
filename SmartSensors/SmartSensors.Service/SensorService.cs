@@ -97,8 +97,7 @@ namespace SmartSensors.Service
                 Owner = this.dbContext.Users.First(u => u.UserName == username),
                 Value = await this.valueProvider.GetValue(model.Url),
                 Users = await this.userSharingProvider.GetSubscribers(model.SharedWith)
-                
-                
+      
         };
 
             this.dbContext.Sensors.Add(sensor);
