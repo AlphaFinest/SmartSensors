@@ -3,6 +3,7 @@ using Moq;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
+using SmartSensors.Service.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -46,7 +47,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
 
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
 
-            var sensorService = new SensorService(dbContextMock.Object);
+            var sensorService = new SensorService(dbContextMock.Object, sensorValueProviderMock.Object, userSharingProviderMock.Object);
 
             //Act
             var mySensorList = sensorService.GetMySensors(username);

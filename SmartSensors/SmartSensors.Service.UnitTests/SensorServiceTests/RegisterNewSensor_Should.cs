@@ -19,7 +19,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
     public class RegisterNewSensor_Should
     {
         [TestMethod]
-        public void AddSensorToDbContextSensorTable()
+        public async Task AddSensorToDbContextSensorTable()
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
@@ -33,7 +33,6 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
                 Description = "DefaultDescription",
                 Url = "DefaultUrl",
                 PollingInterval = 0,
-                ValueType = "DefaultValueType",
                 IsPublic = true,
                 MinRange = 0,
                 MaxRange = 1
@@ -47,14 +46,17 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
 
             var sensorSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
+            var sensorValueProviderMock = new Mock<ISensorValueProvider>();
+
+            var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
             dbContextMock.SetupGet(x => x.Sensors).Returns(sensorSetMock.Object);
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
 
-            var sensorService = new SensorService(dbContextMock.Object);
+            var sensorService = new SensorService(dbContextMock.Object,sensorValueProviderMock.Object,userSharingProviderMock.Object);
 
             //Act
-            sensorService.RegisterNewSensor(sensor, username);
+             await sensorService.RegisterNewSensor(sensor, username);
 
             //Assert
             var sensorDb = dbContextMock.Object.Sensors.Single();
@@ -63,7 +65,6 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             Assert.AreEqual(sensorDb.Description, sensor.Description);
             Assert.AreEqual(sensorDb.Url, sensor.Url);
             Assert.AreEqual(sensorDb.PollingInterval, sensor.PollingInterval);
-            Assert.AreEqual(sensorDb.ValueType, sensor.ValueType);
             Assert.AreEqual(sensorDb.MinRange, sensor.MinRange);
             Assert.AreEqual(sensorDb.MaxRange, sensor.MaxRange);
             Assert.AreEqual(sensorDb.IsPublic, sensor.IsPublic);

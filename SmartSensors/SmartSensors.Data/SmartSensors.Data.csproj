@@ -78,9 +78,14 @@
     <Compile Include="Migrations\201711071636310_HistoryToSensor.Designer.cs">
       <DependentUpon>201711071636310_HistoryToSensor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711131956593_Added_Table_For_Urls.cs" />
+    <Compile Include="Migrations\201711131956593_Added_Table_For_Urls.Designer.cs">
+      <DependentUpon>201711131956593_Added_Table_For_Urls.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Sensor.cs" />
+    <Compile Include="Models\Urls.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -106,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711071636310_HistoryToSensor.resx">
       <DependentUpon>201711071636310_HistoryToSensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711131956593_Added_Table_For_Urls.resx">
+      <DependentUpon>201711131956593_Added_Table_For_Urls.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

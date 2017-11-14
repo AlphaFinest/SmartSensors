@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace SmartSensors.Service.UrlProvider
+namespace SmartSensors.Service.Providers
 {
-    public class ValueTypeProvider:IValueTypeProvider
+    public class UrlProvider:IUrlProvider
     {
-        public async Task<List<SelectListItem>> GetValueTypePattern()
+        public async Task<List<SelectListItem>> GetUrlPattern()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -27,9 +27,9 @@ namespace SmartSensors.Service.UrlProvider
                         var responseContent = await content.ReadAsStringAsync();
                         var responseObject = JsonConvert.DeserializeObject<List<JsonUrlViewModel>>(responseContent);
                         var listOfSensors = new List<SelectListItem>();
-                        foreach (var sensor in responseObject)
+                        foreach(var sensor in responseObject)
                         {
-                            listOfSensors.Add(new SelectListItem() { Text = sensor.MeasureType, Value = sensor.SensorId });
+                            listOfSensors.Add(new SelectListItem() { Text = sensor.Description+"with minimal pooling interval:"+sensor.MinPollingIntervalInSeconds.ToString(), Value = sensor.SensorId,});
                         }
                         return listOfSensors;
                     }

@@ -29,7 +29,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             
             var sensors = new List<PublicViewModel>()
             {
@@ -41,21 +40,27 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
 
             sensorServiceMock.Setup(s => s.GetMySensors(user.UserName)).Returns(sensors);
 
-            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var controllerContextMock = new Mock<ControllerContext>();
 
-            controller.UserMocking("FirstUser");
-            
+
+
+            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+
+            controller.ControllerContext = controllerContextMock.Object;
+
+
             //Act & Assert
             controller
                 .WithCallTo(c => c.MySensors())
                 .ShouldRenderDefaultView()
-                .WithModel<List<PublicViewModel>>(m =>
+                .WithModel<List<PublicViewModel>>
+            (viewModel =>
+            {
+                for (int i = 0; i < viewModel.Count; i++)
                 {
-                    for (int i = 0; i < m.Count; i++)
-                    {
-                        Assert.AreEqual(m[i].SensorName, sensors[i].SensorName);
-                    }
-                });
+                    Assert.AreEqual(viewModel[i].SensorName, sensors[i].SensorName);
+                }
+            });
         }
     }
 }

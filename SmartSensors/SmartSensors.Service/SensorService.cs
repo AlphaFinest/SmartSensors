@@ -5,6 +5,7 @@ using SmartSensors.Data;
 using SmartSensors.Data.Models;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.Contracts;
+using SmartSensors.Service.Providers;
 using SmartSensors.Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,17 @@ namespace SmartSensors.Service
     public class SensorService : ISensorService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly ISensorValueProvider valueProvider;
+        private readonly IUserSharingProvider userSharingProvider;
 
-        public SensorService(ApplicationDbContext dbContext)
+        public SensorService(ApplicationDbContext dbContext, ISensorValueProvider valueProvider, IUserSharingProvider userSharingProvider)
         {
             Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             this.dbContext = dbContext;
+            Guard.WhenArgument(valueProvider, "valueProvider").IsNull().Throw();
+            this.valueProvider = valueProvider;
+            Guard.WhenArgument(userSharingProvider, "userSharingProvider").IsNull().Throw();
+            this.userSharingProvider = userSharingProvider;
         }
 
         public async Task UpdateSensors()
@@ -74,7 +81,7 @@ namespace SmartSensors.Service
         }
 
 
-        public void RegisterNewSensor(SensorViewModel model, string username)
+        public async Task RegisterNewSensor(SensorViewModel model, string username)
         {
             Sensor sensor = new Sensor()
             {
@@ -82,14 +89,16 @@ namespace SmartSensors.Service
                 Description = model.Description,
                 Url = model.Url,
                 PollingInterval = model.PollingInterval,
-                ValueType = model.ValueType,
+                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.Url == model.Url).ValueType,
                 IsPublic = model.IsPublic,
                 MinRange = model.MinRange,
                 MaxRange = model.MaxRange,
                 LastUpdated = DateTime.Now,
                 Owner = this.dbContext.Users.First(u => u.UserName == username),
-                Value = "12"
-            };
+                Value = await this.valueProvider.GetValue(model.Url),
+                Users = await this.userSharingProvider.GetSubscribers(model.SharedWith)
+      
+        };
 
             this.dbContext.Sensors.Add(sensor);
             this.dbContext.SaveChanges();
@@ -119,12 +128,12 @@ namespace SmartSensors.Service
                 Description = model.Description,
                 Url = model.Url,
                 PollingInterval = model.PollingInterval,
-                ValueType = model.ValueType,
+                ValueType = this.dbContext.Urls.FirstOrDefault(x => x.Url == model.Url).ValueType,
                 IsPublic = model.IsPublic,
                 MinRange = model.MinRange,
                 MaxRange = model.MaxRange,
                 LastUpdated = System.DateTime.Now,
-                Value = "12"
+                Value = this.valueProvider.GetValue(model.Url).ToString()
             };
 
             dbContext.Sensors.Add(sensor);
