@@ -83,7 +83,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         public async Task<ActionResult> EditUser(string username)
         {
             var userViewModel = await this.userService.ServiceEditUser(username);
-   
+
             return this.PartialView("_EditUser", userViewModel);
         }
 
