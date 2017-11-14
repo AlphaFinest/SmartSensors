@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Ajax.BeginForm("registersensor", "sensor", new AjaxOptions { HttpMethod = "POST"}, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("registersensor", "sensor", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>All fields are mandatory</h4>
@@ -26,7 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Url, new { @class = "col-md-2 control-label" })
         <div class="col-md-10" id="dropdowndiv">
-            @Html.DropDownListFor(m => m.Url, Model.UrlCollection, "Select sensor from the list", new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Url, Model.UrlCollection, "Select sensor from the list", new{ @class = "form-control"})
         </div>
     </div>
     <div class="form-group">
@@ -54,6 +54,12 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(m => m.SharedWith, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.SharedWith, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />
         </div>
@@ -63,6 +69,7 @@
 
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ajax-unobtrusive")
     @Scripts.Render("~/bundles/jquery");

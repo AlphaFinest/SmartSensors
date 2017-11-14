@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace SmartSensors.Service.Contracts
 {
@@ -17,14 +18,14 @@ namespace SmartSensors.Service.Contracts
 
         List<PublicViewModel> GetSharedSensors(string username);
 
-        void RegisterNewSensor(SensorViewModel sensor, string username);
-
         List<AllSensorsViewModel> GetAllSensors();
+
+        Task RegisterNewSensor(SensorViewModel model, string username);
 
         void GetRegisterSensor(RegisterSensorViewModel model);
 
         List<PublicViewModel> GetPublicSensor();
 
-
+        
     }
 }

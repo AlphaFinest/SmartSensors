@@ -20,11 +20,10 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act
-            var sensorController = new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object);
+            var sensorController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
             //Assert
             Assert.IsNotNull(sensorController);
@@ -34,22 +33,20 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
         {
             //Arrange
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(null, urlProviderMock.Object, valueTypeProviderMock.Object, sensorServiceMock.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(null, urlProviderMock.Object, sensorServiceMock.Object));
         }
         [TestMethod]
         public void ThrowException_WhenUrlProviderIsNull()
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, null, valueTypeProviderMock.Object, sensorServiceMock.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, null, sensorServiceMock.Object));
         }
         [TestMethod]
         public void ThrowException_WhenValueTypeProviderIsNull()
@@ -60,7 +57,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, null, sensorServiceMock.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object));
         }
         [TestMethod]
         public void ThrowException_WhenSensorServiceIsNull()
@@ -68,10 +65,9 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
-            var valueTypeProviderMock = new Mock<IValueTypeProvider>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, valueTypeProviderMock.Object, null));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, null));
         }
     }
 }

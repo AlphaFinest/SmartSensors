@@ -5,13 +5,13 @@ using Ninject;
 using Ninject.Web.Common;
 using Microsoft.AspNet.Identity.Owin;
 using SmartSensors.Data;
-using SmartSensors.Service.Contracts;
-using SmartSensors.Service.UrlProvider;
 using SmartSensors.Service;
 using SmartSensors.Service.Seeding;
 using SmartSensors.Data.Models.Sensors;
 using SmartSensors.Service.ViewModels;
 using SmartSensors.Controllers;
+using SmartSensors.Service.Providers;
+using SmartSensors.Service.Contracts;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SmartSensors.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SmartSensors.App_Start.NinjectWebCommon), "Stop")]
@@ -91,9 +91,11 @@ namespace SmartSensors.App_Start
 
             kernel.Bind<IUrlProvider>().To<UrlProviderDecorator>();
 
-            kernel.Bind<HttpContext>().ToMethod(_ => HttpContext.Current).WhenInjectedInto<UrlProviderDecorator>();
+            kernel.Bind<ISensorValueProvider>().To<SensorValueProvider>();
 
-            kernel.Bind<IValueTypeProvider>().To<ValueTypeProvider>();
+            kernel.Bind<IUserSharingProvider>().To<UserSharingProvider>();
+
+            kernel.Bind<HttpContext>().ToMethod(_ => HttpContext.Current).WhenInjectedInto<UrlProviderDecorator>();
 
             kernel.Bind<ISensorService>().To<SensorService>();
 
