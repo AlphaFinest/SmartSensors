@@ -74,6 +74,7 @@
     <Compile Include="SensorServiceTests\GetMySensors_Should.cs" />
     <Compile Include="SensorServiceTests\GetSharedSensors_Should.cs" />
     <Compile Include="SensorServiceTests\RegisterNewSensor_Should.cs" />
+    <Compile Include="SensorServiceTests\UpdateSensors_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

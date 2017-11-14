@@ -26,20 +26,26 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             string username = "username";
             string sensorName = "sensorName";
             string sensorDescription = "sensorDescription";
-            
-            var sensors = new List<Sensor>()
+
+            var owner = new User() { UserName = "Pesho"};
+
+            var sharedSensorsCollection = new List<Sensor>()
             {
-                new Sensor() {Name = sensorName, Description = sensorDescription},
-                new Sensor() {Name = sensorName, Description = sensorDescription}
+                new Sensor() {Name = sensorName, Description = sensorDescription, Owner = owner},
+                new Sensor() {Name = sensorName, Description = sensorDescription, Owner = owner}
             };
 
             var users = new List<User>()
             {
-                new User() { UserName = username, Id = userId, SharedSensors = new List<Sensor>(){ sensors[0] } }
+                new User() { UserName = username, Id = userId, SharedSensors = sharedSensorsCollection }
             };
+            foreach (var s in sharedSensorsCollection)
+            {
+                s.Users = users;
+            }
 
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
-            var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
+            var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sharedSensorsCollection);
 
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
             dbContextMock.SetupGet(x => x.Sensors).Returns(sensorsSetMock.Object);
@@ -50,8 +56,11 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             List<PublicViewModel> sharedSensorList = sensorService.GetSharedSensors(username);
 
             //Assert
-            var sharedSensor = sharedSensorList.Single();
-            Assert.AreEqual(sharedSensor.SensorName, sensors[0].Name);
+            foreach (var sensor in sharedSensorList)
+            {
+                Assert.AreEqual(sensor.SensorName, sensorName);
+            }
+            
         }
     }
 }
