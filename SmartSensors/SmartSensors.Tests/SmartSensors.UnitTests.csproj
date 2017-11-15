@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\Constructor_Should.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\RegisterSensor_Should.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllSensors_Should.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllUsers_Should.cs" />

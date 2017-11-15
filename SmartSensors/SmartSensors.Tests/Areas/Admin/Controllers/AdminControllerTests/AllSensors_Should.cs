@@ -35,7 +35,7 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
 
             sensorServiceMock.Setup(s => s.GetAllSensors()).Returns(sensors);
 
-            var controller = new AdminController(dbContextMock.Object, userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
+            var controller = new AdminController( userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
 
             //Act & Assert
             controller

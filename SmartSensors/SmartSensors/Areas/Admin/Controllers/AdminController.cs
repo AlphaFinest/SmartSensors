@@ -12,11 +12,10 @@ namespace SmartSensors.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly IUrlProvider urlProvider;
-
         private readonly IUserService userService;
         private readonly ISensorService sensorService;
 
-        public AdminController(ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
+        public AdminController(IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
         {
             Guard.WhenArgument(userService, "userService").IsNull().Throw();
             this.userService = userService;
@@ -28,7 +27,7 @@ namespace SmartSensors.Areas.Admin.Controllers
             this.urlProvider = urlProvider;
         }
 
-        // GET: Admin/Admin
+        // GET: Admin/Admin 
         [Authorize(Roles = "Admin")]
         public ActionResult AdminPage()
         {

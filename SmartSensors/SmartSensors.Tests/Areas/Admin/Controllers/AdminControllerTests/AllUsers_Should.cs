@@ -33,7 +33,7 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
             var resultViewModel = users.Select(UserViewModel.Create).ToList();
 
             userServiceMock.Setup(x => x.GetAllUsers()).Returns(new List<UserViewModel>());
-            AdminController controller = new AdminController(dbContextMock.Object, userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
+            AdminController controller = new AdminController(userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
 
             //Act & Assert
             controller
