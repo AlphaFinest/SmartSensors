@@ -1,8 +1,10 @@
 ﻿using SmartSensors.Data.Models;
+using SmartSensors.Data.Models.Sensors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -41,18 +43,21 @@ namespace SmartSensors.Service.ViewModels
         [Display(Name = "Maximal Range")]
         public int MaxRange { get; set; }
         
+        public string Value { get; set; }
+
+        public string ValueType { get; set; }
+
         [Display(Name = "Share With")]
         public string SharedWith { get; set; }
 
         public string Owner { get; set; }
-
-        [Required]
+        
         [Display(Name = "Urls")]
         public IEnumerable<SelectListItem> UrlCollection { get; set; }
-
-        [Required]
+        
         [Display(Name = "ValueType")]
         public IEnumerable<SelectListItem> ValueTypeCollection { get; set; }
+        
 
     }
 

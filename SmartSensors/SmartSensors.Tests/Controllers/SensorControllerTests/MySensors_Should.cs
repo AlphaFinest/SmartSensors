@@ -30,10 +30,10 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             
-            var sensors = new List<PublicViewModel>()
+            var sensors = new List<FullSensorViewModel>()
             {
-                new PublicViewModel(){ SensorName = "Sensor1" },
-                new PublicViewModel(){ SensorName = "Sensor2" }
+                new FullSensorViewModel(){ Name = "Sensor1" },
+                new FullSensorViewModel(){ Name = "Sensor2" }
             };
 
             var user = new User() { UserName = "FirstUser"};
@@ -48,12 +48,12 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             controller
                 .WithCallTo(c => c.MySensors())
                 .ShouldRenderDefaultView()
-                .WithModel<List<PublicViewModel>>
+                .WithModel<List<FullSensorViewModel>>
             (viewModel =>
             {
                 for (int i = 0; i < viewModel.Count; i++)
                 {
-                    Assert.AreEqual(viewModel[i].SensorName, sensors[i].SensorName);
+                    Assert.AreEqual(viewModel[i].Name, sensors[i].Name);
                 }
             });
         }
