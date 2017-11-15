@@ -52,9 +52,9 @@ namespace SmartSensors.Service
         
         public UserViewModel ServiceEditUser(string username)
         {
-            var user =  this.userManager.FindByName(username);
+            var user = this.userManager.FindByName(username);
             var userViewModel = UserViewModel.Create.Compile()(user);
-            userViewModel.IsAdmin =  this.userManager.IsInRole(user.Id, "Admin");
+            userViewModel.IsAdmin = this.userManager.IsInRole(user.Id, "Admin");
 
             return userViewModel;
         }

@@ -87,7 +87,7 @@ namespace SmartSensors.Controllers
             var sensorViewModel = this.sensorService.GetSpecificSensor(sensor);
             sensorViewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
 
-            return this.View("editsensor", sensorViewModel);
+            return this.View("EditSensor", sensorViewModel);
         }
 
         [HttpPost]
@@ -97,7 +97,7 @@ namespace SmartSensors.Controllers
         {
             await this.sensorService.EditSensorOwner(sensor);
 
-            return this.RedirectToAction("mysensors");
+            return this.RedirectToAction("MySensors");
         }
     }
 

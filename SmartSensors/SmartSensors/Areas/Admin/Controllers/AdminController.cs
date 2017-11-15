@@ -69,7 +69,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditUser(string username)
+        public ActionResult EditUser(string username)
         {
             var userViewModel = this.userService.ServiceEditUser(username);
 
@@ -117,9 +117,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditSensor(SensorViewModel sensor)
+        public ActionResult EditSensor(SensorViewModel sensor)
         {
-            await this.sensorService.EditSensor(sensor);
+            this.sensorService.EditSensor(sensor);
 
             return this.RedirectToAction("AllSensors");
         }

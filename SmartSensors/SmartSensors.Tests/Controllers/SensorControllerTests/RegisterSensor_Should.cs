@@ -73,7 +73,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             //Act & Assert
             requestController
                 .WithCallTo(x => x.RegisterSensor(sensorViewModelMock))
-                .ShouldRedirectToRoute("");
+                .ShouldRedirectTo<HomeController>(c => c.Index());
         }
     }
 }
