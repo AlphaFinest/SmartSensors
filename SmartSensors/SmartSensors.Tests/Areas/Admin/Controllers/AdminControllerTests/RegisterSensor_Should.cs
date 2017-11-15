@@ -1,25 +1,18 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SmartSensors.Controllers;
-using SmartSensors.Data;
 using SmartSensors.Data.Models;
-using SmartSensors.Data.Models.Sensors;
-using SmartSensors.Service.Contracts;
-using SmartSensors.Service.ViewModels;
-using SmartSensors.Tests.Helpers;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+using SmartSensors.Areas.Admin.Controllers;
 using TestStack.FluentMVCTesting;
+using SmartSensors.Service.Contracts;
+using SmartSensors.Data;
+using SmartSensors.Controllers;
+using SmartSensors.Tests.Helpers;
+using SmartSensors.Service.ViewModels;
 
-namespace SmartSensors.Tests.Controllers.SensorControllerTests
+namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
 {
     [TestClass]
     public class RegisterSensor_Should
@@ -38,7 +31,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             requestController
                 .WithCallTo(x => x.RegisterSensor())
                 .ShouldRenderDefaultView();
-
         }
 
         [TestMethod]
@@ -55,12 +47,13 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 new User() { UserName="FirstUser"}
             };
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object,  sensorServiceMock.Object);
+            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
 
             requestController.UserMocking(users[0].UserName);
 
             var sensorViewModelMock = new SensorViewModel()
             {
+                Owner = "DefaultOwner",
                 Name = "DefaultName",
                 Description = "DefaultDescription",
                 Url = "DefaultUrl",
