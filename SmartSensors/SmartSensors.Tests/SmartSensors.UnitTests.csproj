@@ -100,6 +100,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllUsers_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\EditUser_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\EditSensor_Should.cs" />
     <Compile Include="Controllers\RequestControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\RegisterSensor_Should.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Controllers\SensorControllerTests\MySensors_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\SharedSensors_Should.cs" />
     <Compile Include="Controllers\RequestControllerTests\GetSensors_Should.cs" />
+    <Compile Include="Controllers\SensorControllerTests\EditSensor_Should.cs" />
     <Compile Include="Helpers\ControllerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

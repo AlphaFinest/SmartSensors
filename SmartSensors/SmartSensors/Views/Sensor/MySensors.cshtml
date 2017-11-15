@@ -19,7 +19,14 @@
             <tr>
                 <td>@m.Id</td>
                 <td>@m.Name</td>
-                <td>@m.Value</td>
+                @if (m.ValueType == "(true/false)")
+                {
+                    <td>@m.Value</td>
+                }
+                else
+                {
+                    <td>@m.Value @m.ValueType</td>
+                }
                 <td>@Html.ActionLink("Edit", "EditSensor", new { sensor = m.Id })</td>
             </tr>
         }

@@ -18,7 +18,14 @@
             <tr>
                 <td>@m.OwnerName</td>
                 <td>@m.SensorName</td>
-                <td>@m.Value</td>
+                @if (m.ValueType == "(true/false)")
+                {
+                    <td>@m.Value</td>
+                }
+                else
+                {
+                    <td>@m.Value @m.ValueType</td>
+                }
             </tr>
         }
     </tbody>

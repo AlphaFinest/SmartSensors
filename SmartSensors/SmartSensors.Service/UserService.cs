@@ -61,11 +61,11 @@ namespace SmartSensors.Service
         }
 
         
-        public async Task<UserViewModel> ServiceEditUser(string username)
+        public UserViewModel ServiceEditUser(string username)
         {
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = this.userManager.FindByName(username);
             var userViewModel = UserViewModel.Create.Compile()(user);
-            userViewModel.IsAdmin = await this.userManager.IsInRoleAsync(user.Id, "Admin");
+            userViewModel.IsAdmin = this.userManager.IsInRole(user.Id, "Admin");
 
             return userViewModel;
         }
