@@ -49,7 +49,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
             Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, null, sensorServiceMock.Object));
         }
         [TestMethod]
-        public void ThrowException_WhenValueTypeProviderIsNull()
+        public void ThrowException_WhenSensorServiceIsNull()
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();

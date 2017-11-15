@@ -22,12 +22,15 @@ namespace SmartSensors.Service.Providers
 
         public List<User> GetSubscribers(string users)
         {
-            var allUsers = users.Split(',').ToList();
             var result = new List<User>();
-            foreach (var user in allUsers)
+            if (users != null)
             {
-                var curentUser = this.dbContext.Users.First(x => x.UserName == user);
-                result.Add(curentUser);
+                var allUsers = users.Split(',').ToList();
+                foreach (var user in allUsers)
+                {
+                    var curentUser = this.dbContext.Users.First(x => x.UserName == user);
+                    result.Add(curentUser);
+                }
             }
             return result;
         }

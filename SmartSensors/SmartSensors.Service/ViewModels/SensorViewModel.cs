@@ -10,6 +10,8 @@ namespace SmartSensors.Service.ViewModels
 {
     public class SensorViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
@@ -26,9 +28,7 @@ namespace SmartSensors.Service.ViewModels
         [Display(Name = "Polling Interval")]
         [Range(1, 20, ErrorMessage = "SoMETHING")]
         public int PollingInterval { get; set; }
-
-       
-
+        
         [Required]
         [Display(Name = "Public")]
         public bool IsPublic { get; set; }
@@ -40,10 +40,11 @@ namespace SmartSensors.Service.ViewModels
         [Required]
         [Display(Name = "Maximal Range")]
         public int MaxRange { get; set; }
-
-        [Required]
+        
         [Display(Name = "Share With")]
         public string SharedWith { get; set; }
+
+        public string Owner { get; set; }
 
         [Required]
         [Display(Name = "Urls")]
