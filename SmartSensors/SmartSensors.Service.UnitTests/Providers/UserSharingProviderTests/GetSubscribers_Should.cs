@@ -41,6 +41,7 @@ namespace SmartSensors.Service.UnitTests.Providers.UserSharingProviderTests
 
             //Assert
             Assert.AreEqual(result.Count, 3);
+            Assert.AreSame(result, users);
         }
 
         [TestMethod]
@@ -65,10 +66,13 @@ namespace SmartSensors.Service.UnitTests.Providers.UserSharingProviderTests
 
             var userSharingProvider = new UserSharingProvider(dbContextMock.Object);
 
-            //Act
+            var expectedCount = 2;
+            
 
-            //Assert
+
+            //Act & Assert
             Assert.ThrowsException<InvalidOperationException>(() =>  userSharingProvider.GetSubscribers(input));
+            Assert.AreNotEqual(userSharingProvider.GetSubscribers(input).Count, expectedCount);
         }
 
 

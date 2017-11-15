@@ -215,7 +215,7 @@ namespace SmartSensors.Service
             sensor.MaxRange = model.MaxRange;
             if (GetSharedWithLikeString(sensor) != model.SharedWith)
             {
-                sensor.Users = await this.userSharingProvider.GetSubscribers(model.SharedWith);
+                sensor.Users =  this.userSharingProvider.GetSubscribers(model.SharedWith);
             }
 
             dbContext.SaveChanges();
@@ -238,7 +238,7 @@ namespace SmartSensors.Service
             sensor.MaxRange = model.MaxRange;
             if (GetSharedWithLikeString(sensor) != model.SharedWith)
             {
-                sensor.Users = await this.userSharingProvider.GetSubscribers(model.SharedWith);
+                sensor.Users =  this.userSharingProvider.GetSubscribers(model.SharedWith);
             }
 
             dbContext.SaveChanges();
