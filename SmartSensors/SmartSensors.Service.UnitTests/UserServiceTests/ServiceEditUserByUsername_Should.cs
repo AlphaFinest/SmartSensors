@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Moq;
 using SmartSensors.Data;
 using SmartSensors.Service.ViewModels;
+using System.Data.Entity;
 
 namespace SmartSensors.Service.UnitTests.UserServiceTests
 {
@@ -17,35 +18,31 @@ namespace SmartSensors.Service.UnitTests.UserServiceTests
     public class ServiceEditUserByUsername_Should
     {
         [TestMethod]
-        public async Task ReturnCorrectModel_WhenParrametersAreCorrect()
+        public void ReturnCorrectModel_WhenParrametersAreCorrect()
         {
-        //    //Arrange
-        //    var inputUsername = "DefaultUsername";
-        //    var dbContextMock = new Mock<ApplicationDbContext>();
-        //    var userManagerMock = new Mock<UserManager<User>>();
+            //Arrange
+            var inputUsername = "DefaultUsername";
+            var dbContextMock = new Mock<ApplicationDbContext>();
+            var mockUserStore = new Mock<IUserStore<User>>();
+            var userManagerMock = new Mock<UserManager<User>>(mockUserStore.Object);
+            var userDbSetMock = new Mock<DbSet<User>>();
 
-        //    userManagerMock.Setup(x => x.Users).Returns(
-        //        new List<User>()
-        //        {
-        //            new User() {UserName="DefaultUser"}
-        //}.AsQueryable());
-
-        //    userManagerMock.Setup(x => x.FindByNameAsync(inputUsername)).Returns(Task.FromResult(new User() { UserName = " DefaultUsername" }));
-
-        //    var userService = new UserService(dbContextMock.Object);
-
-        //    var expectedViewModel = new UserViewModel()
-        //    {
-        //        Username = "DefaultUsername"
-        //    };
+            userManagerMock.Setup(x => x.FindByNameAsync(inputUsername)).ReturnsAsync(new User() { UserName = "DefaultUsername", Email="example@example.com" });
 
 
-        //    //Act
-        //    var result = await userService.ServiceEditUser(inputUsername);
+            var userService = new UserService(dbContextMock.Object,userManagerMock.Object);
+
+            var expectedViewModel = new UserViewModel()
+            {
+                Username = "DefaultUsername"
+            };
 
 
-        //    //Assert
-        //    Assert.AreEqual(expectedViewModel.Username, result.Username);
+            //Act
+            var result = userService.ServiceEditUser(inputUsername);
+
+            //Assert
+            Assert.AreEqual(expectedViewModel.Username, result.Username);
 
 
 

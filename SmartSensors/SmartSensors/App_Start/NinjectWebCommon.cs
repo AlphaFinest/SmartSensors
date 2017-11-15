@@ -12,6 +12,8 @@ using SmartSensors.Service.ViewModels;
 using SmartSensors.Controllers;
 using SmartSensors.Service.Providers;
 using SmartSensors.Service.Contracts;
+using SmartSensors.Data.Models;
+using Microsoft.AspNet.Identity;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SmartSensors.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SmartSensors.App_Start.NinjectWebCommon), "Stop")]
@@ -86,6 +88,12 @@ namespace SmartSensors.App_Start
                 .GetOwinContext()
                 .GetUserManager<ApplicationDbContext>())
                 .InRequestScope();
+
+            kernel.Bind<UserManager<User>>()
+               .ToMethod(_ => HttpContext
+              .Current
+              .GetOwinContext()
+              .GetUserManager<ApplicationUserManager>());
 
             kernel.Bind<IUrlProvider>().To<UrlProvider>().WhenInjectedInto<UrlProviderDecorator>();
 

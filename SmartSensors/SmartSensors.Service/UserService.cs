@@ -19,10 +19,10 @@ namespace SmartSensors.Service
         private readonly UserManager<User> userManager;
         private readonly ApplicationDbContext dbContext;
 
-        public UserService(ApplicationDbContext dbContext)
+        public UserService(ApplicationDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
-            this.userManager = new UserManager<User>(new UserStore<User>(this.dbContext));
+            this.userManager = userManager;
         }
 
         public List<UserViewModel> GetAllUsers()
@@ -37,17 +37,6 @@ namespace SmartSensors.Service
             return usersViewModel;
         }
 
-        public List<UserViewModel> AdminPage()
-        {
-            var usersViewModel = this.dbContext.Users
-                .Select(u => new UserViewModel()
-                {
-                    Username = u.UserName
-                })
-                .ToList();
-
-            return usersViewModel;
-        }
 
         public void AddUser(AddUserViewModel model)
         {
@@ -61,11 +50,11 @@ namespace SmartSensors.Service
         }
 
         
-        public async Task<UserViewModel> ServiceEditUser(string username)
+        public UserViewModel ServiceEditUser(string username)
         {
             var user =  this.userManager.FindByName(username);
             var userViewModel = UserViewModel.Create.Compile()(user);
-            userViewModel.IsAdmin = await this.userManager.IsInRoleAsync(user.Id, "Admin");
+            userViewModel.IsAdmin =  this.userManager.IsInRole(user.Id, "Admin");
 
             return userViewModel;
         }

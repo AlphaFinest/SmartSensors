@@ -71,7 +71,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(string username)
         {
-            var userViewModel = await this.userService.ServiceEditUser(username);
+            var userViewModel = this.userService.ServiceEditUser(username);
 
             return this.View("EditUser", userViewModel);
         }
