@@ -26,8 +26,7 @@ namespace SmartSensors.Controllers
             Guard.WhenArgument(service, "service").IsNull().Throw();
             this.service = service;
         }
-
-        [HttpGet]
+        
         public async Task GetSensors()
         {
             await service.UpdateSensors();

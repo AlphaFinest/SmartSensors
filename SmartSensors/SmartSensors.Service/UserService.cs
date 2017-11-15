@@ -16,8 +16,8 @@ namespace SmartSensors.Service
 {
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly UserManager<User> userManager;
+        private readonly ApplicationDbContext dbContext;
 
         public UserService(ApplicationDbContext dbContext)
         {
@@ -63,7 +63,7 @@ namespace SmartSensors.Service
         
         public async Task<UserViewModel> ServiceEditUser(string username)
         {
-            var user = await this.userManager.FindByNameAsync(username);
+            var user =  this.userManager.FindByName(username);
             var userViewModel = UserViewModel.Create.Compile()(user);
             userViewModel.IsAdmin = await this.userManager.IsInRoleAsync(user.Id, "Admin");
 

@@ -31,5 +31,7 @@ namespace SmartSensors.Service.Contracts
         Task EditSensor(SensorViewModel sensor);
 
         Task EditSensorOwner(SensorViewModel sensor);
+
+        string GetSharedWithLikeString(Sensor sensor);
     }
 }
