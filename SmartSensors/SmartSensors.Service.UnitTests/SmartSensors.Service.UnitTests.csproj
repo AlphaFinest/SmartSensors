@@ -86,6 +86,7 @@
     <Compile Include="SensorServiceTests\EditSensor_Should.cs" />
     <Compile Include="SensorServiceTests\GetMySensors_Should.cs" />
     <Compile Include="SensorServiceTests\GetPublicSensor_Should.cs" />
+    <Compile Include="SensorServiceTests\GetRegisterSensor_Should.cs" />
     <Compile Include="SensorServiceTests\GetSharedSensors_Should.cs" />
     <Compile Include="SensorServiceTests\GetSpecificSensor_Should.cs" />
     <Compile Include="SensorServiceTests\RegisterNewSensor_Should.cs" />
