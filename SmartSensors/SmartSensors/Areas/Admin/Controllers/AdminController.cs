@@ -100,7 +100,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RegisterSensor()
         {
-            var model = new RegisterSensorViewModel();
+            var model = new SensorViewModel();
             model.UrlCollection = await this.urlProvider.GetUrlPattern();
 
             return this.View(model);
@@ -109,7 +109,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult RegisterSensor(RegisterSensorViewModel model)
+        public ActionResult RegisterSensor(SensorViewModel model)
         {
             this.sensorService.GetRegisterSensor(model);
 

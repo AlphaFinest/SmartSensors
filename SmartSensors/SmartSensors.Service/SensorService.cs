@@ -105,25 +105,13 @@ namespace SmartSensors.Service
 
         public List<FullSensorViewModel> GetAllSensors()
         {
-            var allSensors = this.dbContext.Sensors.Where(s => s.IsPublic)
-              .Select(s => new FullSensorViewModel()
-              {
-                  Id = s.Id,
-                  Owner = s.Owner.UserName,
-                  Name = s.Name,
-                  Description = s.Description,
-                  PollingInterval = s.PollingInterval,
-                  MinRange = s.MinRange,
-                  MaxRange = s.MaxRange,
-                  Value = s.Value,
-                  ValueType = s.ValueType,
-              })
-              .ToList();
+            var allSensors = this.dbContext.Sensors
+              .Select(FullSensorViewModel.Create).ToList();
 
             return allSensors;
         }
 
-        public void GetRegisterSensor(RegisterSensorViewModel model)
+        public void GetRegisterSensor(SensorViewModel model)
         {
             var sensor = new Sensor
             {
@@ -215,7 +203,7 @@ namespace SmartSensors.Service
             sensor.MaxRange = model.MaxRange;
             if (GetSharedWithLikeString(sensor) != model.SharedWith)
             {
-                sensor.Users =  this.userSharingProvider.GetSubscribers(model.SharedWith);
+                sensor.Users = this.userSharingProvider.GetSubscribers(model.SharedWith);
             }
 
             dbContext.SaveChanges();
@@ -238,7 +226,7 @@ namespace SmartSensors.Service
             sensor.MaxRange = model.MaxRange;
             if (GetSharedWithLikeString(sensor) != model.SharedWith)
             {
-                sensor.Users =  this.userSharingProvider.GetSubscribers(model.SharedWith);
+                sensor.Users = this.userSharingProvider.GetSubscribers(model.SharedWith);
             }
 
             dbContext.SaveChanges();
