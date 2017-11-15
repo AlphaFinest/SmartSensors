@@ -13,6 +13,7 @@ using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
 using SmartSensors.Data.Models;
 
+
 namespace SmartSensors.Service.UnitTests.SensorServiceTests
 {
     [TestClass]
@@ -32,35 +33,48 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
                 Name = "DefaultName",
                 Description = "DefaultDescription",
                 Url = "DefaultUrl",
-                PollingInterval = 0,
+                PollingInterval = 12,
                 IsPublic = true,
-                MinRange = 0,
-                MaxRange = 1
+                MinRange = 3,
+                MaxRange = 5,       
+                SharedWith="DefaultUser"
             };
 
             var users = new List<User>()
             {
                 new User() { UserName = username, Id = userId }
             };
+
+            var urls = new List<Url>()
+            {
+                new Url() {ValueType="Default", SensorUrl="DefaultUrl"}
+            };
             var sensors = new List<Sensor>();
 
             var sensorSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
             var usersSetMock = new Mock<DbSet<User>>().SetupData(users);
+            var urlsSetMock = new Mock<DbSet<Url>>().SetupData(urls);
             var sensorValueProviderMock = new Mock<ISensorValueProvider>();
 
-            var userSharingProviderMock = new Mock<IUserSharingProvider>();
+            var userSharingProviderMock = new Mock<IUserSharingProvider>(); 
 
             dbContextMock.SetupGet(x => x.Sensors).Returns(sensorSetMock.Object);
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
+            dbContextMock.SetupGet(x => x.Urls).Returns(urlsSetMock.Object);
+
+            sensorValueProviderMock.Setup(x => x.GetValue(sensor.Url)).ReturnsAsync("");
+            userSharingProviderMock.Setup(x => x.GetSubscribers(sensor.SharedWith)).Returns(users);
+
+
 
             var sensorService = new SensorService(dbContextMock.Object,sensorValueProviderMock.Object,userSharingProviderMock.Object);
 
             //Act
-             await sensorService.RegisterNewSensor(sensor, username);
+             await  sensorService.RegisterNewSensor(sensor, username);
 
             //Assert
             var sensorDb = dbContextMock.Object.Sensors.Single();
-            
+              
             Assert.AreEqual(sensorDb.Name, sensor.Name);
             Assert.AreEqual(sensorDb.Description, sensor.Description);
             Assert.AreEqual(sensorDb.Url, sensor.Url);

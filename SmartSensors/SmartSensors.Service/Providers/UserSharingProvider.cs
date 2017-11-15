@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Service.Providers
 {
-    public class UserSharingProvider:IUserSharingProvider
+    public class UserSharingProvider : IUserSharingProvider
     {
         private readonly ApplicationDbContext dbContext;
 
@@ -20,14 +20,17 @@ namespace SmartSensors.Service.Providers
             this.dbContext = dbContext;
         }
 
-        public async Task<List<User>> GetSubscribers(string users)
+        public List<User> GetSubscribers(string users)
         {
-            var allUsers = users.Split(',').ToList();
             var result = new List<User>();
-            foreach (var user in allUsers)
+            if (users != null)
             {
-                var curentUser = this.dbContext.Users.First(x => x.UserName == user);
-                result.Add(curentUser);
+                var allUsers = users.Split(',').ToList();
+                foreach (var user in allUsers)
+                {
+                    var curentUser = this.dbContext.Users.First(x => x.UserName == user);
+                    result.Add(curentUser);
+                }
             }
             return result;
         }

@@ -38,7 +38,8 @@ namespace SmartSensors
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/jquery.dataTables.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajax-unobtrusive").Include(
                       "~/Scripts/jquery.unobtrusive-ajax.js",

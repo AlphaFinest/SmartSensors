@@ -80,6 +80,25 @@ namespace SmartSensors.Controllers
 
             return this.View(sharedSensors);
         }
+
+        [Authorize]
+        public async Task<ActionResult> EditSensor(int sensor)
+        {
+            var sensorViewModel = this.sensorService.GetSpecificSensor(sensor);
+            sensorViewModel.UrlCollection = await this.urlProvider.GetUrlPattern();
+
+            return this.View("editsensor", sensorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> EditSensor(SensorViewModel sensor)
+        {
+            await this.sensorService.EditSensorOwner(sensor);
+
+            return this.RedirectToAction("mysensors");
+        }
     }
 
     public class UrlProviderDecorator : IUrlProvider
@@ -105,5 +124,7 @@ namespace SmartSensors.Controllers
 
             return result;
         }
+
+        
     }
 }

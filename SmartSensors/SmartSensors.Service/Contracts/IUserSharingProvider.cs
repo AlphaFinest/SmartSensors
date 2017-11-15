@@ -9,6 +9,6 @@ namespace SmartSensors.Service.Contracts
 {
     public interface IUserSharingProvider
     {
-       Task<List<User>> GetSubscribers(string users);
+       List<User> GetSubscribers(string users);
     }
 }
