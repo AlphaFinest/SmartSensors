@@ -11,8 +11,6 @@ namespace SmartSensors.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly ApplicationUserManager userManager;
-        private readonly ApplicationDbContext dbContext;
         private readonly IUrlProvider urlProvider;
 
         private readonly IUserService userService;
@@ -20,12 +18,6 @@ namespace SmartSensors.Areas.Admin.Controllers
 
         public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
         {
-            Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
-            this.userManager = userManager;
-
-            Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
-            this.dbContext = dbContext;
-
             Guard.WhenArgument(userService, "userService").IsNull().Throw();
             this.userService = userService;
 
