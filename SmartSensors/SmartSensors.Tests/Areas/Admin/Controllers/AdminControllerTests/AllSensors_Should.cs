@@ -31,7 +31,7 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
                 new FullSensorViewModel(){ Name = "Sensor2" }
             };
 
-            var user = new User() { UserName = "FirstUser" };
+            //var user = new User() { UserName = "FirstUser" };
 
             sensorServiceMock.Setup(s => s.GetAllSensors()).Returns(sensors);
 

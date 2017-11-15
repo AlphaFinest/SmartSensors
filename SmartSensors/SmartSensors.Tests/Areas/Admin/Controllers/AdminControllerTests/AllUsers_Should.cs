@@ -21,7 +21,6 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
             //Arange
             var sensorServiceMock = new Mock<ISensorService>();
             var userServiceMock = new Mock<IUserService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
             var users = new List<User>()

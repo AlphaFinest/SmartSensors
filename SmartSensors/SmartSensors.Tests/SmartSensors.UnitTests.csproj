@@ -107,6 +107,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\RegisterSensor_Should.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllSensors_Should.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AllUsers_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\AddUser_Should.cs" />
     <Compile Include="Controllers\RequestControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\SensorControllerTests\RegisterSensor_Should.cs" />

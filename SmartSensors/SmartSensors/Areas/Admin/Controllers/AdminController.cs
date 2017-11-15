@@ -31,9 +31,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AdminPage()
         {
-            var usersViewModel = this.userService.AdminPage();
-
-            return this.View(usersViewModel);
+            return this.View();
         }
 
         [Authorize(Roles = "Admin")]
