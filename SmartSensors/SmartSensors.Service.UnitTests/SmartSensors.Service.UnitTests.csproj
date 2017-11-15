@@ -53,7 +53,12 @@
     <Reference Include="EntityFramework.Testing.Moq, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFrameworkTesting.Moq.1.2.1\lib\net45\EntityFramework.Testing.Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.1.18\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -73,13 +78,19 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockHelpers\SensorServiceMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\UserSharingProviderTests\GetSubscribers_Should.cs" />
     <Compile Include="SensorServiceTests\Constructor_Should.cs" />
+    <Compile Include="SensorServiceTests\EditSensorOwner_Should.cs" />
+    <Compile Include="SensorServiceTests\EditSensor_Should.cs" />
     <Compile Include="SensorServiceTests\GetMySensors_Should.cs" />
+    <Compile Include="SensorServiceTests\GetPublicSensor_Should.cs" />
     <Compile Include="SensorServiceTests\GetSharedSensors_Should.cs" />
+    <Compile Include="SensorServiceTests\GetSpecificSensor_Should.cs" />
     <Compile Include="SensorServiceTests\RegisterNewSensor_Should.cs" />
     <Compile Include="SensorServiceTests\UpdateSensors_Should.cs" />
+    <Compile Include="UserServiceTests\ServiceEditUserByUsername_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Web.Mvc;
 
 namespace SmartSensors.Service.Contracts
@@ -31,5 +32,7 @@ namespace SmartSensors.Service.Contracts
         Task EditSensor(SensorViewModel sensor);
 
         Task EditSensorOwner(SensorViewModel sensor);
+
+        string GetSharedWithLikeString(Sensor sensor);
     }
 }

@@ -31,37 +31,89 @@ namespace SmartSensors.Service
             this.userSharingProvider = userSharingProvider;
         }
 
+        //public async Task UpdateSensors()
+        //{
+        //    var sensorsToUpdate = this.dbContext.Sensors.SqlQuery("SELECT * FROM Sensors s WHERE GETDATE() > DATEADD(ss, s.PollingInterval, S.LastUpdated)").ToList();
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
+        //        client.BaseAddress = new Uri("http://telerikacademy.icb.bg/api/sensor");
+        //        foreach (var sensor in sensorsToUpdate)
+        //        {
+        //            using (HttpResponseMessage response = await client.GetAsync(client.BaseAddress + "/" + sensor.Url))
+        //            {
+        //                using (HttpContent content = response.Content)
+        //                {
+        //                    var responseContent = await content.ReadAsStringAsync();
+        //                    var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
+
+        //                    this.dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.ToString();
+        //                    this.dbContext.Sensors.FindAsync(sensor.Id).Result.LastUpdated = DateTime.Now;
+        //                    var historyToAdd = new History
+        //                    {
+        //                        Sensor = sensor,
+        //                        UpdateDate = DateTime.Now,
+        //                        Value = responseObject.Value.ToString()
+        //                    };
+        //                    this.dbContext.History.Add(historyToAdd);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    await dbContext.SaveChangesAsync();
+        //}
+
         public async Task UpdateSensors()
         {
-            var sensorsToUpdate = this.dbContext.Sensors.SqlQuery("SELECT * FROM Sensors s WHERE GETDATE() > DATEADD(ss, s.PollingInterval, S.LastUpdated)").ToList();
+            var sensorsToUpdate = this.GetSensors("SELECT * FROM Sensors s WHERE GETDATE() > DATEADD(ss, s.PollingInterval, S.LastUpdated)");
+            
+            foreach (var sensor in sensorsToUpdate)
+            {
+                JsonSensorViewModel viewModel = await this.GetSensorViewModelFromService(sensor.Url);
+
+                sensor.Value = viewModel.Value;
+                sensor.LastUpdated = this.GetDateTime();
+                var historyToAdd = new History
+                {
+                    Sensor = sensor,
+                    UpdateDate = this.GetDateTime(),
+                    Value = viewModel.Value
+                };
+                this.dbContext.History.Add(historyToAdd);
+            }
+             dbContext.SaveChanges();
+        }
+
+        protected virtual IEnumerable<Sensor> GetSensors(string sqlQuery)
+        {
+            return this.dbContext.Sensors.SqlQuery(sqlQuery).ToList();
+        }
+
+        protected virtual DateTime GetDateTime()
+        {
+            return DateTime.Now;
+        }
+
+        protected async virtual Task<JsonSensorViewModel> GetSensorViewModelFromService(string sensorUrl)
+        {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
                 client.BaseAddress = new Uri("http://telerikacademy.icb.bg/api/sensor");
-                foreach (var sensor in sensorsToUpdate)
-                {
-                    using (HttpResponseMessage response = await client.GetAsync(client.BaseAddress + "/" + sensor.Url))
-                    {
-                        using (HttpContent content = response.Content)
-                        {
-                            var responseContent = await content.ReadAsStringAsync();
-                            var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
 
-                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.Value = responseObject.ToString();
-                            this.dbContext.Sensors.FindAsync(sensor.Id).Result.LastUpdated = DateTime.Now;
-                            var historyToAdd = new History
-                            {
-                                Sensor = sensor,
-                                UpdateDate = DateTime.Now,
-                                Value = responseObject.Value.ToString()
-                            };
-                            this.dbContext.History.Add(historyToAdd);
-                        }
+                using (HttpResponseMessage response = await client.GetAsync(client.BaseAddress + "/" + sensorUrl))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        var responseContent = await content.ReadAsStringAsync();
+                        return JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
                     }
                 }
             }
-            await dbContext.SaveChangesAsync();
         }
+
+
+
 
         public List<FullSensorViewModel> GetMySensors(string username)
         {
@@ -90,14 +142,14 @@ namespace SmartSensors.Service
                 PollingInterval = model.PollingInterval,
                 ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType,
                 IsPublic = model.IsPublic,
-                MinRange = model.MinRange,  
+                MinRange = model.MinRange,
                 MaxRange = model.MaxRange,
                 LastUpdated = DateTime.Now,
                 Owner = this.dbContext.Users.First(u => u.UserName == username),
                 Value = await this.valueProvider.GetValue(model.Url),
-                Users =  this.userSharingProvider.GetSubscribers(model.SharedWith)
-      
-        };
+                Users = this.userSharingProvider.GetSubscribers(model.SharedWith)
+
+            };
 
             this.dbContext.Sensors.Add(sensor);
             this.dbContext.SaveChanges();
@@ -151,7 +203,8 @@ namespace SmartSensors.Service
         {
             var model = this.dbContext.Sensors.Find(id);
 
-            var viewModel = new SensorViewModel() {
+            var viewModel = new SensorViewModel()
+            {
                 Id = model.Id,
                 Owner = model.Owner.UserName,
                 Name = model.Name,
@@ -164,13 +217,10 @@ namespace SmartSensors.Service
                 SharedWith = GetSharedWithLikeString(model)
 
             };
-
-            
-
             return viewModel;
         }
 
-        private string GetSharedWithLikeString(Sensor sensor)
+        public string GetSharedWithLikeString(Sensor sensor)
         {
             var strings = new List<string>();
             foreach (var sen in sensor.Users)
@@ -191,7 +241,7 @@ namespace SmartSensors.Service
             }
             sensor.Name = model.Name;
             sensor.Description = model.Description;
-            if(model.Url != sensor.Url)
+            if (model.Url != sensor.Url)
             {
                 sensor.Url = model.Url;
                 sensor.ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType;

@@ -11,8 +11,7 @@ namespace SmartSensors.Service.Contracts
     {
         List<UserViewModel> GetAllUsers();
 
-        List<UserViewModel> AdminPage();
-        
+
         void AddUser(AddUserViewModel model);
 
         UserViewModel ServiceEditUser(string username);

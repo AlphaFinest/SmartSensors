@@ -16,13 +16,13 @@ namespace SmartSensors.Service
 {
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly UserManager<User> userManager;
+        private readonly ApplicationDbContext dbContext;
 
-        public UserService(ApplicationDbContext dbContext)
+        public UserService(ApplicationDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
-            this.userManager = new UserManager<User>(new UserStore<User>(this.dbContext));
+            this.userManager = userManager;
         }
 
         public List<UserViewModel> GetAllUsers()
@@ -37,17 +37,6 @@ namespace SmartSensors.Service
             return usersViewModel;
         }
 
-        public List<UserViewModel> AdminPage()
-        {
-            var usersViewModel = this.dbContext.Users
-                .Select(u => new UserViewModel()
-                {
-                    Username = u.UserName
-                })
-                .ToList();
-
-            return usersViewModel;
-        }
 
         public void AddUser(AddUserViewModel model)
         {
