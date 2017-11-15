@@ -16,7 +16,7 @@ namespace SmartSensors.Areas.Admin.Controllers
         private readonly IUserService userService;
         private readonly ISensorService sensorService;
 
-        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
+        public AdminController(ApplicationDbContext dbContext, IUserService userService, ISensorService sensorService, IUrlProvider urlProvider)
         {
             Guard.WhenArgument(userService, "userService").IsNull().Throw();
             this.userService = userService;
@@ -48,9 +48,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AllSensors()
         {
-            var allSensorsViewModel = this.sensorService.GetAllSensors();
+            var fullSensorsViewModel = this.sensorService.GetAllSensors();
 
-            return this.View(allSensorsViewModel);
+            return this.View(fullSensorsViewModel);
         }
 
         [Authorize(Roles = "Admin")]

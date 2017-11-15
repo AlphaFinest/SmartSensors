@@ -1,47 +1,51 @@
-﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using Moq;
-//using SmartSensors.Data.Models;
-//using System.Collections.Generic;
-//using Microsoft.AspNet.Identity;
-//using System.Linq;
-//using SmartSensors.Areas.Admin.Controllers;
-//using SmartSensors.Areas.Admin.Models;
-//using TestStack.FluentMVCTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using SmartSensors.Data.Models;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using System.Linq;
+using SmartSensors.Areas.Admin.Controllers;
+using TestStack.FluentMVCTesting;
+using SmartSensors.Service.ViewModels;
+using SmartSensors.Service.Contracts;
+using SmartSensors.Data;
 
-//namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
-//{
-//    [TestClass]
-//    public class AllUsers_Should
-//    {
-//        [TestMethod]
-//        public void ReturnDefaultViewWithCorrectViewModel()
-//        {
-//            //Arange
-//            var storeMock = new Mock<IUserStore<User>>();
-//            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-//            var users = new List<User>()
-//            {
-//                new User(){ UserName = "firstUser"},
-//                new User(){ UserName = "secondUser"},
-//            }.AsQueryable();
+namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
+{
+    [TestClass]
+    public class AllUsers_Should
+    {
+        [TestMethod]
+        public void ReturnDefaultViewWithCorrectViewModel()
+        {
+            //Arange
+            var sensorServiceMock = new Mock<ISensorService>();
+            var userServiceMock = new Mock<IUserService>();
+            var dbContextMock = new Mock<ApplicationDbContext>();
+            var urlProviderMock = new Mock<IUrlProvider>();
 
-//            userManagerMock.Setup(m => m.Users).Returns(users);
+            var users = new List<User>()
+            {
+                new User(){ UserName = "firstUser"},
+                new User(){ UserName = "secondUser"},
+            }.AsQueryable();
 
-//            var resultViewModel = users.Select(UserViewModel.Create).ToList();
+            var resultViewModel = users.Select(UserViewModel.Create).ToList();
 
-//            AdminController controller = new AdminController(userManagerMock.Object);
+            userServiceMock.Setup(x => x.GetAllUsers()).Returns(new List<UserViewModel>());
+            AdminController controller = new AdminController(dbContextMock.Object, userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
 
-//            //Act & Assert
-//            controller
-//                .WithCallTo(c => c.AllUsers())
-//                .ShouldRenderDefaultView()
-//                .WithModel<List<UserViewModel>>(viewModel =>
-//                {
-//                    for (int i = 0; i < viewModel.Count; i++)
-//                    {
-//                        Assert.AreEqual(resultViewModel[i].Username, viewModel[i].Username);
-//                    }
-//                });
-//        }
-//    }
-//}
+            //Act & Assert
+            controller
+                .WithCallTo(c => c.AllUsers())
+                .ShouldRenderDefaultView()
+                .WithModel<List<UserViewModel>>(viewModel =>
+                {
+                    for (int i = 0; i < viewModel.Count; i++)
+                    {
+                        Assert.AreEqual(resultViewModel[i].Username, viewModel[i].Username);
+                    }
+                });
+        }
+    }
+}

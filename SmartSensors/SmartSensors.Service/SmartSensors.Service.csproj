@@ -121,8 +121,10 @@
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModels\AddUserViewModel.cs" />
     <Compile Include="ViewModels\FullSensorViewModel.cs" />
+    <!--<Compile Include="ViewModels\FullSensorViewModel.cs" />-->
     <Compile Include="ViewModels\JsonSensorViewModel.cs" />
     <Compile Include="ViewModels\UrlsDataBaseViewModel.cs" />
+    <!--<Compile Include="ViewModels\UrlsDataBaseViewModel.cs" />-->
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\JsonUrlViewModel.cs" />
     <Compile Include="ViewModels\PublicViewModel.cs" />
