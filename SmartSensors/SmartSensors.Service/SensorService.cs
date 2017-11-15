@@ -90,12 +90,12 @@ namespace SmartSensors.Service
                 PollingInterval = model.PollingInterval,
                 ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType,
                 IsPublic = model.IsPublic,
-                MinRange = model.MinRange,
+                MinRange = model.MinRange,  
                 MaxRange = model.MaxRange,
                 LastUpdated = DateTime.Now,
                 Owner = this.dbContext.Users.First(u => u.UserName == username),
                 Value = await this.valueProvider.GetValue(model.Url),
-                Users = await this.userSharingProvider.GetSubscribers(model.SharedWith)
+                Users =  this.userSharingProvider.GetSubscribers(model.SharedWith)
       
         };
 
