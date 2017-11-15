@@ -20,14 +20,11 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
         public void ReturnDefaultViewWithTheRightViewModel_WhenTheIdIsValid()
         {
             //Arrange
-            var storeMock = new Mock<IUserStore<User>>();
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var userServiceMock = new Mock<IUserService>();
             var sensorServiceMock = new Mock<ISensorService>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
-            var controller = new AdminController(userManagerMock.Object, dbContextMock.Object, userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
+            var controller = new AdminController(userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -56,9 +53,6 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
         public void RedirectToMySensors_WhenTheViewModelIsCorrect()
         {
             //Arrange
-            var storeMock = new Mock<IUserStore<User>>();
-            var userManagerMock = new Mock<ApplicationUserManager>(storeMock.Object);
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var userServiceMock = new Mock<IUserService>();
             var sensorServiceMock = new Mock<ISensorService>();
             var urlProviderMock = new Mock<IUrlProvider>();
@@ -68,7 +62,7 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
                 new User() { UserName="FirstUser"}
             };
             
-            var controller = new AdminController(userManagerMock.Object, dbContextMock.Object, userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
+            var controller = new AdminController(userServiceMock.Object, sensorServiceMock.Object, urlProviderMock.Object);
 
             controller.UserMocking(users[0].UserName);
 
