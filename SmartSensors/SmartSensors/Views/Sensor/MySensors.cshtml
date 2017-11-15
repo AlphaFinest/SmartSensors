@@ -3,7 +3,7 @@
     ViewBag.Title = "MySensors";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h3>My Sensors</h3>
+<h2>My Sensors</h2>
 <table id="myTable" class="table table-striped table-dark table-bordered table-hover">
     <thead>
         <tr>
@@ -20,7 +20,7 @@
                 <td>@m.Id</td>
                 <td>@m.Name</td>
                 <td>@m.Value</td>
-                <td>@Html.ActionLink("Edit", "EditSensor", new { username = m.Owner })</td>
+                <td>@Html.ActionLink("Edit", "EditSensor", new { sensor = m.Id })</td>
             </tr>
         }
     </tbody>

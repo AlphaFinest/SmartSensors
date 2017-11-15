@@ -10,6 +10,8 @@ namespace SmartSensors.Service.ViewModels
 {
     public class SensorViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
@@ -41,6 +43,8 @@ namespace SmartSensors.Service.ViewModels
         
         [Display(Name = "Share With")]
         public string SharedWith { get; set; }
+
+        public string Owner { get; set; }
 
         [Required]
         [Display(Name = "Urls")]

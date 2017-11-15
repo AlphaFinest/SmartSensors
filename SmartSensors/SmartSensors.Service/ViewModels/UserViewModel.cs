@@ -13,7 +13,7 @@ namespace SmartSensors.Service.ViewModels
         public string Email { get; set; }
 
         public bool IsAdmin { get; set; }
-
+        
         public static Expression<Func<User, UserViewModel>> Create
         {
             get

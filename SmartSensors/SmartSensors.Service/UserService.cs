@@ -30,6 +30,10 @@ namespace SmartSensors.Service
             var usersViewModel = this.dbContext
                .Users
                .Select(UserViewModel.Create).ToList();
+            foreach (var item in usersViewModel)
+            {
+                item.IsAdmin = this.userManager.IsInRole(item.Id, "Admin");
+            }
             return usersViewModel;
         }
 
@@ -68,6 +72,17 @@ namespace SmartSensors.Service
 
         public async Task ServiceEditUser(UserViewModel userViewModel)
         {
+            var currentUser = this.userManager.Users.First(k => k.Id == userViewModel.Id);
+
+            if (currentUser.UserName != userViewModel.Username) {
+                currentUser.UserName = userViewModel.Username;
+            }
+
+            if (currentUser.Email != userViewModel.Email)
+            {
+                currentUser.Email = userViewModel.Email;
+            }
+
             if (userViewModel.IsAdmin)
             {
                 await this.userManager.AddToRoleAsync(userViewModel.Id, "Admin");
@@ -76,6 +91,9 @@ namespace SmartSensors.Service
             {
                 await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
             }
+
+            userManager.Update(currentUser);
+
 
         }
 

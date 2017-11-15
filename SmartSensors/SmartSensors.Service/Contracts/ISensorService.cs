@@ -26,6 +26,10 @@ namespace SmartSensors.Service.Contracts
 
         List<PublicViewModel> GetPublicSensor();
 
-        
+        SensorViewModel GetSpecificSensor(int id);
+
+        Task EditSensor(SensorViewModel sensor);
+
+        Task EditSensorOwner(SensorViewModel sensor);
     }
 }

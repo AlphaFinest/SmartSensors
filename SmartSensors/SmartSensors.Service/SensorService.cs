@@ -159,5 +159,89 @@ namespace SmartSensors.Service
             return publicViewModel;
         }
 
+        public SensorViewModel GetSpecificSensor(int id)
+        {
+            var model = this.dbContext.Sensors.Find(id);
+
+            var viewModel = new SensorViewModel() {
+                Id = model.Id,
+                Owner = model.Owner.UserName,
+                Name = model.Name,
+                Description = model.Description,
+                Url = model.Url,
+                PollingInterval = model.PollingInterval,
+                IsPublic = model.IsPublic,
+                MinRange = model.MinRange,
+                MaxRange = model.MaxRange,
+                SharedWith = GetSharedWithLikeString(model)
+
+            };
+
+            
+
+            return viewModel;
+        }
+
+        private string GetSharedWithLikeString(Sensor sensor)
+        {
+            var strings = new List<string>();
+            foreach (var sen in sensor.Users)
+            {
+                strings.Add(sen.UserName);
+            }
+
+            return (string.Join(", ", strings));
+        }
+
+        public async Task EditSensor(SensorViewModel model)
+        {
+            var sensor = this.dbContext.Sensors.Find(model.Id);
+
+            if (sensor.Owner.UserName != model.Owner)
+            {
+                sensor.Owner = this.dbContext.Users.First(u => u.UserName == model.Owner);
+            }
+            sensor.Name = model.Name;
+            sensor.Description = model.Description;
+            if(model.Url != sensor.Url)
+            {
+                sensor.Url = model.Url;
+                sensor.ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType;
+                sensor.Value = await this.valueProvider.GetValue(model.Url);
+            }
+            sensor.PollingInterval = model.PollingInterval;
+            sensor.IsPublic = model.IsPublic;
+            sensor.MinRange = model.MinRange;
+            sensor.MaxRange = model.MaxRange;
+            if (GetSharedWithLikeString(sensor) != model.SharedWith)
+            {
+                sensor.Users = await this.userSharingProvider.GetSubscribers(model.SharedWith);
+            }
+
+            dbContext.SaveChanges();
+        }
+
+        public async Task EditSensorOwner(SensorViewModel model)
+        {
+            var sensor = this.dbContext.Sensors.Find(model.Id);
+            sensor.Name = model.Name;
+            sensor.Description = model.Description;
+            if (model.Url != sensor.Url)
+            {
+                sensor.Url = model.Url;
+                sensor.ValueType = this.dbContext.Urls.FirstOrDefault(x => x.SensorUrl == model.Url).ValueType;
+                sensor.Value = await this.valueProvider.GetValue(model.Url);
+            }
+            sensor.PollingInterval = model.PollingInterval;
+            sensor.IsPublic = model.IsPublic;
+            sensor.MinRange = model.MinRange;
+            sensor.MaxRange = model.MaxRange;
+            if (GetSharedWithLikeString(sensor) != model.SharedWith)
+            {
+                sensor.Users = await this.userSharingProvider.GetSubscribers(model.SharedWith);
+            }
+
+            dbContext.SaveChanges();
+        }
     }
 }
