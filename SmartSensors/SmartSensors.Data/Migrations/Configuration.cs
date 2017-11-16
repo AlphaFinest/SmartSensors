@@ -28,11 +28,7 @@ namespace SmartSensors.Data.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            if (!context.Roles.Any())
-            {
-                context.Roles.Add(new IdentityRole { Name = "Admin"});
-            }
+            
         }
     }
 }

@@ -29,10 +29,9 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
                 new SelectListItem() {Value="SecondDefaultValue",Text="SecondDefaultText"}
             };
             var sensorServiceMock = new Mock<ISensorService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object,  sensorServiceMock.Object);
+            var requestController = new SensorController( urlProviderMock.Object,  sensorServiceMock.Object);
 
             //Act & Assert
             //requestController

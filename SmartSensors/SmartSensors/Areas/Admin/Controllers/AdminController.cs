@@ -117,9 +117,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditSensor(SensorViewModel sensor)
+        public async Task<ActionResult> EditSensor(SensorViewModel sensor)
         {
-            this.sensorService.EditSensor(sensor);
+            await this.sensorService.EditSensor(sensor);
 
             return this.RedirectToAction("AllSensors");
         }

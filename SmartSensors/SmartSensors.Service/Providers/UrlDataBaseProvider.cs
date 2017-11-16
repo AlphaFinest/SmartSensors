@@ -20,7 +20,7 @@ namespace SmartSensors.Service.Providers
             this.dbContext = dbContext;
         }
 
-        public  async Task ProvideUrls()
+        public async Task ProvideUrls()
         {
             using (HttpClient client = new HttpClient())
             {

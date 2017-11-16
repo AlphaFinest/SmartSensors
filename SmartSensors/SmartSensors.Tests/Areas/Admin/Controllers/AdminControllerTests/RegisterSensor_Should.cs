@@ -22,10 +22,9 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
         {
             //Arrange
             var sensorServiceMock = new Mock<ISensorService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+            var requestController = new SensorController(urlProviderMock.Object, sensorServiceMock.Object);
 
             //Act & Assert
             requestController
@@ -38,7 +37,6 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
         {
             //Arrange
             var sensorServiceMock = new Mock<ISensorService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
 
@@ -47,7 +45,7 @@ namespace SmartSensors.Tests.Areas.Admin.Controllers.AdminControllerTests
                 new User() { UserName="FirstUser"}
             };
 
-            var requestController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+            var requestController = new SensorController(urlProviderMock.Object, sensorServiceMock.Object);
 
             requestController.UserMocking(users[0].UserName);
 

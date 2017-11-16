@@ -6,6 +6,7 @@
 <table id="myTable" class="table table-striped table-dark table-bordered table-hover">
     <thead>
         <tr>
+            <th>Status</th>
             <th>Owner</th>
             <th>SensorName</th>
             <th>Value</th>
@@ -15,6 +16,29 @@
         @foreach (var m in Model)
             {
             <tr>
+                @if (m.ValueType == "(true/false)")
+                {
+                    if (bool.Parse(m.Value))
+                    {
+                        <td><a href="#" class="btn btn-success disabled" role="button"></a></td>
+                    }
+                    else
+                    {
+                        <td><a href="#" class="btn btn-danger disabled" role="button"></a></td>
+                    }
+                }
+                else
+                {
+                    double val = double.Parse(m.Value);
+                    if (val > m.MinRange && val < m.MaxRange)
+                    {
+                        <td><a href="#" class="btn btn-success disabled" role="button"></a></td>
+                    }
+                    else
+                    {
+                        <td><a href="#" class="btn btn-danger disabled" role="button"></a></td>
+                    }
+                }
                 <td>@m.OwnerName</td>
                 <td>@m.SensorName</td>
                 @if (m.ValueType == "(true/false)")

@@ -16,25 +16,16 @@ namespace SmartSensors.Controllers
 {
     public class SensorController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly IUrlProvider urlProvider;
         private readonly ISensorService sensorService;
 
-        public SensorController(ApplicationDbContext dbContext, IUrlProvider urlProvider, ISensorService sensorService)
+        public SensorController(IUrlProvider urlProvider, ISensorService sensorService)
         {
-            Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
             Guard.WhenArgument(urlProvider, "urlProvider").IsNull().Throw();
             Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
-
-            this.dbContext = dbContext;
+            
             this.urlProvider = urlProvider;
             this.sensorService = sensorService;
-        }
-
-        public ActionResult ValueType()
-        {
-            var viewModel = this.dbContext.Urls.ToList();
-            return View(viewModel);
         }
 
 

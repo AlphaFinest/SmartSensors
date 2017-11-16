@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace SmartSensors.Service.ViewModels
 {
@@ -35,6 +36,8 @@ namespace SmartSensors.Service.ViewModels
         
         public ICollection<User> SharedWith { get; set; }
 
+        public IEnumerable<SelectListItem> UrlCollection { get; set; }
+
         public static Expression<Func<Sensor, FullSensorViewModel>> Create
         {
             get
@@ -52,7 +55,7 @@ namespace SmartSensors.Service.ViewModels
                     ValueType = s.ValueType,
                     MaxRange = s.MaxRange,
                     MinRange = s.MinRange,
-                    SharedWith = s.Users 
+                    SharedWith = s.Users,
                 };
             }
         }
