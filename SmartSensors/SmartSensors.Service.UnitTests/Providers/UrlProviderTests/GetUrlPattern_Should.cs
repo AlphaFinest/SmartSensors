@@ -13,7 +13,7 @@ namespace SmartSensors.Service.UnitTests.Providers.UrlProviderTests
     public class GetUrlPattern_Should
     {
         [TestMethod]
-        public async Task GetListOfAllUrlsFromAPI()
+        public async Task TransformAllJsonViewModelsToSelectListItems()
         {
             //Arrange
             var urlProviderMock = new UrlProviderMock();
@@ -21,11 +21,13 @@ namespace SmartSensors.Service.UnitTests.Providers.UrlProviderTests
 
             var currentCountOfSensors = 13;
 
+
+          //  urlProviderMock.GetUrlPattern
             //Act
             var result =await urlProviderMock.GetUrlPattern();
 
             //Assert
-           // Assert.AreEqual(result.Count,currentCountOfSensors);
+            Assert.AreEqual(typeof(List<SelectListItem>), result.GetType());
         }
     }
 }

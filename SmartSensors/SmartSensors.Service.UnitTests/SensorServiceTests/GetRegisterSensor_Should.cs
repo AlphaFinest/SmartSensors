@@ -96,7 +96,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             var dbContextMock = new Mock<ApplicationDbContext>();
 
             string userId = "userId";
-            string username = "DefaultUser";
+            string username = "WRONGUSER";
 
             var users = new List<User>()
             {
@@ -114,7 +114,9 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
                 MinRange = 3,
                 MaxRange = 5,
                 SharedWith = "DefaultUser",
-                Owner = "DefaultUser"
+                Owner = "DefaultUser",
+                ValueType = "Default",
+                Id = 1,
             };
 
 
@@ -136,7 +138,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             dbContextMock.SetupGet(x => x.Users).Returns(usersSetMock.Object);
             dbContextMock.SetupGet(x => x.Urls).Returns(urlsSetMock.Object);
 
-            sensorValueProviderMock.Setup(x => x.GetValue(sensor.Url)).ReturnsAsync("");
+           sensorValueProviderMock.Setup(x => x.GetValue(sensor.Url)).ReturnsAsync("Default");
             userSharingProviderMock.Setup(x => x.GetSubscribers(sensor.SharedWith)).Returns(users);
 
 
@@ -146,7 +148,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
 
 
             //Act && Assert
-          // Assert.ThrowsException<InvalidOperationException>(() =>  sensorService.GetRegisterSensor(sensor));
+          Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>sensorService.GetRegisterSensor(sensor));
         }
 
     }

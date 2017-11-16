@@ -135,7 +135,7 @@ namespace SmartSensors.Service
         {
             var sensor = new Sensor
             {
-                Owner = dbContext.Users.First(u => u.UserName == model.Owner),
+                Owner =  dbContext.Users.First(u => u.UserName == model.Owner),
                 Name = model.Name,
                 Description = model.Description,
                 Url = model.Url,
