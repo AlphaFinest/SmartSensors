@@ -17,9 +17,6 @@ namespace SmartSensors.Service.UnitTests.MockHelpers
             this.viewModel = viewModel;
         }
 
-
-
-
         protected async override Task<JsonSensorViewModel> GetAllUrlViewModelFromService(string url)
         {
             return this.viewModel;
