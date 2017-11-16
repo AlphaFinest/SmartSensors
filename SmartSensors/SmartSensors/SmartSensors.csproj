@@ -68,9 +68,6 @@
     <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Shield.Mvc.UI">
-      <HintPath>..\packages\shieldui-aspnet-mvc.1.7.33-Trial\NET45\Shield.Mvc.UI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -248,6 +245,9 @@
     <Content Include="Content\DarkAdmin\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\DarkAdmin\js\jquery-1.10.2.min.js" />
     <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Error_Pages\error403.html" />
+    <Content Include="Error_Pages\error404.html" />
+    <Content Include="Error_Pages\error500.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -27,6 +27,7 @@ namespace SmartSensors
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
             
+
         }
     }
 }

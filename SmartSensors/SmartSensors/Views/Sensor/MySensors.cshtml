@@ -8,6 +8,7 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Status</th>
             <th>Sensor Name</th>
             <th>Value</th>
             <th>Actions</th>
@@ -18,6 +19,29 @@
             {
             <tr>
                 <td>@m.Id</td>
+                @if (m.ValueType == "(true/false)")
+                {
+                    if (bool.Parse(m.Value))
+                    {
+                        <td><a href="#" class="btn btn-success disabled" role="button"></a></td>
+                    }
+                    else
+                    {
+                        <td><a href="#" class="btn btn-danger disabled" role="button"></a></td>
+                    }
+                }
+                else
+                {
+                    double val = double.Parse(m.Value);
+                    if (val > m.MinRange && val < m.MaxRange)
+                    {
+                        <td><a href="#" class="btn btn-success disabled" role="button"></a></td>
+                    }
+                    else
+                    {
+                        <td><a href="#" class="btn btn-danger disabled" role="button"></a></td>
+                    }
+                }
                 <td>@m.Name</td>
                 @if (m.ValueType == "(true/false)")
                 {

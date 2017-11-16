@@ -18,45 +18,32 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
         public void CreateInstance_WhenParametersAreCorrect()
         {
             //Arrange
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act
-            var sensorController = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+            var sensorController = new SensorController(urlProviderMock.Object, sensorServiceMock.Object);
 
             //Assert
             Assert.IsNotNull(sensorController);
         }
         [TestMethod]
-        public void ThrowException_WhenContextIsNull()
-        {
-            //Arrange
-            var urlProviderMock = new Mock<IUrlProvider>();
-            var sensorServiceMock = new Mock<ISensorService>();
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(null, urlProviderMock.Object, sensorServiceMock.Object));
-        }
-        [TestMethod]
         public void ThrowException_WhenUrlProviderIsNull()
         {
             //Arrange
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var sensorServiceMock = new Mock<ISensorService>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, null, sensorServiceMock.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(null, sensorServiceMock.Object));
         }
         [TestMethod]
         public void ThrowException_WhenSensorServiceIsNull()
         {
             //Arrange
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(dbContextMock.Object, urlProviderMock.Object, null));
+            Assert.ThrowsException<ArgumentNullException>(() => new SensorController(urlProviderMock.Object, null));
         }
     }
 }

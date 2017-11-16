@@ -98,9 +98,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult RegisterSensor(SensorViewModel model)
+        public async Task<ActionResult> RegisterSensor(SensorViewModel model)
         {
-            this.sensorService.GetRegisterSensor(model);
+            await this.sensorService.GetRegisterSensor(model);
 
             return RedirectToAction("AdminPage", "Admin");
         }
@@ -117,9 +117,9 @@ namespace SmartSensors.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult EditSensor(SensorViewModel sensor)
+        public async Task<ActionResult> EditSensor(SensorViewModel sensor)
         {
-            this.sensorService.EditSensor(sensor);
+            await this.sensorService.EditSensor(sensor);
 
             return this.RedirectToAction("AllSensors");
         }

@@ -19,7 +19,7 @@ namespace SmartSensors.Service.Providers
             var listOfSensors = new List<SelectListItem>();
             foreach (var sensor in responseObject)
             {
-                listOfSensors.Add(new SelectListItem() { Text = sensor.Tag.TrimEnd(new char[] { '1', '2', '3' }) + " with minimal pooling interval:" + sensor.MinPollingIntervalInSeconds.ToString(), Value = sensor.SensorId, });
+                listOfSensors.Add(new SelectListItem() { Text = sensor.Tag.TrimEnd(new char[] { '1', '2', '3' }) + " "  + sensor.Description.ToString() + " with minimal pooling interval:" + sensor.MinPollingIntervalInSeconds.ToString(), Value = sensor.SensorId, });
             }
             return listOfSensors;
         }

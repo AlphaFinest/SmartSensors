@@ -21,10 +21,9 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
         {
             //Arrange
             var sensorServiceMock = new Mock<ISensorService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             
-            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+            var controller = new SensorController(urlProviderMock.Object, sensorServiceMock.Object);
             
             var sensorViewModel = new SensorViewModel()
             {
@@ -54,7 +53,6 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
         {
             //Arrange
             var sensorServiceMock = new Mock<ISensorService>();
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var urlProviderMock = new Mock<IUrlProvider>();
             
             var users = new List<User>()
@@ -64,7 +62,7 @@ namespace SmartSensors.Tests.Controllers.SensorControllerTests
 
             sensorServiceMock.Setup(s => s.EditSensorOwner(new SensorViewModel())).Throws<ArgumentNullException>();
 
-            var controller = new SensorController(dbContextMock.Object, urlProviderMock.Object, sensorServiceMock.Object);
+            var controller = new SensorController(urlProviderMock.Object, sensorServiceMock.Object);
 
             controller.UserMocking(users[0].UserName);
 

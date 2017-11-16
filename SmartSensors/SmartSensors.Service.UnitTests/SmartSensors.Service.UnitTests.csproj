@@ -108,6 +108,7 @@
     <Compile Include="Providers\UrlDatBaseProviderTests\ProvideUrls_Should.cs" />
     <Compile Include="Providers\UrlProviderTests\GetUrlPattern_Should.cs" />
     <Compile Include="Providers\UserSharingProviderTests\GetSubscribers_Should.cs" />
+    <Compile Include="Seeding\RoleSeederTests\Seed_Should.cs" />
     <Compile Include="SensorServiceTests\Constructor_Should.cs" />
     <Compile Include="SensorServiceTests\EditSensorOwner_Should.cs" />
     <Compile Include="SensorServiceTests\EditSensor_Should.cs" />
