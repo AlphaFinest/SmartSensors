@@ -16,10 +16,10 @@ namespace SmartSensors.Service.Seeding
         private readonly ApplicationDbContext dbContext;
         private readonly UserManager<User> userManager;
 
-        public AdminSeeder(ApplicationDbContext dbContext)
+        public AdminSeeder(ApplicationDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
-            this.userManager = new UserManager<User>(new UserStore<User>(this.dbContext));
+            this.userManager = userManager;
         }
 
         public void Seed()

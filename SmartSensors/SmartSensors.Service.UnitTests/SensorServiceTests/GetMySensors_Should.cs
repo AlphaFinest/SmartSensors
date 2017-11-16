@@ -59,7 +59,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             //Assert
             foreach (var sensor in mySensorList)
             {
-                Assert.AreEqual(sensor.Owner, username);
+                Assert.AreEqual(sensor.Owner    , username);
             }
         }
     }

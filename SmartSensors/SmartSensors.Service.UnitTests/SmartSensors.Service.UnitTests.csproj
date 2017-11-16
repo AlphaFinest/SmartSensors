@@ -81,6 +81,7 @@
     <Compile Include="MockHelpers\SensorServiceMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\UserSharingProviderTests\GetSubscribers_Should.cs" />
+    <Compile Include="Seeding\RoleSeederTests\Seed_Should.cs" />
     <Compile Include="SensorServiceTests\Constructor_Should.cs" />
     <Compile Include="SensorServiceTests\EditSensorOwner_Should.cs" />
     <Compile Include="SensorServiceTests\EditSensor_Should.cs" />
