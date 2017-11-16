@@ -246,8 +246,11 @@
     <Content Include="Content\DarkAdmin\js\jquery-1.10.2.min.js" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Error_Pages\error403.html" />
+    <Content Include="Error_Pages\error403.png" />
     <Content Include="Error_Pages\error404.html" />
+    <Content Include="Error_Pages\error404.png" />
     <Content Include="Error_Pages\error500.html" />
+    <Content Include="Error_Pages\error500.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
