@@ -65,10 +65,6 @@ namespace SmartSensors.Service.UnitTests.Providers.UserSharingProviderTests
 
             var userSharingProvider = new UserSharingProvider(dbContextMock.Object);
 
-            var expectedCount = 2;
-            
-
-
             //Act & Assert
             Assert.ThrowsException<InvalidOperationException>(() =>  userSharingProvider.GetSubscribers(input));
         }

@@ -11,9 +11,21 @@ using System.Web.Mvc;
 
 namespace SmartSensors.Service.Providers
 {
-    public class UrlProvider:IUrlProvider
+    public class UrlProvider : IUrlProvider
     {
         public async Task<List<SelectListItem>> GetUrlPattern()
+        {
+            var responseObject = await GetUrlViewModelFromService();
+            var listOfSensors = new List<SelectListItem>();
+            foreach (var sensor in responseObject)
+            {
+                listOfSensors.Add(new SelectListItem() { Text = sensor.Tag.TrimEnd(new char[] { '1', '2', '3' }) + " with minimal pooling interval:" + sensor.MinPollingIntervalInSeconds.ToString(), Value = sensor.SensorId, });
+            }
+            return listOfSensors;
+        }
+
+
+        protected async virtual Task<List<JsonUrlViewModel>> GetUrlViewModelFromService()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -25,16 +37,16 @@ namespace SmartSensors.Service.Providers
                     using (HttpContent content = response.Content)
                     {
                         var responseContent = await content.ReadAsStringAsync();
-                        var responseObject = JsonConvert.DeserializeObject<List<JsonUrlViewModel>>(responseContent);
-                        var listOfSensors = new List<SelectListItem>();
-                        foreach(var sensor in responseObject)
-                        {
-                            listOfSensors.Add(new SelectListItem() { Text = sensor.Description+"with minimal pooling interval:"+sensor.MinPollingIntervalInSeconds.ToString(), Value = sensor.SensorId,});
-                        }
-                        return listOfSensors;
+                        return JsonConvert.DeserializeObject<List<JsonUrlViewModel>>(responseContent);
                     }
                 }
             }
         }
+
+
+
+
+
+
     }
 }

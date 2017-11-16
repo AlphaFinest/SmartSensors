@@ -22,9 +22,9 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         {
             //Arrange
             int input = 1;
-            var dbContextMock = new Mock<ApplicationDbContext>();
             var sensorDbSetMock = new Mock<DbSet<Sensor>>();
             var sensorServiceMock = new Mock<ISensorService>();
+            var dbContextMock = new Mock<ApplicationDbContext>();
             var valueTypeProviderMock = new Mock<ISensorValueProvider>();
             var userSharingProviderMock = new Mock<IUserSharingProvider>();
 
@@ -91,25 +91,3 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
         }
     }
 }
-
-
-//public SensorViewModel GetSpecificSensor(int id)
-//{
-//    var model = this.dbContext.Sensors.Find(id);
-
-//    var viewModel = new SensorViewModel()
-//    {
-//        Id = model.Id,
-//        Owner = model.Owner.UserName,
-//        Name = model.Name,
-//        Description = model.Description,
-//        Url = model.Url,
-//        PollingInterval = model.PollingInterval,
-//        IsPublic = model.IsPublic,
-//        MinRange = model.MinRange,
-//        MaxRange = model.MaxRange,
-//        SharedWith = GetSharedWithLikeString(model)
-
-//    };
-//    return viewModel;
-//}

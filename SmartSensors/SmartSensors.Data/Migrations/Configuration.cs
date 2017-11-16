@@ -31,7 +31,7 @@ namespace SmartSensors.Data.Migrations
 
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new IdentityRole { Name = "Admin"});
+
             }
         }
     }

@@ -106,7 +106,6 @@
     <Compile Include="Contracts\IUrlProvider.cs" />
     <Compile Include="Contracts\ISensorValueProvider.cs" />
     <Compile Include="Contracts\IUserSharingProvider.cs" />
-    <Compile Include="CustomValidationAttribute\SensorRangeValidation.cs" />
     <Compile Include="Contracts\ISeeder.cs" />
     <Compile Include="Contracts\ISensorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

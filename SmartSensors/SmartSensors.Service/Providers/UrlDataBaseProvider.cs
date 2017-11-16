@@ -20,7 +20,33 @@ namespace SmartSensors.Service.Providers
             this.dbContext = dbContext;
         }
 
-        public  async Task ProvideUrls()
+        public async Task ProvideUrls()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var responseObject = await GetAllUrlViewModelFromService();
+                foreach (var url in responseObject)
+                {
+                    if (!this.dbContext.Urls.Select(x => x.SensorUrl).Contains(url.SensorId))
+                    {
+                        this.dbContext.Urls.Add(new Url()
+                        {
+                            SensorUrl = url.SensorId,
+                            Description = url.Description,
+                            SensorType = url.Tag,
+                            PollingInterval = url.MinPollingIntervalInSeconds,
+                            ValueType = url.MeasureType
+                        });
+                    }
+                }
+                this.dbContext.SaveChanges();
+            }
+        }
+
+
+
+
+        protected async virtual Task<List<UrlsDataBaseViewModel>> GetAllUrlViewModelFromService()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -32,26 +58,12 @@ namespace SmartSensors.Service.Providers
                     using (HttpContent content = response.Content)
                     {
                         var responseContent = await content.ReadAsStringAsync();
-                        var responseObject = JsonConvert.DeserializeObject<List<UrlsDataBaseViewModel>>(responseContent);
-                        foreach (var url in responseObject)
-                        {
-                            if (!this.dbContext.Urls.Select(x=>x.SensorUrl).Contains(url.SensorId))
-                            {
-                                this.dbContext.Urls.Add(new Url()
-                                {
-                                    SensorUrl=url.SensorId,
-                                    Description=url.Description,
-                                    SensorType=url.Tag,
-                                    PollingInterval=url.MinPollingIntervalInSeconds,
-                                    ValueType=url.MeasureType
-                                });
-                            }
-                        }
-                        this.dbContext.SaveChanges();
+                        return JsonConvert.DeserializeObject<List<UrlsDataBaseViewModel>>(responseContent);
                     }
                 }
             }
-
         }
+
     }
 }
+

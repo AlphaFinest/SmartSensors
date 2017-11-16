@@ -10,9 +10,17 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Service.Providers
 {
-    public class SensorValueProvider:ISensorValueProvider
+    public class SensorValueProvider : ISensorValueProvider
     {
         public async Task<string> GetValue(string url)
+        {
+            var responseObject =  await GetAllUrlViewModelFromService(url);
+            return responseObject.Value;
+        }
+
+
+
+        protected async virtual Task<JsonSensorViewModel> GetAllUrlViewModelFromService(string url)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -24,11 +32,12 @@ namespace SmartSensors.Service.Providers
                     using (HttpContent content = response.Content)
                     {
                         var responseContent = await content.ReadAsStringAsync();
-                        var responseObject = JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
-                        return responseObject.Value;
+                        return JsonConvert.DeserializeObject<JsonSensorViewModel>(responseContent);
                     }
                 }
             }
         }
+
     }
 }
+

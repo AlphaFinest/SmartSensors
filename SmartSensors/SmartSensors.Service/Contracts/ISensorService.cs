@@ -23,7 +23,7 @@ namespace SmartSensors.Service.Contracts
 
         Task RegisterNewSensor(SensorViewModel model, string username);
 
-        void GetRegisterSensor(SensorViewModel model);
+        Task GetRegisterSensor(SensorViewModel model);
 
         List<PublicViewModel> GetPublicSensor();
 

@@ -82,8 +82,6 @@ namespace SmartSensors.Service
             }
 
             userManager.Update(currentUser);
-
-
         }
 
     }

@@ -43,9 +43,6 @@ namespace SmartSensors.Service.UnitTests.UserServiceTests
 
             //Assert
             Assert.AreEqual(expectedViewModel.Username, result.Username);
-
-
-
         }
     }
 }

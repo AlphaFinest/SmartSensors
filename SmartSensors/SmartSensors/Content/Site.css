@@ -27,8 +27,9 @@ textarea {
     margin-left:400px;
 }
 
-#dropdownUrl{
+.form-group{
    margin-left:195px;
+   font-weight:bold;
 }
 
 .checkbox{
