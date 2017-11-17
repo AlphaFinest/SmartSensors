@@ -25,14 +25,7 @@ namespace SmartSensors.Service.UnitTests.UserServiceTests
             var mockUserStore = new Mock<IUserStore<User>>();
             var userManagerMock = new Mock<UserManager<User>>(mockUserStore.Object);
             var userDbSetMock = new Mock<DbSet<User>>();
-
-            var user = new User()
-            {
-                Id = "1",
-                UserName = "OldUsername"
-                
-            };
-
+            
             var usersList = new List<User>()
             {
                 new User() {Id="1",UserName="DefaultUsername"}

@@ -18,16 +18,17 @@ namespace SmartSensors.Service.Seeding
     public class UrlsSeeder : ISeeder
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IUrlDataBaseProvider urlDatabaseProvider;
 
-        public UrlsSeeder(ApplicationDbContext dbContext)
+        public UrlsSeeder(ApplicationDbContext dbContext, IUrlDataBaseProvider urlDatabaseProvider)
         {
             this.dbContext = dbContext;
+            this.urlDatabaseProvider = urlDatabaseProvider;
         }
 
         public void Seed()
         {
-            var urlSeeder = new UrlDataBaseProvider(this.dbContext);
-            urlSeeder.ProvideUrls();
+            urlDatabaseProvider.ProvideUrls();
         }
     }
 }

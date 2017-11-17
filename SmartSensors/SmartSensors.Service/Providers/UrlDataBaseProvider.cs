@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SmartSensors.Data;
 using SmartSensors.Data.Models;
+using SmartSensors.Service.Contracts;
 using SmartSensors.Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SmartSensors.Service.Providers
 {
-    public class UrlDataBaseProvider
+    public class UrlDataBaseProvider:IUrlDataBaseProvider
     {
         private readonly ApplicationDbContext dbContext;
 
