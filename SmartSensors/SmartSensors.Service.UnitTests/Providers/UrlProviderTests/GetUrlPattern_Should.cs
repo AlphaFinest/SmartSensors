@@ -19,7 +19,6 @@ namespace SmartSensors.Service.UnitTests.Providers.UrlProviderTests
             var urlProviderMock = new UrlProviderMock();
             var listOfSelectItems = new List<SelectListItem>();
 
-            var currentCountOfSensors = 13;
 
 
           //  urlProviderMock.GetUrlPattern

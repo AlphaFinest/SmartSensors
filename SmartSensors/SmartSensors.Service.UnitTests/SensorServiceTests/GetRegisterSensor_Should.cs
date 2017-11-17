@@ -84,6 +84,7 @@ namespace SmartSensors.Service.UnitTests.SensorServiceTests
             Assert.AreEqual(sensorDb.MaxRange, sensor.MaxRange);
             Assert.AreEqual(sensorDb.IsPublic, sensor.IsPublic);
 
+            sensorValueProviderMock.Verify(x => x.GetValue("DefaultUrl"), Times.Once);
             dbContextMock.Verify(m => m.SaveChanges(), Times.Once());
         }
 
