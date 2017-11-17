@@ -37,6 +37,6 @@ namespace SmartSensors.Service.Seeding
                 this.userManager.Create(admin, password);
                 this.userManager.AddToRoles(admin.Id, new[] { "Admin" });
             }
-        }
+            }
     }
 }

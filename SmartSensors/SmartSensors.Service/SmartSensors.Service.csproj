@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IUrlDataBaseProvider.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Contracts\IUrlProvider.cs" />
     <Compile Include="Contracts\ISensorValueProvider.cs" />
