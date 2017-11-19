@@ -98,15 +98,13 @@ namespace SmartSensors.App_Start
             kernel.Bind<IUrlProvider>().To<UrlProvider>().WhenInjectedInto<UrlProviderDecorator>();
 
             kernel.Bind<IUrlProvider>().To<UrlProviderDecorator>();
-
             kernel.Bind<ISensorValueProvider>().To<SensorValueProvider>();
-
             kernel.Bind<IUserSharingProvider>().To<UserSharingProvider>();
+            kernel.Bind<IUrlDataBaseProvider>().To<UrlDataBaseProvider>();
 
             kernel.Bind<HttpContext>().ToMethod(_ => HttpContext.Current).WhenInjectedInto<UrlProviderDecorator>();
 
             kernel.Bind<ISensorService>().To<SensorService>();
-
             kernel.Bind<IUserService>().To<UserService>();
 
             kernel.Bind<ISeeder>().To<RoleSeeder>().Named("roleSeeder");
